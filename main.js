@@ -35,7 +35,6 @@ class Contenedor {
         try {
             const contenido = await fs.promises.readFile(this.archivo, 'utf-8');
             const data = JSON.parse(contenido);
-            console.log(data);
             return data;
         } catch (error) {
             console.log(error);
@@ -67,14 +66,4 @@ class Contenedor {
     }
 }
 
-const nuevoContenedor = new Contenedor('productos.txt');
-
-const ejecutar = async () => {
-    await nuevoContenedor.save({ title: 'Regla', price: 35, thumbnail: 'https://cdn3.iconfinder.com/data/icons/education-209/64/ruler-triangle-stationary-school-256.png' })
-    await nuevoContenedor.getById(2)
-    await nuevoContenedor.getAll()
-    await nuevoContenedor.deleteById(1)
-    // nuevoContenedor.deleteAll() - Se deja comentado para que no rompa con los datos de productos.txt
-}
-
-ejecutar();
+module.exports = Contenedor;
