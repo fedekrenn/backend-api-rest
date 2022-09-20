@@ -3,11 +3,11 @@ const app = express();
 const Contenedor = require('./main');
 
 app.get('/', (req, res) => {
-    res.send('Root')
+    res.send({ ruta: 'raiz' })
 })
 
 app.get('/productos', async (req, res) => {
-    
+
     const contenedor = new Contenedor('productos.txt');
     const productos = await contenedor.getAll();
 
