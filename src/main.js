@@ -5,15 +5,23 @@ class Contenedor {
         this.archivo = archivo;
     }
 
-    async save(objeto) {
+    async save(objeto, newId) {
         try {
             const contenido = await fs.promises.readFile(this.archivo, 'utf-8');
             const data = JSON.parse(contenido);
-            objeto.id = data.length + 1;
+
+            const arrayOfIds = data.map(elemento => elemento.id);
+
+            if (newId) objeto.id = Math.max(...arrayOfIds) + 1;
+
             data.push(objeto);
+
+            data.sort((a, b) => a.id - b.id);
+
             await fs.promises.writeFile(this.archivo, JSON.stringify(data, null, 2));
             console.log("Se guardó correctamente el objeto id: ", objeto.id);
             return objeto.id;
+
         } catch (err) {
             console.log(err)
         }
@@ -23,8 +31,7 @@ class Contenedor {
         try {
             const contenido = await fs.promises.readFile(this.archivo, 'utf-8');
             const data = JSON.parse(contenido);
-            const objeto = data.find(elemento => elemento.id === id);
-            console.log(objeto)
+            const objeto = data.find(elemento => elemento.id == id);
             return objeto;
         } catch (error) {
             console.log(error);
@@ -45,10 +52,9 @@ class Contenedor {
         try {
             const contenido = await fs.promises.readFile(this.archivo, 'utf-8');
             const data = JSON.parse(contenido);
-            const arrayFiltrado = data.filter(elemento => elemento.id !== id);
+            const arrayFiltrado = data.filter(elemento => elemento.id != id);
             await fs.promises.writeFile(this.archivo, JSON.stringify(arrayFiltrado, null, 2));
 
-            // Si bien el desafío pide que sea VOID, para control genero un console.log
             console.log("Se eliminó correctamente el objeto id: ", id);
         } catch (error) {
             console.log(error);
@@ -58,7 +64,6 @@ class Contenedor {
     async deleteAll() {
         try {
             await fs.promises.writeFile(this.archivo, JSON.stringify([], null, 2));
-            // Si bien el desafío pide que sea VOID, para control genero un console.log
             console.log("Se eliminó correctamente el archivo");
         } catch (error) {
             console.log(error);

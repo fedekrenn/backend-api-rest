@@ -1,27 +1,90 @@
 const express = require('express');
 const app = express();
-const Contenedor = require('./main');
+const { Router } = require('express');
 
-app.get('/', (req, res) => {
-    res.send({ ruta: 'raiz' })
-})
+const routerProductos = Router();
+app.use('/api/productos', routerProductos);
 
-app.get('/productos', async (req, res) => {
+routerProductos.use(express.json());
 
-    const contenedor = new Contenedor('productos.txt');
+const Contenedor = require('./src/main');
+const contenedor = new Contenedor('productos.txt');
+
+
+/* ---------- GET ------------ */
+
+// Obtener todos los productos
+routerProductos.get('/', async (req, res) => {
     const productos = await contenedor.getAll();
 
-    res.send(productos)
+    res.json(productos)
 })
 
-app.get('/productoRandom', async (req, res) => {
-
-    const contenedor = new Contenedor('productos.txt');
+// Obtener productos random
+routerProductos.get('/random', async (req, res) => {
     const productos = await contenedor.getAll();
-    const productoRandom = productos[Math.floor(Math.random() * productos.length)];
+    const random = Math.floor(Math.random() * productos.length);
 
-    res.send(productoRandom)
+    res.json(productos[random])
 })
+
+// Obtener por ID
+routerProductos.get('/:id', async (req, res) => {
+    const producto = await contenedor.getById(req.params.id);
+
+    !producto ? res.json({ error: 'producto no encontrado' }) : res.json(producto);
+})
+
+
+
+/* ---------- POST ------------ */
+
+// Agregar un producto
+routerProductos.post('/', async (req, res) => {
+    await contenedor.save(req.body, true);
+
+    res.json(req.body)
+})
+
+
+/* ---------- PUT ------------ */
+
+// Actualizar un producto
+routerProductos.put('/:id', async (req, res) => {
+    const productoParaActualizar = await contenedor.getById(req.params.id);
+
+    if (!productoParaActualizar) {
+        res.json({ error: 'producto no encontrado' })
+    } else {
+        await contenedor.deleteById(req.params.id);
+
+        productoParaActualizar.title = req.body.title;
+        productoParaActualizar.price = req.body.price;
+        productoParaActualizar.thumbnail = req.body.thumbnail;
+        productoParaActualizar.id = parseInt(req.params.id);
+
+        await contenedor.save(productoParaActualizar, false);
+
+        res.json(req.body)
+    }
+
+})
+
+/* ---------- DELETE ------------ */
+
+// Eliminar un producto
+routerProductos.delete('/:id', async (req, res) => {
+    const productoParaEliminar = await contenedor.getById(req.params.id);
+
+    if (!productoParaEliminar) {
+        res.json({ error: 'producto no encontrado' })
+    } else {
+        await contenedor.deleteById(req.params.id);
+        res.json({ msg: 'producto eliminado' })
+    }
+})
+
+
 
 const PORT = process.env.PORT || 8080;
 
