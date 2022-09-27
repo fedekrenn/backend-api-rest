@@ -6,9 +6,12 @@ const routerProductos = Router();
 app.use('/api/productos', routerProductos);
 
 routerProductos.use(express.json());
+routerProductos.use(express.urlencoded({ extended: true }));
 
 const Contenedor = require('./src/main');
 const contenedor = new Contenedor('productos.txt');
+
+app.use(express.static('public'));
 
 
 /* ---------- GET ------------ */
@@ -41,8 +44,8 @@ routerProductos.get('/:id', async (req, res) => {
 
 // Agregar un producto
 routerProductos.post('/', async (req, res) => {
-    await contenedor.save(req.body, true);
 
+    await contenedor.save(req.body, true);
     res.json(req.body)
 })
 
@@ -58,9 +61,11 @@ routerProductos.put('/:id', async (req, res) => {
     } else {
         await contenedor.deleteById(req.params.id);
 
-        productoParaActualizar.title = req.body.title;
-        productoParaActualizar.price = req.body.price;
-        productoParaActualizar.thumbnail = req.body.thumbnail;
+        const { title, price, thumbnail } = req.body;
+
+        productoParaActualizar.title = title;
+        productoParaActualizar.price = price;
+        productoParaActualizar.thumbnail = thumbnail;
         productoParaActualizar.id = parseInt(req.params.id);
 
         await contenedor.save(productoParaActualizar, false);
