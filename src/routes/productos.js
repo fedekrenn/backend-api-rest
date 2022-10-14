@@ -1,5 +1,9 @@
 const { Router } = require('express');
 
+const { authMiddleware } = require('../middlewares/index');
+
+/* El middleware de arriba tiene que in antes de la función async */
+
 const routerProductos = Router();
 
 const Contenedor = require('../class/main');

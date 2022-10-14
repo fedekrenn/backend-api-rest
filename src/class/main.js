@@ -20,8 +20,8 @@ class Contenedor {
 
             await fs.promises.writeFile(this.archivo, JSON.stringify(data, null, 2));
             console.log("Se guardó correctamente el objeto id: ", objeto.id);
+            
             return objeto.id;
-
         } catch (err) {
             console.log(err)
         }
