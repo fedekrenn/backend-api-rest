@@ -2,7 +2,7 @@ const authMiddleware = (req, res, next) => {
     if (req.headers.role === 'admin') {
         next();
     } else {
-        res.send({ error: 'Usuario no autorizado para la tarea' }); 
+        res.send({ error: -1, descripcion: `ruta '${req.path}' método '${req.method}' no autorizada` }); 
     }
 }
 

@@ -1,20 +1,22 @@
 [
   {
-    "title": "Escuadra",
-    "price": 123.45,
-    "thumbnail": "https://cdn3.iconfinder.com/data/icons/education-209/64/ruler-triangle-stationary-school-256.png",
-    "id": 1
+    "nombre": "Remera blanca",
+    "descripcion": "Remera de algodon de color blanco",
+    "codigo": 214151551,
+    "foto": "https://cdn3.iconfinder.com/data/icons/education-209/64/ruler-triangle-stationary-school-256.png",
+    "precio": 2500,
+    "stock": 10,
+    "id": 1,
+    "timestamp": 1666042089079
   },
   {
-    "title": "Calculadora",
-    "price": 234.56,
-    "thumbnail": "https://cdn3.iconfinder.com/data/icons/education-209/64/calculator-math-tool-school-256.png",
-    "id": 2
-  },
-  {
-    "title": "Globo Terráqueo",
-    "price": 345.67,
-    "thumbnail": "https://cdn3.iconfinder.com/data/icons/education-209/64/globe-earth-geograhy-planet-school-256.png",
-    "id": 3
+    "nombre": "Producto Modificado",
+    "descripcion": "Estamos modificando un producto",
+    "codigo": 838,
+    "foto": "https://picsum.photos/210",
+    "precio": 4500,
+    "stock": 12,
+    "id": 2,
+    "timestamp": 1666043417086
   }
 ]

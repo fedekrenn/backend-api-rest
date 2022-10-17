@@ -1,54 +1,44 @@
-const { Router } = require('express');
+const express = require('express');
+const { Router } = express;
 
-const { authMiddleware } = require('../middlewares/index');
-
-/* El middleware de arriba tiene que in antes de la función async */
+const { authMiddleware } = require('../middlewares/autorize');
 
 const routerProductos = Router();
 
-const Contenedor = require('../class/main');
-const contenedor = new Contenedor('productos.txt');
+const ContenedorProductos = require('../class/contenedorProductos');
+const contenedor = new ContenedorProductos('productos.txt');
 
 /* ---------- GET ------------ */
 
-// Obtener todos los productos
-routerProductos.get('/', async (req, res) => {
-    const productos = await contenedor.getAll();
+// Obtener todos los productos o si se le pasa un id, obtener ese producto
 
-    res.json(productos)
+routerProductos.get('/:id?', async (req, res) => {
+
+    const { id } = req.params;
+
+    if (id) {
+        const producto = await contenedor.getById(id);
+        !producto ? res.json({ error: 'producto no encontrado' }) : res.json(producto);
+
+    } else {
+        const productos = await contenedor.getAll();
+        res.json(productos);
+    }
 })
-
-// Obtener productos random
-routerProductos.get('/random', async (req, res) => {
-    const productos = await contenedor.getAll();
-    const random = Math.floor(Math.random() * productos.length);
-
-    res.json(productos[random])
-})
-
-// Obtener por ID
-routerProductos.get('/:id', async (req, res) => {
-    const producto = await contenedor.getById(req.params.id);
-
-    !producto ? res.json({ error: 'producto no encontrado' }) : res.json(producto);
-})
-
-
 
 /* ---------- POST ------------ */
 
 // Agregar un producto
-routerProductos.post('/', async (req, res) => {
+routerProductos.post('/', authMiddleware, async (req, res) => {
 
     await contenedor.save(req.body, true);
     res.json(req.body)
 })
 
-
 /* ---------- PUT ------------ */
 
 // Actualizar un producto
-routerProductos.put('/:id', async (req, res) => {
+routerProductos.put('/:id', authMiddleware, async (req, res) => {
     const productoParaActualizar = await contenedor.getById(req.params.id);
 
     if (!productoParaActualizar) {
@@ -56,12 +46,16 @@ routerProductos.put('/:id', async (req, res) => {
     } else {
         await contenedor.deleteById(req.params.id);
 
-        const { title, price, thumbnail } = req.body;
+        const { nombre, descripcion, codigo, foto, precio, stock } = req.body;
 
-        productoParaActualizar.title = title;
-        productoParaActualizar.price = price;
-        productoParaActualizar.thumbnail = thumbnail;
-        productoParaActualizar.id = parseInt(req.params.id);
+        productoParaActualizar.nombre = nombre;
+        productoParaActualizar.descripcion = descripcion;
+        productoParaActualizar.codigo = codigo;
+        productoParaActualizar.foto = foto;
+        productoParaActualizar.precio = precio;
+        productoParaActualizar.stock = stock;
+        productoParaActualizar.timestamp = Date.now();
+        // productoParaActualizar.id = parseInt(req.params.id);
 
         await contenedor.save(productoParaActualizar, false);
 
@@ -73,7 +67,7 @@ routerProductos.put('/:id', async (req, res) => {
 /* ---------- DELETE ------------ */
 
 // Eliminar un producto
-routerProductos.delete('/:id', async (req, res) => {
+routerProductos.delete('/:id', authMiddleware, async (req, res) => {
     const productoParaEliminar = await contenedor.getById(req.params.id);
 
     if (!productoParaEliminar) {
