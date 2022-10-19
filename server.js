@@ -10,7 +10,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use('/api/productos', routerProductos);
-app.use('/api/carritos', routerCarritos);
+app.use('/api/carrito', routerCarritos);
 
 
 

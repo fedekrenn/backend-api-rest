@@ -17,6 +17,6 @@
     "precio": 4500,
     "stock": 12,
     "id": 2,
-    "timestamp": 1666043417086
+    "timestamp": 1666139096434
   }
 ]

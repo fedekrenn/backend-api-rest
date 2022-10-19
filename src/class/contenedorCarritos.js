@@ -21,8 +21,7 @@ class ContenedorCarritos {
                 objeto.id = Math.max(...arrayOfIds) + 1;
             }
 
-            const timestamp = Date.now();
-            objeto.timestamp = timestamp;
+            objeto.timestamp = Date.now();
             objeto.productos = [];
 
             data.push(objeto);
@@ -37,60 +36,43 @@ class ContenedorCarritos {
         }
     }
 
-    async save(objeto) {
+    async getById(id) {
         try {
             const contenido = await fs.promises.readFile(this.archivo, 'utf-8');
             const data = JSON.parse(contenido);
 
-            // ACA DEBO VER LA LÓGICA SI CORRESPONDE CHECKEAR SI EL ID EXISTE O NO
+            const objeto = data.find(elemento => elemento.id === parseInt(id));
 
-            data.push(objeto);
-
-            data.sort((a, b) => a.id - b.id);
-
-            await fs.promises.writeFile(this.archivo, JSON.stringify(data, null, 2));
-            console.log("Se guardó correctamente el objeto id: ", objeto.id);
-
-            return objeto.id;
+            return objeto;
         } catch (err) {
             console.log(err)
         }
     }
 
-    async getById(id) {
+    async deleteCart(id) {
         try {
             const contenido = await fs.promises.readFile(this.archivo, 'utf-8');
             const data = JSON.parse(contenido);
-            const objeto = data.find(elemento => elemento.id == id);
-            return objeto;
-        } catch (error) {
-            console.log(error);
+
+            const newArray = data.filter(elemento => elemento.id !== parseInt(id));
+
+            await fs.promises.writeFile(this.archivo, JSON.stringify(newArray, null, 2));
+
+            return id;
+        } catch (err) {
+            console.log(err)
         }
     }
 
-    async getAll() {
+    async getProducts(id) {
         try {
-            const contenido = await fs.promises.readFile(this.archivo, 'utf-8');
-            const data = JSON.parse(contenido);
-            return data;
-        } catch (error) {
-            console.log(error);
+
+            const cart = await this.getById(id);
+            return cart.productos;
+        } catch (err) {
+            console.log(err)
         }
     }
-
-    async deleteById(id) {
-        try {
-            const contenido = await fs.promises.readFile(this.archivo, 'utf-8');
-            const data = JSON.parse(contenido);
-            const arrayFiltrado = data.filter(elemento => elemento.id != id);
-            await fs.promises.writeFile(this.archivo, JSON.stringify(arrayFiltrado, null, 2));
-
-            console.log("Se eliminó correctamente el objeto id: ", id);
-        } catch (error) {
-            console.log(error);
-        }
-    }
-
 }
 
 module.exports = ContenedorCarritos;
