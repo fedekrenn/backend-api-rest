@@ -64,11 +64,47 @@ class ContenedorCarritos {
         }
     }
 
+    async deleteProductToCart(id, idProducto) {
+        try {
+            const contenido = await fs.promises.readFile(this.archivo, 'utf-8');
+            const data = JSON.parse(contenido);
+
+            const objeto = data.find(elemento => elemento.id === parseInt(id));
+
+            const newArray = objeto.productos.filter(elemento => elemento.id !== parseInt(idProducto));
+
+            objeto.productos = newArray;
+
+            await fs.promises.writeFile(this.archivo, JSON.stringify(data, null, 2));
+
+            return id;
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
     async getProducts(id) {
         try {
 
             const cart = await this.getById(id);
             return cart.productos;
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
+    async addProduct(id, producto) {
+        try {
+            const contenido = await fs.promises.readFile(this.archivo, 'utf-8');
+            const data = JSON.parse(contenido);
+
+            const cart = data.find(elemento => elemento.id === parseInt(id));
+
+            cart.productos.push(producto);
+
+            await fs.promises.writeFile(this.archivo, JSON.stringify(data, null, 2));
+
+            return id;
         } catch (err) {
             console.log(err)
         }

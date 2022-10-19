@@ -1,22 +1,17 @@
 [
   {
     "id": 1,
-    "timestamp": 1666140710153,
-    "productos": [
-      2,
-      3
-    ]
-  },
-  {
-    "id": 2,
-    "timestamp": 1666140714159,
-    "productos": [
-      "fefo"
-    ]
+    "timestamp": 1666143516602,
+    "productos": []
   },
   {
     "id": 3,
-    "timestamp": 1666140724706,
+    "timestamp": 1666143522502,
+    "productos": []
+  },
+  {
+    "id": 4,
+    "timestamp": 1666143936656,
     "productos": []
   }
 ]
