@@ -71,13 +71,20 @@ class ContenedorCarritos {
 
             const objeto = data.find(elemento => elemento.id === parseInt(id));
 
-            const newArray = objeto.productos.filter(elemento => elemento.id !== parseInt(idProducto));
+            if (objeto.productos.some(el => el.id === parseInt(idProducto))) {
 
-            objeto.productos = newArray;
+                const newArray = objeto.productos.filter(el => el.id !== parseInt(idProducto));
 
-            await fs.promises.writeFile(this.archivo, JSON.stringify(data, null, 2));
+                objeto.productos = newArray;
 
-            return id;
+                await fs.promises.writeFile(this.archivo, JSON.stringify(data, null, 2));
+
+                return true;
+
+            } else {
+
+                return false;
+            }
         } catch (err) {
             console.log(err)
         }

@@ -1,8 +1,30 @@
 const fs = require('fs');
 
 class ContenedorProductos {
+
     constructor(archivo) {
         this.archivo = archivo;
+    }
+
+    async getById(id) {
+        try {
+            const contenido = await fs.promises.readFile(this.archivo, 'utf-8');
+            const data = JSON.parse(contenido);
+            const objeto = data.find(elemento => elemento.id == id);
+            return objeto;
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    async getAll() {
+        try {
+            const contenido = await fs.promises.readFile(this.archivo, 'utf-8');
+            const data = JSON.parse(contenido);
+            return data;
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     async save(objeto, newId) {
@@ -38,22 +60,31 @@ class ContenedorProductos {
         }
     }
 
-    async getById(id) {
+    async updateById(id, objeto) {
         try {
             const contenido = await fs.promises.readFile(this.archivo, 'utf-8');
             const data = JSON.parse(contenido);
-            const objeto = data.find(elemento => elemento.id == id);
-            return objeto;
-        } catch (error) {
-            console.log(error);
-        }
-    }
+            const objetoParaActualizar = data.find(elemento => elemento.id == id);
 
-    async getAll() {
-        try {
-            const contenido = await fs.promises.readFile(this.archivo, 'utf-8');
-            const data = JSON.parse(contenido);
-            return data;
+            if (!objetoParaActualizar) {
+
+                return { error: 'producto no encontrado' };
+
+            } else {
+                const { nombre, descripcion, codigo, foto, precio, stock } = objeto;
+
+                objetoParaActualizar.nombre = nombre;
+                objetoParaActualizar.descripcion = descripcion;
+                objetoParaActualizar.codigo = codigo;
+                objetoParaActualizar.foto = foto;
+                objetoParaActualizar.precio = precio;
+                objetoParaActualizar.stock = stock;
+                objetoParaActualizar.timestamp = Date.now();
+
+                await fs.promises.writeFile(this.archivo, JSON.stringify(data, null, 2));
+
+                return { success: `producto id: ${id} actualizado`, producto: objetoParaActualizar };
+            }
         } catch (error) {
             console.log(error);
         }
@@ -63,19 +94,21 @@ class ContenedorProductos {
         try {
             const contenido = await fs.promises.readFile(this.archivo, 'utf-8');
             const data = JSON.parse(contenido);
-            const arrayFiltrado = data.filter(elemento => elemento.id != id);
-            await fs.promises.writeFile(this.archivo, JSON.stringify(arrayFiltrado, null, 2));
 
-            console.log("Se eliminó correctamente el objeto id: ", id);
-        } catch (error) {
-            console.log(error);
-        }
-    }
+            const objetoParaEliminar = data.find(elemento => elemento.id == id);
 
-    async deleteAll() {
-        try {
-            await fs.promises.writeFile(this.archivo, JSON.stringify([], null, 2));
-            console.log("Se eliminó correctamente el archivo");
+            if (!objetoParaEliminar) {
+
+                return { error: 'producto no encontrado' };
+                
+            } else {
+
+                const dataFiltrada = data.filter(elemento => elemento.id != id);
+                await fs.promises.writeFile(this.archivo, JSON.stringify(dataFiltrada, null, 2));
+
+                return { success: `producto id: ${id} eliminado` };
+            }
+
         } catch (error) {
             console.log(error);
         }

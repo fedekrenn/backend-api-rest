@@ -39,43 +39,20 @@ routerProductos.post('/', authMiddleware, async (req, res) => {
 
 // Actualizar un producto
 routerProductos.put('/:id', authMiddleware, async (req, res) => {
-    const productoParaActualizar = await contenedor.getById(req.params.id);
 
-    if (!productoParaActualizar) {
-        res.json({ error: 'producto no encontrado' })
-    } else {
-        await contenedor.deleteById(req.params.id);
+    const result = await contenedor.updateById(req.params.id, req.body);
 
-        const { nombre, descripcion, codigo, foto, precio, stock } = req.body;
-
-        productoParaActualizar.nombre = nombre;
-        productoParaActualizar.descripcion = descripcion;
-        productoParaActualizar.codigo = codigo;
-        productoParaActualizar.foto = foto;
-        productoParaActualizar.precio = precio;
-        productoParaActualizar.stock = stock;
-        productoParaActualizar.timestamp = Date.now();
-        // productoParaActualizar.id = parseInt(req.params.id);
-
-        await contenedor.save(productoParaActualizar, false);
-
-        res.json(req.body)
-    }
-
+    res.json(result);
 })
 
 /* ---------- DELETE ------------ */
 
 // Eliminar un producto
 routerProductos.delete('/:id', authMiddleware, async (req, res) => {
-    const productoParaEliminar = await contenedor.getById(req.params.id);
 
-    if (!productoParaEliminar) {
-        res.json({ error: 'producto no encontrado' })
-    } else {
-        await contenedor.deleteById(req.params.id);
-        res.json({ msg: 'producto eliminado' })
-    }
+    const result = await contenedor.deleteById(req.params.id);
+
+    res.json(result)
 })
 
 module.exports = routerProductos;

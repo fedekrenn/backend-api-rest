@@ -3,20 +3,20 @@
     "nombre": "Remera blanca",
     "descripcion": "Remera de algodon de color blanco",
     "codigo": 214151551,
-    "foto": "https://cdn3.iconfinder.com/data/icons/education-209/64/ruler-triangle-stationary-school-256.png",
-    "precio": 2500,
-    "stock": 10,
-    "id": 1,
-    "timestamp": 1666042089079
-  },
-  {
-    "nombre": "Producto Modificado",
-    "descripcion": "Estamos modificando un producto",
-    "codigo": 838,
     "foto": "https://picsum.photos/210",
     "precio": 4500,
     "stock": 12,
+    "id": 1,
+    "timestamp": 1666146907087
+  },
+  {
+    "nombre": "Mouse Logitech",
+    "descripcion": "Mouse ultra DPI Logitech",
+    "codigo": 3312,
+    "foto": "https://picsum.photos/212",
+    "precio": 500,
+    "stock": 24,
     "id": 2,
-    "timestamp": 1666139096434
+    "timestamp": 1666214414274
   }
 ]

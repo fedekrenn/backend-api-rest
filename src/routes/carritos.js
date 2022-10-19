@@ -1,8 +1,6 @@
 const express = require('express');
 const { Router } = express;
 
-// const { authMiddleware } = require('../middlewares/autorize'); ---- Creo que no va esto
-
 const routerCarritos = Router();
 
 
@@ -60,16 +58,25 @@ routerCarritos.delete('/:id', async (req, res) => {
 // Eliminar un producto del carrito
 
 routerCarritos.delete('/:id/productos/:idProducto', async (req, res) => {
+
     const { id, idProducto } = req.params;
 
     const carrito = await contenedor.getById(id);
     const producto = await cProd.getById(idProducto);
 
     if (!carrito || !producto) {
+
         res.json({ message: 'No existe el carrito o el producto' })
+
     } else {
-        contenedor.deleteProductToCart(id, idProducto);
-        res.json({ message: `Se eliminó el producto: '${producto.nombre}' del carrito ID: ${id}` })
+
+        const result = await contenedor.deleteProductToCart(id, idProducto);
+
+        if (result) {
+            res.json({ message: `Se eliminó el producto: '${producto.nombre}' del carrito ID: ${id}` })
+        } else {
+            res.json({ message: `El producto: '${producto.nombre}' no se encuentra en el carrito ID: ${id}` })
+        }
     }
 })
 
@@ -89,15 +96,5 @@ routerCarritos.get('/:id/productos', async (req, res) => {
         totalProducts.length === 0 ? res.json({ message: 'El carrito está vacío' }) : res.json(totalProducts);
     }
 })
-
-
-
-
-
-
-
-
-
-
 
 module.exports = routerCarritos;

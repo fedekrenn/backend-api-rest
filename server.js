@@ -14,6 +14,12 @@ app.use('/api/carrito', routerCarritos);
 
 
 
+// En el caso de requerir una ruta no implementada en el servidor, se devuelve un error 404
+app.use((req, res) => {
+    res.status(404).json({ error: -2, descripcion: `ruta '${req.path}' método '${req.method}' no implementada` });
+});
+
+
 
 const PORT = process.env.PORT || 8080;
 
