@@ -17,9 +17,8 @@ routerProductos.get('/:id?', async (req, res) => {
     const { id } = req.params;
 
     if (id) {
-        const producto = await contenedor.getById(id);
-        !producto ? res.json({ error: 'producto no encontrado' }) : res.json(producto);
-
+        const result = await contenedor.getById(id);
+        res.json(result);
     } else {
         const productos = await contenedor.getAll();
         res.json(productos);
@@ -31,8 +30,8 @@ routerProductos.get('/:id?', async (req, res) => {
 // Agregar un producto
 routerProductos.post('/', authMiddleware, async (req, res) => {
 
-    await contenedor.save(req.body, true);
-    res.json(req.body)
+    const result = await contenedor.save(req.body, true);
+    res.json(result)
 })
 
 /* ---------- PUT ------------ */

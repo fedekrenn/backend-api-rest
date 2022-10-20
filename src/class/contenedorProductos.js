@@ -10,8 +10,14 @@ class ContenedorProductos {
         try {
             const contenido = await fs.promises.readFile(this.archivo, 'utf-8');
             const data = JSON.parse(contenido);
-            const objeto = data.find(elemento => elemento.id == id);
-            return objeto;
+
+            const product = data.find(elemento => elemento.id == id);
+
+            if (!product) {
+                return { error: 'producto no encontrado' }
+            } else {
+                return product;
+            }
         } catch (error) {
             console.log(error);
         }
@@ -27,7 +33,7 @@ class ContenedorProductos {
         }
     }
 
-    async save(objeto, newId) {
+    async save(product, newId) {
         try {
             const contenido = await fs.promises.readFile(this.archivo, 'utf-8');
             const data = JSON.parse(contenido);
@@ -37,54 +43,47 @@ class ContenedorProductos {
                 const arrayOfIds = data.map(elemento => elemento.id);
 
                 if (arrayOfIds.length === 0) {
-                    objeto.id = 1;
+                    product.id = 1;
                 } else {
-                    objeto.id = Math.max(...arrayOfIds) + 1;
+                    product.id = Math.max(...arrayOfIds) + 1;
                 }
             }
 
-            const timestamp = Date.now();
+            product.timestamp = Date.now();
 
-            objeto.timestamp = timestamp;
-
-            data.push(objeto);
+            data.push(product);
 
             data.sort((a, b) => a.id - b.id);
 
             await fs.promises.writeFile(this.archivo, JSON.stringify(data, null, 2));
-            console.log("Se guardó correctamente el objeto id: ", objeto.id);
 
-            return objeto.id;
+            return { success: `producto ${product.nombre} guardado, su id es : ${product.id}` };
         } catch (err) {
             console.log(err)
         }
     }
 
-    async updateById(id, objeto) {
+    async updateById(id, newData) {
         try {
             const contenido = await fs.promises.readFile(this.archivo, 'utf-8');
             const data = JSON.parse(contenido);
-            const objetoParaActualizar = data.find(elemento => elemento.id == id);
+            const product = data.find(elemento => elemento.id == id);
 
-            if (!objetoParaActualizar) {
+            if (!product) return { error: 'producto no encontrado' };
 
-                return { error: 'producto no encontrado' };
+            const { nombre, descripcion, codigo, foto, precio, stock } = newData;
 
-            } else {
-                const { nombre, descripcion, codigo, foto, precio, stock } = objeto;
+            product.nombre = nombre;
+            product.descripcion = descripcion;
+            product.codigo = codigo;
+            product.foto = foto;
+            product.precio = precio;
+            product.stock = stock;
+            product.timestamp = Date.now();
 
-                objetoParaActualizar.nombre = nombre;
-                objetoParaActualizar.descripcion = descripcion;
-                objetoParaActualizar.codigo = codigo;
-                objetoParaActualizar.foto = foto;
-                objetoParaActualizar.precio = precio;
-                objetoParaActualizar.stock = stock;
-                objetoParaActualizar.timestamp = Date.now();
+            await fs.promises.writeFile(this.archivo, JSON.stringify(data, null, 2));
 
-                await fs.promises.writeFile(this.archivo, JSON.stringify(data, null, 2));
-
-                return { success: `producto id: ${id} actualizado`, producto: objetoParaActualizar };
-            }
+            return { success: `producto id: ${id} actualizado`, producto: product };
         } catch (error) {
             console.log(error);
         }
@@ -95,19 +94,15 @@ class ContenedorProductos {
             const contenido = await fs.promises.readFile(this.archivo, 'utf-8');
             const data = JSON.parse(contenido);
 
-            const objetoParaEliminar = data.find(elemento => elemento.id == id);
+            const product = data.find(elemento => elemento.id == id);
 
-            if (!objetoParaEliminar) {
+            if (!product) return { error: 'producto no encontrado' };
 
-                return { error: 'producto no encontrado' };
-                
-            } else {
+            const filteredProducts = data.filter(elemento => elemento.id != id);
 
-                const dataFiltrada = data.filter(elemento => elemento.id != id);
-                await fs.promises.writeFile(this.archivo, JSON.stringify(dataFiltrada, null, 2));
+            await fs.promises.writeFile(this.archivo, JSON.stringify(filteredProducts, null, 2));
 
-                return { success: `producto id: ${id} eliminado` };
-            }
+            return { success: `producto id: ${id} eliminado` };
 
         } catch (error) {
             console.log(error);
