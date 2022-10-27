@@ -13,11 +13,9 @@ class ContenedorProductos {
 
             const product = data.find(elemento => elemento.id == id);
 
-            if (!product) {
-                return { error: 'producto no encontrado' }
-            } else {
-                return product;
-            }
+            if (!product) return { error: 'producto no encontrado' }
+
+            return product;
         } catch (error) {
             console.log(error);
         }
@@ -33,20 +31,17 @@ class ContenedorProductos {
         }
     }
 
-    async save(product, newId) {
+    async save(product) {
         try {
             const contenido = await fs.promises.readFile(this.archivo, 'utf-8');
             const data = JSON.parse(contenido);
 
-            if (newId) {
+            const arrayOfIds = data.map(elemento => elemento.id);
 
-                const arrayOfIds = data.map(elemento => elemento.id);
-
-                if (arrayOfIds.length === 0) {
-                    product.id = 1;
-                } else {
-                    product.id = Math.max(...arrayOfIds) + 1;
-                }
+            if (arrayOfIds.length === 0) {
+                product.id = 1;
+            } else {
+                product.id = Math.max(...arrayOfIds) + 1;
             }
 
             product.timestamp = Date.now();

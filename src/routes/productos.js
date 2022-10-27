@@ -30,7 +30,9 @@ routerProductos.get('/:id?', async (req, res) => {
 // Agregar un producto
 routerProductos.post('/', authMiddleware, async (req, res) => {
 
-    const result = await contenedor.save(req.body, true);
+    const producto = req.body;
+
+    const result = await contenedor.save(producto);
     res.json(result)
 })
 
@@ -39,7 +41,9 @@ routerProductos.post('/', authMiddleware, async (req, res) => {
 // Actualizar un producto
 routerProductos.put('/:id', authMiddleware, async (req, res) => {
 
-    const result = await contenedor.updateById(req.params.id, req.body);
+    const { id } = req.params;
+
+    const result = await contenedor.updateById(id, req.body);
 
     res.json(result);
 })
@@ -49,7 +53,9 @@ routerProductos.put('/:id', authMiddleware, async (req, res) => {
 // Eliminar un producto
 routerProductos.delete('/:id', authMiddleware, async (req, res) => {
 
-    const result = await contenedor.deleteById(req.params.id);
+    const { id } = req.params;
+
+    const result = await contenedor.deleteById(id);
 
     res.json(result)
 })
