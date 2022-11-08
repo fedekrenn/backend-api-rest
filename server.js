@@ -8,6 +8,7 @@ const routerCarritos = require('./src/routes/carritos');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(express.static('public'));
 
 app.use('/api/productos', routerProductos);
 app.use('/api/carrito', routerCarritos);

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="/socket.io/socket.io.js"></script>
+    <link rel="stylesheet" href="./css/style.css">
+    <title>Carga de productos</title>
+</head>
+
+<body>
+    <!-- Formulario para probar la carga de productos -->
+    <h1>Mis productos</h1>
+    <hr>
+    <section>
+        <h2>Cargar producto:</h2>
+        <form id="product-form" action="#">
+
+            <label for="title">Nombre</label>
+            <input type="text" name="title" id="title" required>
+            
+            <label for="code">Código</label>
+            <input type="text" name="code" id="code" required>
+            
+            <label for="price">Precio</label>
+            <input type="number" name="price" id="price" required>
+            
+            <label for="stock">Stock</label>
+            <input type="number" name="stock" id="stock" required>
+            
+            <label for="thumbnail">URL de Imagen</label>
+            <input type="url" name="thumbnail" id="thumbnail" required>
+            
+            <label for="description">Descripción</label>
+            <textarea name="description" id="description" cols="30" rows="10" required></textarea>
+
+            <button type="submit" class="btn">Enviar</button>
+        </form>
+    </section>
+    <hr>
+    <!-- Contenedor de productos -->
+    <section>
+        <h2>Listado de productos:</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Código</th>
+                    <th>Precio</th>
+                    <th>Stock</th>
+                    <th>Imagen</th>
+                    <th>Timestamp</th>
+                    <th>Descripción</th>
+                </tr>
+            </thead>
+            <tbody id="products-container"></tbody>
+        </table>
+    </section>
+
+    <script src="js/main.js"></script>
+</body>
+
+</html>
