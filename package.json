@@ -19,7 +19,9 @@
   },
   "homepage": "https://github.com/fedekrenn/backend-api-rest#readme",
   "dependencies": {
+    "dotenv": "^16.0.3",
     "express": "^4.18.1",
+    "mongoose": "^6.7.2",
     "nodemon": "^2.0.20"
   }
 }
