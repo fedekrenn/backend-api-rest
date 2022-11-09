@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const config = require('../../config/config');
 const { ProductosModel } = require('../../model/productosModel');
 
 mongoose.connect(process.env.DB_URL_MONGO, {

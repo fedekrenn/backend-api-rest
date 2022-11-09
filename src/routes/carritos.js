@@ -4,11 +4,11 @@ const { Router } = express;
 const routerCarritos = Router();
 
 
-const ContenedorCarritos = require('../class/contenedorCarritos/contenedorCarritos');
-const ContenedorProductos = require('../class/contenedorProductos/contenedorProductos');
+const ContenedorCarritos = require('../class/contenedorCarritos/contenedorCarritosMongo');
+const ContenedorProductos = require('../class/contenedorProductos/contenedorProductosMongo');
 
-const contenedor = new ContenedorCarritos('carritos.txt');
-const handleProducts = new ContenedorProductos('productos.txt');
+const contenedor = new ContenedorCarritos();
+const handleProducts = new ContenedorProductos();
 
 
 
