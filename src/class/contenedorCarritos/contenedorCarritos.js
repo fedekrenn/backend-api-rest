@@ -1,4 +1,5 @@
-const fs = require('fs');
+const config = require('../../config/config');
+const { CarritosModel } = require('../../model/carritosModel');
 
 class ContenedorCarritos {
 

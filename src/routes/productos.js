@@ -5,8 +5,8 @@ const { authMiddleware } = require('../middlewares/autorize');
 
 const routerProductos = Router();
 
-const ContenedorProductos = require('../class/contenedorProductos');
-const contenedor = new ContenedorProductos('productos.txt');
+const ContenedorProductos = require('../class/contenedorProductos/contenedorProductos');
+const contenedor = new ContenedorProductos();
 
 /* ---------- GET ------------ */
 
