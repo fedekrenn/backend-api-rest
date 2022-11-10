@@ -23,8 +23,8 @@ switch (process.env.PERS) {
 
         const db = admin.firestore();
 
-        const ContenedorProductosFb = require('../class/contenedorProductos/contenedorProductosFirebase');
-        const ContenedorCarritosFb = require('../class/contenedorCarritos/contenedorCarritosFirebase');
+        const ContenedorProductosFb = require('../daos/productoDao/productoFirebaseDao');
+        const ContenedorCarritosFb = require('../daos/carritoDao/carritoFirebaseDao');
 
         console.log("Using Firebase");
 

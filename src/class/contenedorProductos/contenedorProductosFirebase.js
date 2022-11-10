@@ -5,18 +5,6 @@ class ContenedorProductosFirebase {
         this.db = db;
     }
 
-    async getAll() {
-        try {
-            const productos = this.db.collection('productos');
-            const querySnapshot = await productos.get();
-            const productosArray = querySnapshot.docs.map(doc => doc.data());
-
-            return productosArray;
-        } catch (error) {
-            console.log(error);
-        }
-    }
-
     async getById(id) {
         try {
             const productos = this.db.collection('productos');

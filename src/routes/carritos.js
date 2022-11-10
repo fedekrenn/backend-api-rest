@@ -55,6 +55,15 @@ routerCarritos.delete('/:id/productos/:idProducto', async (req, res) => {
 
 /* ---------- GET ------------ */
 
+// Obtener todos los carritos
+
+routerCarritos.get('/', async (req, res) => {
+
+    const result = await handleCarts.getAll();
+
+    res.json(result)
+})
+
 routerCarritos.get('/:id/productos', async (req, res) => {
 
     const { id } = req.params;

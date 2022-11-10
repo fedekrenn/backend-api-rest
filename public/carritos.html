@@ -22,6 +22,20 @@
         <h1>Carritos</h1>
         <hr>
         <section>
+            <h2>Listado de carritos:</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Timestamp</th>
+                        <th>Q Productos</th>
+                    </tr>
+                </thead>
+                <tbody id="cart-container"></tbody>
+            </table>
+        </section>
+        <hr>
+        <section>
             <h2>Crear / Eliminar carritos</h2>
             <div>
                 <h3>Crear</h3>
@@ -31,10 +45,58 @@
                 <h3>Eliminar carrito completo</h3>
                 <form id="delete-cart-form">
                     <label for="cartId">ID del carrito</label>
-                    <input type="text" name="cartId" id="cartId" required>
+                    <input type="text" name="cartId" id="cartId" required
+                        onclick="alert('Cuidado, esto elimina el carrito entero')">
                     <button type="submit">Eliminar carrito</button>
                 </form>
             </div>
+        </section>
+        <hr>
+        <section>
+            <h2>Productos del carrito</h2>
+            <form id="get-products-form">
+                <label for="cartId">ID del carrito</label>
+                <input type="text" name="cartId" id="cartId" required>
+                <button type="submit">Ver productos</button>
+            </form>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Código</th>
+                        <th>Precio</th>
+                        <th>Stock</th>
+                        <th>Imagen</th>
+                        <th>Timestamp</th>
+                        <th>Descripción</th>
+                    </tr>
+                </thead>
+                <tbody id="get-products-container"></tbody>
+            </table>
+        </section>
+        <hr>
+        <section>
+            <h2>Agregar/eliminar productos al carrito</h2>
+            <div>
+                <h3>Agregar</h3>
+                <form id="add-product-form">
+                    <label for="cartId">ID del carrito</label>
+                    <input type="text" name="cartId" id="cartId" required>
+                    <label for="productId">ID del producto</label>
+                    <input type="text" name="productId" id="productId" required>
+                    <button type="submit">Agregar producto</button>
+                </form>
+            </div>
+            <div>
+                <h3>Eliminar</h3>
+                <form id="delete-product-form">
+                    <label for="cartId">ID del carrito</label>
+                    <input type="text" name="cartId" id="cartId" required>
+                    <label for="productId">ID del producto</label>
+                    <input type="text" name="productId" id="productId" required>
+                    <button type="submit">Eliminar producto</button>
+                </form>
         </section>
     </main>
     <script src="./js/carritos.js"></script>

@@ -109,7 +109,7 @@ init();
 
 async function getProducts() {
     try {
-        const response = await fetch('http://localhost:8080/api/productos/');
+        const response = await fetch('/api/productos/');
         const data = await response.json();
         return data
     } catch (error) {
@@ -133,10 +133,3 @@ function renderProducts(products) {
         productsContainer.appendChild(productCard);
     });
 }
-
-async function newProduct() {
-
-
-}
-
-
