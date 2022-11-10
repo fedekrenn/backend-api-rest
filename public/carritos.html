@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,6 +8,7 @@
     <link rel="stylesheet" href="./css/style.css">
     <title>Carritos</title>
 </head>
+
 <body>
     <header>
         <nav>
@@ -16,5 +18,26 @@
             </ul>
         </nav>
     </header>
+    <main>
+        <h1>Carritos</h1>
+        <hr>
+        <section>
+            <h2>Crear / Eliminar carritos</h2>
+            <div>
+                <h3>Crear</h3>
+                <button id="create-cart-btn">Crear carrito</button>
+            </div>
+            <div>
+                <h3>Eliminar carrito completo</h3>
+                <form id="delete-cart-form">
+                    <label for="cartId">ID del carrito</label>
+                    <input type="text" name="cartId" id="cartId" required>
+                    <button type="submit">Eliminar carrito</button>
+                </form>
+            </div>
+        </section>
+    </main>
+    <script src="./js/carritos.js"></script>
 </body>
+
 </html>

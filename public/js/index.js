@@ -121,7 +121,7 @@ function renderProducts(products) {
     products.forEach(product => {
         const productCard = document.createElement('tr');
         productCard.innerHTML = `
-            <td>${product._id}</td>
+            <td>${product._id || product.id}</td>
             <td>${product.nombre}</td>
             <td>${product.codigo}</td>
             <td>${product.precio}</td>
