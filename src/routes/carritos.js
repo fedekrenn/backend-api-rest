@@ -1,15 +1,9 @@
 const express = require('express');
 const { Router } = express;
 
+const { handleProducts, handleCarts } = require('../daos/handleDaos');
+
 const routerCarritos = Router();
-
-
-const ContenedorCarritos = require('../class/contenedorCarritos/contenedorCarritosMongo');
-const ContenedorProductos = require('../class/contenedorProductos/contenedorProductosMongo');
-
-const contenedor = new ContenedorCarritos();
-const handleProducts = new ContenedorProductos();
-
 
 
 /* ---------- POST ------------ */
@@ -17,8 +11,8 @@ const handleProducts = new ContenedorProductos();
 // Crear un carrito
 routerCarritos.post('/', async (req, res) => {
 
-    const response = await contenedor.createCart();
-    res.json(response)
+    const result = await handleCarts.createCart();
+    res.json(result)
 })
 
 // Agregar un producto al carrito
@@ -29,9 +23,10 @@ routerCarritos.post('/:id/productos/:idProducto', async (req, res) => {
     const producto = await handleProducts.getById(idProducto);
 
     if (producto.error) {
+
         res.json({ message: 'No existe el producto' })
     } else {
-        const result = await contenedor.addProductToCart(idCarrito, producto);
+        const result = await handleCarts.addProductToCart(idCarrito, producto);
         res.json(result)
     }
 })
@@ -43,8 +38,7 @@ routerCarritos.delete('/:id', async (req, res) => {
 
     const { id } = req.params;
 
-    const result = await contenedor.deleteCart(id);
-
+    const result = await handleCarts.deleteCart(id);
     res.json(result)
 })
 
@@ -54,7 +48,7 @@ routerCarritos.delete('/:id/productos/:idProducto', async (req, res) => {
 
     const { id: idCarrito, idProducto } = req.params;
 
-    const result = await contenedor.deleteProductToCart(idCarrito, idProducto);
+    const result = await handleCarts.deleteProductToCart(idCarrito, idProducto);
     res.json(result)
 })
 
@@ -65,8 +59,7 @@ routerCarritos.get('/:id/productos', async (req, res) => {
 
     const { id } = req.params;
 
-    const result = await contenedor.getProducts(id);
-
+    const result = await handleCarts.getProducts(id);
     res.json(result)
 })
 

@@ -2,11 +2,10 @@ const express = require('express');
 const { Router } = express;
 
 const { authMiddleware } = require('../middlewares/autorize');
+const { handleProducts: contenedor } = require('../daos/handleDaos');
 
 const routerProductos = Router();
 
-const ContenedorProductos = require('../class/contenedorProductos/contenedorProductosMongo');
-const contenedor = new ContenedorProductos();
 
 /* ---------- GET ------------ */
 

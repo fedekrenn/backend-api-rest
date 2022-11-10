@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const { CarritosModel } = require('../../model/carritosModel');
 
+
+
 mongoose.connect(process.env.DB_URL_MONGO, {
     useNewUrlParser: true,
     useUnifiedTopology: true
@@ -8,7 +10,9 @@ mongoose.connect(process.env.DB_URL_MONGO, {
     if (err) console.log(err);
 });
 
-class ContenedorCarritos {
+
+
+class ContenedorCarritosMongo {
 
     async getProducts(id) {
         try {
@@ -18,11 +22,9 @@ class ContenedorCarritos {
 
             const productsInCart = cart.productos;
 
-            if (productsInCart.length === 0) {
-                return { message: `El carrito ID: ${id} no tiene productos todavía` }
-            } else {
-                return productsInCart;
-            }
+            if (productsInCart.length === 0) return { message: `El carrito ID: ${id} no tiene productos todavía` }
+
+            return productsInCart;
         } catch (err) {
             console.log(err)
         }
@@ -39,7 +41,6 @@ class ContenedorCarritos {
             await cart.save();
 
             return { message: `Se creó correctamente el carrito!` };
-
         } catch (err) {
             console.log(err)
         }
@@ -87,7 +88,6 @@ class ContenedorCarritos {
 
     async deleteCart(id) {
         try {
-            
             const cart = await CarritosModel.findOne({ _id: id });
 
             if (!cart) return { error: 'carrito no encontrado' }
@@ -101,4 +101,4 @@ class ContenedorCarritos {
     }
 }
 
-module.exports = ContenedorCarritos;
+module.exports = ContenedorCarritosMongo;

@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const { ProductosModel } = require('../../model/productosModel');
 
+
+
 mongoose.connect(process.env.DB_URL_MONGO, {
     useNewUrlParser: true,
     useUnifiedTopology: true
@@ -8,7 +10,9 @@ mongoose.connect(process.env.DB_URL_MONGO, {
     if (err) console.log(err);
 });
 
-class ContenedorProductos {
+
+
+class ContenedorProductosMongo {
 
     async getAll() {
         try {
@@ -35,10 +39,10 @@ class ContenedorProductos {
 
     async save(product) {
         try {
-
             product.timestamp = Date.now();
 
             const newProduct = new ProductosModel(product);
+            
             await newProduct.save();
 
             return { success: `producto ${product.nombre} guardado!` };
@@ -58,7 +62,6 @@ class ContenedorProductos {
             await ProductosModel.updateOne({ _id: id }, newData);
 
             return { success: `producto id: ${id} actualizado` };
-
         } catch (error) {
             console.log(error);
         }
@@ -75,11 +78,10 @@ class ContenedorProductos {
             await ProductosModel.deleteOne({ _id: id });
 
             return { success: `producto id: ${id} eliminado` };
-
         } catch (error) {
             console.log(error);
         }
     }
 }
 
-module.exports = ContenedorProductos;
+module.exports = ContenedorProductosMongo;
