@@ -106,6 +106,10 @@ td {
     padding: 15px;
 }
 
+tr{
+    text-align: center;
+}
+
 th {
     background: #ffffff;
     color: #000000;
@@ -138,6 +142,20 @@ img {
     text-align: center;
 }
 
+.div-border{
+    border: 1px solid white;
+    border-radius: 5px;
+    width: 340px;
+    margin: 10px auto;
+    padding: 20px;
+}
+
+.handle-products {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
 /* Hacer que en hover tenga profundidad */
 
 .btn:hover {
@@ -146,8 +164,3 @@ img {
     transition: .5s;
 }
 
-.handle-products {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-}

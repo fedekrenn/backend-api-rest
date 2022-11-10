@@ -10,11 +10,13 @@ createCartBtn.addEventListener('click', async (e) => {
 
     e.preventDefault();
 
-    await fetch('/api/carrito', {
+    let res = await fetch('/api/carrito', {
         method: 'POST'
     });
 
-    alert('Carrito creado con éxito');
+    let data = await res.json();
+
+    alert(data.message);
 
     // Renderizar carritos
     cartContainer.innerHTML = '';
@@ -25,14 +27,18 @@ deleteCartForm.addEventListener('submit', async (e) => {
 
     e.preventDefault();
 
-    await fetch(`/api/carrito/${e.target.cartId.value}`, {
+    const res = await fetch(`/api/carrito/${e.target.cartId.value}`, {
         method: 'DELETE'
     });
 
-    alert('Carrito eliminado con éxito');
+    const data = await res.json();
+
+    alert(data.message || data.error);
 
     // Renderizar carritos
     cartContainer.innerHTML = '';
+
+
     init();
 })
 
@@ -40,9 +46,19 @@ getProductsForm.addEventListener('submit', async (e) => {
 
     e.preventDefault();
 
-    let res = await fetch(`/api/carrito/${e.target.cartId.value}/productos`)
+    getProducts(e.target.cartId.value);
+
+})
+
+async function getProducts(cartId) {
+
+    let res = await fetch(`/api/carrito/${cartId}/productos`)
 
     let data = await res.json();
+
+    if (data.hasOwnProperty('message')) return
+
+    if (data.hasOwnProperty('error')) return alert(data.error)
 
     const getProductsContainer = document.getElementById('get-products-container');
 
@@ -65,54 +81,63 @@ getProductsForm.addEventListener('submit', async (e) => {
 
     // Limpiar formulario
     getProductsForm.reset();
-})
+}
 
 addProductForm.addEventListener('submit', async (e) => {
 
     e.preventDefault();
 
+    const cartId = e.target.cartId.value;
+    const productId = e.target.productId.value;
+    
     // Envio por post
 
-    let res = await fetch(`/api/carrito/${e.target.cartId.value}/productos/${e.target.productId.value}`, {
+    let res = await fetch(`/api/carrito/${cartId}/productos/${productId}`, {
         method: 'POST'
     });
 
-    await res.json();
+    const respuesta = await res.json();
 
-    alert('Producto agregado con éxito');
+    getProducts(cartId);
 
     // Limpiar formulario
     addProductForm.reset();
 
+
     // Renderizar carritos
     cartContainer.innerHTML = '';
     init();
+    alert(respuesta.message || respuesta.error);
+    
 })
 
 deleteProductForm.addEventListener('submit', async (e) => {
 
     e.preventDefault();
 
+    const cartId = e.target.cartId.value;
+    const productId = e.target.productId.value;
+
     // Envio por delete
 
-    let res = await fetch(`/api/carrito/${e.target.cartId.value}/productos/${e.target.productId.value}`, {
+    let res = await fetch(`/api/carrito/${cartId}/productos/${productId}`, {
         method: 'DELETE'
     });
 
-    await res.json();
-
-    alert('Producto eliminado con éxito');
+    const respuesta = await res.json();
+    
+    getProducts(cartId);
 
     // Limpiar formulario
     deleteProductForm.reset();
 
+
     // Renderizar carritos
     cartContainer.innerHTML = '';
     init();
+
+    alert(respuesta.message || respuesta.error);
 })
-
-
-
 
 async function init() {
     const carts = await getCarts();
@@ -135,7 +160,7 @@ function renderCarts(carts) {
     carts.forEach(cart => {
         const cartCard = document.createElement('tr');
         cartCard.innerHTML = `
-            <td>${cart.id}</td>
+            <td>${cart.id || cart._id}</td>
             <td>${cart.timestamp}</td>
             <td>${cart.productos.length}</td>
         `;

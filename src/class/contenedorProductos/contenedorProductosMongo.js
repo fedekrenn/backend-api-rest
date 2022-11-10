@@ -14,16 +14,6 @@ mongoose.connect(process.env.DB_URL_MONGO, {
 
 class ContenedorProductosMongo {
 
-    async getAll() {
-        try {
-            const productos = await ProductosModel.find();
-
-            return productos;
-        } catch (error) {
-            console.log(error);
-        }
-    }
-
     async getById(id) {
         try {
             const productos = await this.getAll();
@@ -42,7 +32,7 @@ class ContenedorProductosMongo {
             product.timestamp = Date.now();
 
             const newProduct = new ProductosModel(product);
-            
+
             await newProduct.save();
 
             return { success: `producto ${product.nombre} guardado!` };

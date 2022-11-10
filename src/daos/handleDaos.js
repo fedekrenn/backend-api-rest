@@ -6,8 +6,8 @@ let handleCarts
 
 switch (process.env.PERS) {
     case 'mongo':
-        const ContenedorProductosMongo = require('../class/contenedorProductos/contenedorProductosMongo');
-        const ContenedorCarritosMongo = require('../class/contenedorCarritos/contenedorCarritosMongo');
+        const ContenedorProductosMongo = require('../daos/productoDao/productoMongoDao');
+        const ContenedorCarritosMongo = require('../daos/carritoDao/carritoMongoDao');
 
         console.log('Using Mongo');
 
