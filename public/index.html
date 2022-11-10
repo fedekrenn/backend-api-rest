@@ -11,34 +11,16 @@
 </head>
 
 <body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="/">Productos</a></li>
+                <li><a href="./carritos.html">Carritos</a></li>
+            </ul>
+        </nav>
+    </header>
     <!-- Formulario para probar la carga de productos -->
     <h1>Mis productos</h1>
-    <hr>
-    <section>
-        <h2>Cargar producto:</h2>
-        <form id="product-form" action="#">
-
-            <label for="title">Nombre</label>
-            <input type="text" name="title" id="title" required>
-            
-            <label for="code">Código</label>
-            <input type="text" name="code" id="code" required>
-            
-            <label for="price">Precio</label>
-            <input type="number" name="price" id="price" required>
-            
-            <label for="stock">Stock</label>
-            <input type="number" name="stock" id="stock" required>
-            
-            <label for="thumbnail">URL de Imagen</label>
-            <input type="url" name="thumbnail" id="thumbnail" required>
-            
-            <label for="description">Descripción</label>
-            <textarea name="description" id="description" cols="30" rows="10" required></textarea>
-
-            <button type="submit" class="btn">Enviar</button>
-        </form>
-    </section>
     <hr>
     <!-- Contenedor de productos -->
     <section>
@@ -59,6 +41,74 @@
             <tbody id="products-container"></tbody>
         </table>
     </section>
+    <hr>
+    <div class="handle-products">
+        <section>
+            <h2>Cargar producto:</h2>
+            <form id="create-product-form">
+
+                <label for="nombre">Nombre</label>
+                <input type="text" name="nombre" id="nombre" required>
+
+                <label for="codigo">Código</label>
+                <input type="text" name="codigo" id="codigo" required>
+
+                <label for="precio">Precio</label>
+                <input type="number" name="precio" id="precio" required>
+
+                <label for="stock">Stock</label>
+                <input type="number" name="stock" id="stock" required>
+
+                <label for="foto">URL de Imagen</label>
+                <input type="url" name="foto" id="foto" required>
+
+                <label for="descripcion">Descripción</label>
+                <textarea name="descripcion" id="descripcion" cols="30" rows="10" required></textarea>
+
+                <button type="submit" class="btn">Enviar</button>
+            </form>
+        </section>
+
+        <section>
+            <h2>Actualizar producto:</h2>
+            <form id="update-product-form">
+
+                <label for="id">ID</label>
+                <input type="text" name="id" id="id" required>
+
+                <label for="nombre">Nombre</label>
+                <input type="text" name="nombre" id="nombre" required>
+
+                <label for="codigo">Código</label>
+                <input type="text" name="codigo" id="codigo" required>
+
+                <label for="precio">Precio</label>
+                <input type="number" name="precio" id="precio" required>
+
+                <label for="stock">Stock</label>
+                <input type="number" name="stock" id="stock" required>
+
+                <label for="foto">URL de Imagen</label>
+                <input type="url" name="foto" id="foto" required>
+
+                <label for="descripcion">Descripción</label>
+                <textarea name="descripcion" id="descripcion" cols="30" rows="10" required></textarea>
+
+                <button type="submit" class="btn">Enviar</button>
+            </form>
+        </section>
+
+        <section>
+            <h2>Eliminar producto:</h2>
+            <form id="delete-product-form">
+
+                <label for="id">ID</label>
+                <input type="text" name="id" id="id" required>
+
+                <button type="submit" class="btn">Enviar</button>
+            </form>
+        </section>
+    </div>
 
     <script src="js/main.js"></script>
 </body>
