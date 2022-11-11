@@ -27,20 +27,20 @@ createProductForm.addEventListener('submit', async (e) => {
         body: JSON.stringify(body),
     });
 
-    await res.json();
-
-    alert('Producto creado con exito');
+    const data = await res.json();
 
     // Limpiar formulario
     createProductForm.reset();
 
     // Renderizar productos
     productsContainer.innerHTML = '';
+
+    alert(data.message);
     init();
 });
 
 updateProductForm.addEventListener('submit', async (e) => {
-    
+
     e.preventDefault();
 
     const body = {
@@ -63,15 +63,17 @@ updateProductForm.addEventListener('submit', async (e) => {
         body: JSON.stringify(body),
     });
 
-    await res.json();
+    const data = await res.json();
 
-    alert('Producto actualizado con exito');
+    console.log(data)
 
     // Limpiar formulario
     updateProductForm.reset();
 
     // Renderizar productos
     productsContainer.innerHTML = '';
+
+    alert(data.message || data.error);
     init();
 });
 
@@ -88,21 +90,25 @@ deleteProductForm.addEventListener('submit', async (e) => {
         },
     });
 
-    await res.json();
-
-    alert('Producto eliminado con exito');
+    const data = await res.json();
 
     // Limpiar formulario
     deleteProductForm.reset();
 
     // Renderizar productos
     productsContainer.innerHTML = '';
+
+    alert(data.message || data.error);
     init();
 });
 
 async function init() {
-    const products = await getProducts();
-    renderProducts(products);
+    try {
+        const products = await getProducts();
+        renderProducts(products);
+    } catch (error) {
+        console.log(error);
+    }
 }
 
 init();

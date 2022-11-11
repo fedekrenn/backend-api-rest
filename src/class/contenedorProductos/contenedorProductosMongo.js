@@ -35,7 +35,7 @@ class ContenedorProductosMongo {
 
             await newProduct.save();
 
-            return { success: `producto ${product.nombre} guardado!` };
+            return { message: `producto ${product.nombre} guardado!` };
         } catch (err) {
             console.log(err)
         }
@@ -51,7 +51,7 @@ class ContenedorProductosMongo {
 
             await ProductosModel.updateOne({ _id: id }, newData);
 
-            return { success: `producto id: ${id} actualizado` };
+            return { message: `producto id: ${id} actualizado` };
         } catch (error) {
             console.log(error);
         }
@@ -67,7 +67,7 @@ class ContenedorProductosMongo {
 
             await ProductosModel.deleteOne({ _id: id });
 
-            return { success: `producto id: ${id} eliminado` };
+            return { message: `producto id: ${id} eliminado` };
         } catch (error) {
             console.log(error);
         }

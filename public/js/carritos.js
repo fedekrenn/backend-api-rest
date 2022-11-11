@@ -38,7 +38,6 @@ deleteCartForm.addEventListener('submit', async (e) => {
     // Renderizar carritos
     cartContainer.innerHTML = '';
 
-
     init();
 })
 
@@ -89,14 +88,14 @@ addProductForm.addEventListener('submit', async (e) => {
 
     const cartId = e.target.cartId.value;
     const productId = e.target.productId.value;
-    
+
     // Envio por post
 
     let res = await fetch(`/api/carrito/${cartId}/productos/${productId}`, {
         method: 'POST'
     });
 
-    const respuesta = await res.json();
+    const data = await res.json();
 
     getProducts(cartId);
 
@@ -107,8 +106,8 @@ addProductForm.addEventListener('submit', async (e) => {
     // Renderizar carritos
     cartContainer.innerHTML = '';
     init();
-    alert(respuesta.message || respuesta.error);
-    
+    alert(data.message || data.error);
+
 })
 
 deleteProductForm.addEventListener('submit', async (e) => {
@@ -124,8 +123,8 @@ deleteProductForm.addEventListener('submit', async (e) => {
         method: 'DELETE'
     });
 
-    const respuesta = await res.json();
-    
+    const data = await res.json();
+
     getProducts(cartId);
 
     // Limpiar formulario
@@ -136,12 +135,16 @@ deleteProductForm.addEventListener('submit', async (e) => {
     cartContainer.innerHTML = '';
     init();
 
-    alert(respuesta.message || respuesta.error);
+    alert(data.message || data.error);
 })
 
 async function init() {
-    const carts = await getCarts();
-    renderCarts(carts);
+    try {
+        const carts = await getCarts();
+        renderCarts(carts);
+    } catch (error) {
+        console.log(error);
+    }
 }
 
 init();

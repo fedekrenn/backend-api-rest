@@ -30,7 +30,7 @@ class ContenedorProductosFirebase {
             
             await productos.add(product);
 
-            return { success: `producto ${product.nombre} guardado con el id ${product.id}` };
+            return { message: `producto ${product.nombre} guardado con el id ${product.id}` };
         } catch (error) {
             console.log(error);
         }
@@ -49,7 +49,7 @@ class ContenedorProductosFirebase {
 
             await productos.doc(productoId).update(newData);
 
-            return { success: `producto id: ${id} actualizado` };
+            return { message: `producto id: ${id} actualizado` };
         } catch (error) {
             console.log(error);
         }
@@ -69,7 +69,7 @@ class ContenedorProductosFirebase {
 
             await productos.doc(productoId).delete();
 
-            return { success: `producto id: ${id} eliminado` };
+            return { message: `producto id: ${id} eliminado` };
         } catch (error) {
             console.log(error);
         }
