@@ -1,3 +1,8 @@
+const MongoStore = require('connect-mongo')
+const advancedOptions = { useNewUrlParser: true, useUnifiedTopology: true }
+
+require('dotenv').config()
+
 const config = {
     puerto: process.env.PORT || 8080,
     mongoDB: {
@@ -7,6 +12,24 @@ const config = {
             useUnifiedTopology: true,
             useFindAndModify: false,
             useCreateIndex: true
+        }
+    },
+    sessionConfig: {
+
+        store: MongoStore.create({
+            mongoUrl: process.env.DB_URL_MONGO,
+            mongoOptions: advancedOptions
+        }),
+
+        secret: 'secreto',
+        resave: false,
+        saveUninitialized: false,
+        rolling: true,
+        cookie: {
+            httpOnly: false,
+            secure: false,
+            // 10 minutos
+            maxAge: 600000
         }
     },
     firebase: {
@@ -20,7 +43,7 @@ const config = {
         "token_uri": "https://oauth2.googleapis.com/token",
         "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
         "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-guk6p%40backend-coderhouse-krenn.iam.gserviceaccount.com"
-      }
+    }
 }
 
 module.exports = config;

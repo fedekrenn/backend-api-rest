@@ -20,12 +20,17 @@
   "homepage": "https://github.com/fedekrenn/backend-api-rest#readme",
   "dependencies": {
     "admin": "^1.4.1",
+    "bcrypt": "^5.1.0",
+    "connect-mongo": "^4.6.0",
     "dotenv": "^16.0.3",
     "express": "^4.18.1",
+    "express-session": "^1.17.3",
     "firebase": "^9.13.0",
     "firebase-admin": "^11.2.0",
     "mongoose": "^6.7.2",
     "nodemon": "^2.0.20",
+    "passport": "^0.6.0",
+    "passport-local": "^1.0.0",
     "uniqid": "^5.4.0"
   }
 }
