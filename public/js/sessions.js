@@ -1,12 +1,9 @@
 const spanName = document.getElementById('span-name');
 
 async function checkSession() {
-
     const data = await fetch('/is-auth');
 
-    if (data.status) return window.location.href = '/';
-
-    // if (data.status) return window.location.href = '/';
+    if (data.redirected === true) return window.location.href = '/';
 }
 
 let nombre = '';
@@ -17,7 +14,6 @@ async function getName() {
 
     return name.nameAccess;
 }
-
 
 async function logout() {
 
@@ -36,8 +32,6 @@ async function logout() {
 
 (async function start() {
     checkSession()
-    // No tiene que mostrar nada de la página antes de checkear
-
     spanName.innerHTML = await getName() || '';
     nombre = await getName();
 })();
