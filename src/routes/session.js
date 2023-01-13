@@ -10,7 +10,11 @@ const routerSesions = Router()
 
 // Ruta principal
 routerSesions.get('/', authMiddleware, async (req, res) => {
-    req.session.nameAccess = req.user.email
+
+    req.session.email = req.user.email
+    req.session.avatar = req.user.avatar
+    req.session.personName = req.user.personName
+
     res.redirect('/pages/productos.html')
 })
 
@@ -36,7 +40,8 @@ routerSesions.get('/logout', (req, res, next) => {
     req.logout(function (err) {
 
         if (err) {
-            loggerError.error(err)
+            // loggerError.error(err)
+            console.log(err)
             return next(err)
         };
 
@@ -47,9 +52,13 @@ routerSesions.get('/logout', (req, res, next) => {
 
 // Obtener el nombre
 
-routerSesions.get('/get-name', async (req, res) => {
+routerSesions.get('/get-data', async (req, res) => {
 
-    res.send({ nameAccess: req.session.nameAccess })
+    res.send({
+        email: req.session.email,
+        avatar: req.session.avatar,
+        personName: req.session.personName
+    })
 })
 
 module.exports = routerSesions

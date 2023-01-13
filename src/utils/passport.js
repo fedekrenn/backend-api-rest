@@ -30,11 +30,13 @@ passport.use('login', new LocalStrategy(
 passport.use('singup', new LocalStrategy({
     usernameField: 'email',
     passwordField: 'password',
-    passReqToCallback: true,
+    passReqToCallback: true
 },
     async (req, email, password, done) => {
         try {
-            const user = await manejadorSesiones.createUser({ email, password });
+            const { personName, adress, age, phone, avatar } = req.body;
+
+            const user = await manejadorSesiones.createUser({ email, password, personName, adress, age, phone, avatar });
 
             if (user.err) return done(null, false)
 

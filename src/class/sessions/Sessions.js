@@ -28,9 +28,9 @@ class ContenedorSesiones {
 
     async createUser(user) {
         try {
-            const isValidUser = await SessModel.findOne({ email: user.email });
+            const isNotValidUser = await SessModel.findOne({ email: user.email });
 
-            if (isValidUser) {
+            if (isNotValidUser) {
                 // loggerError.error("El usuario ya existe");
                 return { err: "El usuario ya existe" }
             } else {

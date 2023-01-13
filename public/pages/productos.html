@@ -16,100 +16,108 @@
                 <li><a href="./productos.html">Productos</a></li>
                 <li><a href="./carritos.html">Carritos</a></li>
             </ul>
-            <h3>Bienvenido <span id="span-name"></span>!</h3>
-            <i class="fa-solid fa-right-from-bracket" onclick="logout()"></i>
         </nav>
+        <div class="header__user">
+            <div class="user-data grid-item">
+                <img src="../img/no-user.png" class="logoAvatar" alt="logo" id="logo-avatar">
+                <small id="small-email"></small>
+            </div>
+            <h3 class="grid-item middle-element">Bienvenido <span id="span-name"></span>!</h3>
+            <i class="fa-solid fa-right-from-bracket grid-item" onclick="logout()"></i>
+        </div>
     </header>
     <!-- Formulario para probar la carga de productos -->
-    <h1>Mis productos</h1>
-    <hr>
-    <!-- Contenedor de productos -->
-    <section>
-        <h2>Listado de productos:</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nombre</th>
-                    <th>Código</th>
-                    <th>Precio</th>
-                    <th>Stock</th>
-                    <th>Imagen</th>
-                    <th>Timestamp</th>
-                    <th>Descripción</th>
-                </tr>
-            </thead>
-            <tbody id="products-container"></tbody>
-        </table>
-    </section>
-    <hr>
-    <div class="handle-products">
+    <main>
+        <h1>Mis productos</h1>
+        <hr>
+        <!-- Contenedor de productos -->
         <section>
-            <h2>Cargar producto:</h2>
-            <form id="create-product-form">
-
-                <label for="nombre">Nombre</label>
-                <input type="text" name="nombre" id="nombre" required>
-
-                <label for="codigo">Código</label>
-                <input type="text" name="codigo" id="codigo" required>
-
-                <label for="precio">Precio</label>
-                <input type="number" name="precio" id="precio" required>
-
-                <label for="stock">Stock</label>
-                <input type="number" name="stock" id="stock" required>
-
-                <label for="foto">URL de Imagen</label>
-                <input type="url" name="foto" id="foto" required>
-
-                <label for="descripcion">Descripción</label>
-                <textarea name="descripcion" id="descripcion" cols="30" rows="10" required></textarea>
-
-                <button type="submit" class="btn">Enviar</button>
-            </form>
+            <h2>Listado de productos:</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Código</th>
+                        <th>Precio</th>
+                        <th>Stock</th>
+                        <th>Imagen</th>
+                        <th>Timestamp</th>
+                        <th>Descripción</th>
+                    </tr>
+                </thead>
+                <tbody id="products-container"></tbody>
+            </table>
         </section>
+        <hr>
+        <div class="handle-products">
+            <section>
+                <h2>Cargar producto:</h2>
+                <form id="create-product-form">
 
-        <section>
-            <h2>Actualizar producto:</h2>
-            <form id="update-product-form">
+                    <label for="nombre">Nombre</label>
+                    <input type="text" name="nombre" id="nombre" required>
 
-                <label for="id">ID</label>
-                <input type="text" name="id" id="id" required>
+                    <label for="codigo">Código</label>
+                    <input type="text" name="codigo" id="codigo" required>
 
-                <label for="nombre">Nombre</label>
-                <input type="text" name="nombre" id="nombre" required>
+                    <label for="precio">Precio</label>
+                    <input type="number" name="precio" id="precio" required>
 
-                <label for="codigo">Código</label>
-                <input type="text" name="codigo" id="codigo" required>
+                    <label for="stock">Stock</label>
+                    <input type="number" name="stock" id="stock" required>
 
-                <label for="precio">Precio</label>
-                <input type="number" name="precio" id="precio" required>
+                    <label for="foto">URL de Imagen</label>
+                    <input type="url" name="foto" id="foto" required>
 
-                <label for="stock">Stock</label>
-                <input type="number" name="stock" id="stock" required>
+                    <label for="descripcion">Descripción</label>
+                    <textarea name="descripcion" id="descripcion" cols="30" rows="10" required></textarea>
 
-                <label for="foto">URL de Imagen</label>
-                <input type="url" name="foto" id="foto" required>
+                    <button type="submit" class="btn">Enviar</button>
+                </form>
+            </section>
 
-                <label for="descripcion">Descripción</label>
-                <textarea name="descripcion" id="descripcion" cols="30" rows="10" required></textarea>
+            <section>
+                <h2>Actualizar producto:</h2>
+                <form id="update-product-form">
 
-                <button type="submit" class="btn">Enviar</button>
-            </form>
-        </section>
+                    <label for="id">ID</label>
+                    <input type="text" name="id" id="id" required>
 
-        <section>
-            <h2>Eliminar producto:</h2>
-            <form id="delete-product-form">
+                    <label for="nombre">Nombre</label>
+                    <input type="text" name="nombre" id="nombre" required>
 
-                <label for="id">ID</label>
-                <input type="text" name="id" id="id" onclick="alert('Cuidado, esto borrará el producto')" required>
+                    <label for="codigo">Código</label>
+                    <input type="text" name="codigo" id="codigo" required>
 
-                <button type="submit" class="btn">Enviar</button>
-            </form>
-        </section>
-    </div>
+                    <label for="precio">Precio</label>
+                    <input type="number" name="precio" id="precio" required>
+
+                    <label for="stock">Stock</label>
+                    <input type="number" name="stock" id="stock" required>
+
+                    <label for="foto">URL de Imagen</label>
+                    <input type="url" name="foto" id="foto" required>
+
+                    <label for="descripcion">Descripción</label>
+                    <textarea name="descripcion" id="descripcion" cols="30" rows="10" required></textarea>
+
+                    <button type="submit" class="btn">Enviar</button>
+                </form>
+            </section>
+
+            <section>
+                <h2>Eliminar producto:</h2>
+                <form id="delete-product-form">
+
+                    <label for="id">ID</label>
+                    <input type="text" name="id" id="id" onclick="alert('Cuidado, esto borrará el producto')" required>
+
+                    <button type="submit" class="btn">Enviar</button>
+                </form>
+            </section>
+        </div>
+    </main>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://kit.fontawesome.com/94c0117dd6.js" crossorigin="anonymous"></script>
     <script src="../js/productos.js"></script>
