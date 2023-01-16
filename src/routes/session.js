@@ -15,7 +15,7 @@ routerSesions.get('/', authMiddleware, async (req, res) => {
     req.session.avatar = req.user.avatar
     req.session.personName = req.user.personName
 
-    res.redirect('/pages/productos.html')
+    res.redirect('/pages/carritos.html')
 })
 
 // Ruta de login
