@@ -1,13 +1,13 @@
 const mongoose = require('mongoose');
 const { CarritosModel } = require('../../model/carritosModel');
 
-
+const { loggerError } = require('../../utils/logger');
 
 mongoose.connect(process.env.DB_URL_MONGO, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 }, (err) => {
-    if (err) console.log(err);
+    if (err) loggerError.error(err);
 });
 
 
@@ -26,7 +26,7 @@ class ContenedorCarritosMongo {
 
             return productsInCart;
         } catch (err) {
-            console.log(err)
+            loggerError.error(err);
         }
     }
 
@@ -42,7 +42,7 @@ class ContenedorCarritosMongo {
 
             return { message: `Se creó correctamente el carrito!` };
         } catch (err) {
-            console.log(err)
+            loggerError.error(err);
         }
     }
 
@@ -59,7 +59,7 @@ class ContenedorCarritosMongo {
 
             return { message: `Se agregó el producto: '${producto.nombre}' al carrito ID: ${id}` };
         } catch (err) {
-            console.log(err)
+            loggerError.error(err);
         }
     }
 
@@ -82,7 +82,7 @@ class ContenedorCarritosMongo {
 
             return { message: `Se eliminó el producto: '${product.nombre}' del carrito ID: ${id}` };
         } catch (err) {
-            console.log(err)
+            loggerError.error(err);
         }
     }
 
@@ -96,7 +96,7 @@ class ContenedorCarritosMongo {
 
             return { message: `Se eliminó el carrito ID: ${id}` };
         } catch (err) {
-            console.log(err)
+            loggerError.error(err);
         }
     }
 }

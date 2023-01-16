@@ -5,7 +5,6 @@ const { handleProducts, handleCarts } = require('../daos/handleDaos');
 
 const routerCarritos = Router();
 
-
 /* ---------- POST ------------ */
 
 // Crear un carrito

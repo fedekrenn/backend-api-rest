@@ -1,5 +1,7 @@
 const uniqid = require('uniqid');
 
+const { loggerError } = require('../../utils/logger');
+
 class ContenedorCarritosFirebase {
     constructor(db) {
         this.db = db;
@@ -21,7 +23,7 @@ class ContenedorCarritosFirebase {
 
             return productos;
         } catch (error) {
-            console.log(error);
+            loggerError.error(error);
         }
     }
 
@@ -36,10 +38,10 @@ class ContenedorCarritosFirebase {
                 timestamp: Date.now(),
                 productos: []
             });
-            
+
             return { message: `Se creó correctamente el carrito! ID: ${id}` };
         } catch (error) {
-            console.log(error);
+            loggerError.error(error);
         }
     }
 
@@ -64,7 +66,7 @@ class ContenedorCarritosFirebase {
 
             return { message: `Se agregó correctamente el producto ID: ${product.id} al carrito ID: ${id}` };
         } catch (error) {
-            console.log(error);
+            loggerError.error(error);
         }
     }
 
@@ -93,7 +95,7 @@ class ContenedorCarritosFirebase {
             return { message: `Se eliminó correctamente el producto ID: ${productId} del carrito ID: ${id}` };
 
         } catch (error) {
-            console.log(error);
+            loggerError.error(error);
         }
     }
 
@@ -114,7 +116,7 @@ class ContenedorCarritosFirebase {
 
             return { message: `Se eliminó correctamente el carrito!` };
         } catch (error) {
-            console.log(error);
+            loggerError.error(error);
         }
     }
 }

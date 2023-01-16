@@ -1,6 +1,8 @@
 const contenedorCarritosMongo = require('../../class/contenedorCarritos/contenedorCarritosMongo');
 const { CarritosModel } = require('../../model/carritosModel');
 
+const { loggerError } = require('../../utils/logger');
+
 class CarritoMongoDao extends contenedorCarritosMongo {
     constructor() {
         super();
@@ -12,7 +14,7 @@ class CarritoMongoDao extends contenedorCarritosMongo {
 
             return carritos;
         } catch (error) {
-            console.log(error);
+            loggerError.error(error);
         }
     }
 }

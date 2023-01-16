@@ -1,6 +1,8 @@
 const contenedorProductosMongo = require('../../class/contenedorProductos/contenedorProductosMongo');
 const { ProductosModel } = require('../../model/productosModel');
 
+const { loggerError } = require('../../utils/logger');
+
 class ProductoMongoDao extends contenedorProductosMongo {
     constructor() {
         super();
@@ -12,7 +14,7 @@ class ProductoMongoDao extends contenedorProductosMongo {
 
             return productos;
         } catch (error) {
-            console.log(error);
+            loggerError.error(error);
         }
     }
 

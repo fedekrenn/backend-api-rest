@@ -3,16 +3,17 @@ const express = require('express');
 const app = express();
 
 const config = require('./src/config/config');
+const { logger } = require('./src/utils/logger');
 
 const routerProductos = require('./src/routes/productos');
 const routerCarritos = require('./src/routes/carritos');
 const routerSesions = require('./src/routes/session')
 const routerAuth = require('./src/routes/isAuth')
 
-
 const passport = require('./src/utils/passport');
 
 const sessionMiddleware = require('./src/middlewares/auth')
+
 
 
 app.use(express.json());
@@ -53,5 +54,5 @@ app.use((req, res) => {
 
 /* ------ Servidor  -------- */
 
-const server = app.listen(config.puerto, () => console.log(`Servidor http escuchando en el puerto ${server.address().port}`));
-server.on('error', error => console.log(`Error en servidor ${error}`));
+const server = app.listen(config.puerto, () => logger.info(`Servidor http escuchando en el puerto ${server.address().port}`));
+server.on('error', error => logger.error(`Error en servidor ${error}`)); 

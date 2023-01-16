@@ -1,5 +1,7 @@
 const contenedorCarritosFirebase = require('../../class/contenedorCarritos/contenedorCarritosFirebase');
 
+const { loggerError } = require('../../utils/logger');
+
 class CarritoFirebaseDao extends contenedorCarritosFirebase {
     constructor(db) {
         super(db);
@@ -13,7 +15,7 @@ class CarritoFirebaseDao extends contenedorCarritosFirebase {
 
             return carritosArray;
         } catch (error) {
-            console.log(error);
+            loggerError.error(error);
         }
     }
 }

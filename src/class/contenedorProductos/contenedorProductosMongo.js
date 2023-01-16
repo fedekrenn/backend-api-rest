@@ -1,16 +1,14 @@
 const mongoose = require('mongoose');
 const { ProductosModel } = require('../../model/productosModel');
 
-
+const { loggerError } = require('../../utils/logger');
 
 mongoose.connect(process.env.DB_URL_MONGO, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 }, (err) => {
-    if (err) console.log(err);
+    if (err) loggerError.error(err);
 });
-
-
 
 class ContenedorProductosMongo {
 
@@ -23,7 +21,7 @@ class ContenedorProductosMongo {
 
             return producto;
         } catch (error) {
-            console.log(error);
+            loggerError.error(error);
         }
     }
 
@@ -37,7 +35,7 @@ class ContenedorProductosMongo {
 
             return { message: `producto ${product.nombre} guardado!` };
         } catch (err) {
-            console.log(err)
+            loggerError.error(err);
         }
     }
 
@@ -53,7 +51,7 @@ class ContenedorProductosMongo {
 
             return { message: `producto id: ${id} actualizado` };
         } catch (error) {
-            console.log(error);
+            loggerError.error(error);
         }
     }
 
@@ -69,7 +67,7 @@ class ContenedorProductosMongo {
 
             return { message: `producto id: ${id} eliminado` };
         } catch (error) {
-            console.log(error);
+            loggerError.error(error);
         }
     }
 }

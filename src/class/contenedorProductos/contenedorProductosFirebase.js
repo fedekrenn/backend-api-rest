@@ -1,5 +1,7 @@
 const uniqid = require('uniqid');
 
+const { loggerError } = require('../../utils/logger');
+
 class ContenedorProductosFirebase {
     constructor(db) {
         this.db = db;
@@ -17,7 +19,7 @@ class ContenedorProductosFirebase {
 
             return producto;
         } catch (error) {
-            console.log(error);
+            loggerError.error(error);
         }
     }
 
@@ -27,12 +29,12 @@ class ContenedorProductosFirebase {
 
             product.id = uniqid();
             product.timestamp = Date.now();
-            
+
             await productos.add(product);
 
             return { message: `producto ${product.nombre} guardado con el id ${product.id}` };
         } catch (error) {
-            console.log(error);
+            loggerError.error(error);
         }
     }
 
@@ -51,7 +53,7 @@ class ContenedorProductosFirebase {
 
             return { message: `producto id: ${id} actualizado` };
         } catch (error) {
-            console.log(error);
+            loggerError.error(error);
         }
     }
 
@@ -71,7 +73,7 @@ class ContenedorProductosFirebase {
 
             return { message: `producto id: ${id} eliminado` };
         } catch (error) {
-            console.log(error);
+            loggerError.error(error);
         }
     }
 }

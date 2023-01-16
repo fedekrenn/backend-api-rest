@@ -1,5 +1,7 @@
 const contenedorProductosFirebase = require('../../class/contenedorProductos/contenedorProductosFirebase');
 
+const { loggerError } = require('../../utils/logger');
+
 class ProductoFirebaseDao extends contenedorProductosFirebase {
     constructor(db) {
         super(db);
@@ -13,7 +15,7 @@ class ProductoFirebaseDao extends contenedorProductosFirebase {
 
             return productosArray;
         } catch (error) {
-            console.log(error);
+            loggerError.error(error);
         }
     }
 }

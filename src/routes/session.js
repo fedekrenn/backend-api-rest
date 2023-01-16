@@ -1,6 +1,6 @@
 const express = require('express');
 const { Router } = express
-// const { loggerError } = require('../utils/logger');
+const { loggerError } = require('../utils/logger');
 const passport = require('passport');
 
 const authMiddleware = require('../middlewares/auth')
@@ -40,8 +40,7 @@ routerSesions.get('/logout', (req, res, next) => {
     req.logout(function (err) {
 
         if (err) {
-            // loggerError.error(err)
-            console.log(err)
+            loggerError.error(err)
             return next(err)
         };
 
