@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const config = require('../../config/config');
 const { SessModel } = require('../../model/sessModel');
 const { createHash } = require('../../utils/handlePass');
-const transporter = require('../../utils/mailOptions');
+const handleSubmitMail = require('../../utils/mailOptions');
 const { loggerError, logger } = require('../../utils/logger');
 
 mongoose.connect(config.mongoDB.host, {
@@ -36,25 +36,7 @@ class ContenedorSesiones {
                 const newUser = new SessModel(user);
                 await newUser.save();
 
-                const mailOptions = {
-                    from: 'Servidor Ecommerce',
-                    to: process.env.EMAIL,
-                    subject: 'Nuevo usuario registrado',
-                    html: `
-                    <h1>¡Nuevo usuario registrado!</h1>
-                    <p>Nombre: ${user.personName}</p>
-                    <p>Email: ${user.email}</p>
-                    <p>Dirección: ${user.adress}</p>
-                    <p>Teléfono: ${user.phone}</p>
-                    <p>Edad: ${user.age}</p>`
-                };
-
-                try {
-                    await transporter.sendMail(mailOptions);
-                    logger.info(`El usuario ${user.personName} se ha registrado correctamente`)
-                } catch (err) {
-                    loggerError.error('Acá está el error: ', err);
-                }
+                handleSubmitMail(user);
 
                 return newUser;
             }
