@@ -93,7 +93,10 @@ class ContenedorCarritosFirebase {
                     `
             };
 
+            const whatsappMsg = `Nueva compra!\n\nSe compraron los siguientes productos:\n${productsName.map(element => `◆ ${element}`).join('\n')}\n\nPor un total de: $${totalPrice}\n\nEl pedido es a nombre de ${personName} y su email es ${email}`
+
             handleSubmitMail(mailOptions);
+            handleSubmitWhatsapp(whatsappMsg);
 
             loggerBuy.trace(`Se compraron los productos: ${productsName.join(', ')} por un total de: $${totalPrice}`);
 
