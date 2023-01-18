@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const { CarritosModel } = require('../../model/carritosModel');
-
-const { loggerError } = require('../../utils/logger');
+const { loggerError, loggerBuy } = require('../../utils/logger');
+const handleSubmitMail = require('../../utils/mailOptions');
 
 mongoose.connect(process.env.DB_URL_MONGO, {
     useNewUrlParser: true,
@@ -60,6 +60,39 @@ class ContenedorCarritosMongo {
             return { message: `Se agregó el producto: '${producto.nombre}' al carrito ID: ${id}` };
         } catch (err) {
             loggerError.error(err);
+        }
+    }
+
+    async buyCart(buyInfo) {
+        try {
+            const { cart, email, personName } = buyInfo;
+
+            const productsName = cart.map(element => element.nombre);
+            const totalPrice = cart.reduce((acc, element) => acc + element.precio, 0);
+
+            const mailOptions = {
+                from: 'Servidor Ecommerce',
+                to: process.env.EMAIL,
+                subject: `Nuevo pedido recibido de ${personName}`,
+                html: `
+                    <h1>Nueva compra!</h1>
+                    <p>Se compraron los siguientes productos</p>
+                    <ul>
+                        ${productsName.map(element => `<li>${element}</li>`).join('')}
+                    </ul>
+                    <p>Por un total de: $${totalPrice}</p>
+                    <p>El pedido es a nombre de ${personName}</p>
+                    <p>El email de contacto es: ${email}</p>
+                    `
+            };
+
+            handleSubmitMail(mailOptions);
+
+            loggerBuy.trace(`Se compraron los productos: ${productsName.join(', ')} por un total de: $${totalPrice}`);
+
+            return { message: `Se compraron los productos: ${productsName.join(', ')} por un total de: $${totalPrice}` };
+        } catch (error) {
+            loggerError.error(error);
         }
     }
 

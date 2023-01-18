@@ -1,6 +1,6 @@
 const uniqid = require('uniqid');
-
-const { loggerError } = require('../../utils/logger');
+const { loggerError, loggerBuy } = require('../../utils/logger');
+const handleSubmitMail = require('../../utils/mailOptions');
 
 class ContenedorCarritosFirebase {
     constructor(db) {
@@ -65,6 +65,39 @@ class ContenedorCarritosFirebase {
             await carritos.doc(carritoId).update({ productos: productos });
 
             return { message: `Se agregó correctamente el producto ID: ${product.id} al carrito ID: ${id}` };
+        } catch (error) {
+            loggerError.error(error);
+        }
+    }
+
+    async buyCart(buyInfo) {
+        try {
+            const { cart, email, personName } = buyInfo;
+
+            const productsName = cart.map(element => element.nombre);
+            const totalPrice = cart.reduce((acc, element) => acc + element.precio, 0);
+
+            const mailOptions = {
+                from: 'Servidor Ecommerce',
+                to: process.env.EMAIL,
+                subject: `Nuevo pedido recibido de ${personName}`,
+                html: `
+                    <h1>Nueva compra!</h1>
+                    <p>Se compraron los siguientes productos</p>
+                    <ul>
+                        ${productsName.map(element => `<li>${element}</li>`).join('')}
+                    </ul>
+                    <p>Por un total de: $${totalPrice}</p>
+                    <p>El pedido es a nombre de ${personName}</p>
+                    <p>El email de contacto es: ${email}</p>
+                    `
+            };
+
+            handleSubmitMail(mailOptions);
+
+            loggerBuy.trace(`Se compraron los productos: ${productsName.join(', ')} por un total de: $${totalPrice}`);
+
+            return { message: `Se compraron los productos: ${productsName.join(', ')} por un total de: $${totalPrice}` };
         } catch (error) {
             loggerError.error(error);
         }

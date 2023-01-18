@@ -31,6 +31,31 @@
         <h1>Carritos</h1>
         <hr>
         <section>
+            <h2>Productos del carrito</h2>
+            <form id="get-products-form">
+                <label for="cartId">ID del carrito</label>
+                <input type="text" name="cartId" id="cartId" required>
+                <button class="btn" type="submit">Ver productos</button>
+            </form>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Código</th>
+                        <th>Precio</th>
+                        <th>Stock</th>
+                        <th>Imagen</th>
+                        <th>Timestamp</th>
+                        <th>Descripción</th>
+                    </tr>
+                </thead>
+                <tbody id="get-products-container"></tbody>
+            </table>
+            <button class="btn buy-cart">Realizar compra!</button>
+        </section>
+        <hr>
+        <section>
             <h2>Listado de carritos:</h2>
             <table>
                 <thead>
@@ -61,29 +86,7 @@
             </div>
         </section>
         <hr>
-        <section>
-            <h2>Productos del carrito</h2>
-            <form id="get-products-form">
-                <label for="cartId">ID del carrito</label>
-                <input type="text" name="cartId" id="cartId" required>
-                <button class="btn" type="submit">Ver productos</button>
-            </form>
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Nombre</th>
-                        <th>Código</th>
-                        <th>Precio</th>
-                        <th>Stock</th>
-                        <th>Imagen</th>
-                        <th>Timestamp</th>
-                        <th>Descripción</th>
-                    </tr>
-                </thead>
-                <tbody id="get-products-container"></tbody>
-            </table>
-        </section>
+
         <hr>
         <section>
             <h2>Agregar/eliminar productos al carrito</h2>

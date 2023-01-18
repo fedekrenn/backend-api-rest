@@ -4,7 +4,9 @@ const deleteCartForm = document.getElementById('delete-cart-form');
 const getProductsForm = document.getElementById('get-products-form');
 const addProductForm = document.getElementById('add-product-form');
 const deleteProductForm = document.getElementById('delete-product-form');
+const buyBtn = document.querySelector('.buy-cart');
 
+let currentCart
 
 createCartBtn.addEventListener('click', async (e) => {
 
@@ -46,7 +48,6 @@ getProductsForm.addEventListener('submit', async (e) => {
     e.preventDefault();
 
     getProducts(e.target.cartId.value);
-
 })
 
 async function getProducts(cartId) {
@@ -58,6 +59,8 @@ async function getProducts(cartId) {
     if (data.hasOwnProperty('message')) return
 
     if (data.hasOwnProperty('error')) return alert(data.error)
+
+    currentCart = data;
 
     const getProductsContainer = document.getElementById('get-products-container');
 
@@ -137,6 +140,46 @@ deleteProductForm.addEventListener('submit', async (e) => {
 
     alert(data.message || data.error);
 })
+
+
+
+
+
+
+buyBtn.addEventListener('click', async (e) => {
+    e.preventDefault();
+
+    const data = JSON.parse(sessionStorage.getItem('personalData'));
+
+    const { personName, email } = data;
+
+    const res = await fetch('/api/carrito/confirmar-compra', {
+        method: 'POST',
+        body: JSON.stringify({
+            cart: currentCart,
+            email,
+            personName
+        }),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+
+    const response = await res.json();
+
+    alert(response.message || response.error);
+
+    // Renderizar carritos
+    
+})
+
+
+
+
+
+
+
+
 
 async function init() {
     try {

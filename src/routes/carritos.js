@@ -30,6 +30,15 @@ routerCarritos.post('/:id/productos/:idProducto', async (req, res) => {
     }
 })
 
+// Confirmación de compra de carrito
+routerCarritos.post('/confirmar-compra', async (req, res) => {
+
+    const dataToBuy = req.body
+
+    const result = await handleCarts.buyCart(dataToBuy);
+    res.json(result)
+})
+
 /* ---------- Delete ---------- */
 
 // Eliminar un carrito entero

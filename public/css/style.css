@@ -140,6 +140,15 @@ img {
     margin: 20px 5px;
 }
 
+.buy-cart{
+    color: #fff;
+    background-color: #bd2424;
+}
+
+.buy-cart:hover{
+    text-transform: uppercase;
+}
+
 .div-border {
     border: 1px solid #FFF;
     border-radius: 5px;

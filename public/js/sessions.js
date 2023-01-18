@@ -15,13 +15,15 @@ async function getData() {
         const data = await fetch('/get-data');
         const info = await data.json();
 
-        localStorage.setItem('personalData', JSON.stringify(info));
+        sessionStorage.setItem('personalData', JSON.stringify(info));
     } catch (error) {
         console.log(error);
     }
 }
 
 async function logout() {
+
+    sessionStorage.removeItem('personalData');
 
     Swal.fire({
         icon: 'success',
@@ -40,7 +42,7 @@ async function logout() {
     checkSession()
 
     await getData();
-    const data = JSON.parse(localStorage.getItem('personalData'));
+    const data = JSON.parse(sessionStorage.getItem('personalData'));
 
     const { personName, email, avatar } = data;
 

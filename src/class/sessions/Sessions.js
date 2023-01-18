@@ -36,7 +36,22 @@ class ContenedorSesiones {
                 const newUser = new SessModel(user);
                 await newUser.save();
 
-                handleSubmitMail(user);
+                const { personName, email, adress, phone, age } = user;
+
+                const mailOptions = {
+                    from: 'Servidor Ecommerce',
+                    to: process.env.EMAIL,
+                    subject: 'Nuevo usuario registrado',
+                    html: `
+                    <h1>¡Nuevo usuario registrado!</h1>
+                    <p>Nombre: ${personName}</p>
+                    <p>Email: ${email}</p>
+                    <p>Dirección: ${adress}</p>
+                    <p>Teléfono: ${phone}</p>
+                    <p>Edad: ${age}</p>`
+                };
+
+                handleSubmitMail(mailOptions);
 
                 return newUser;
             }
