@@ -12,4 +12,16 @@ $form.addEventListener('submit', (e) => {
             text: 'Las contraseñas no coinciden!',
         })
     }
+
+    const REGEX = /^[1-9]{10}$/
+    const phone = e.target.phone.value;
+    
+    if (!REGEX.test(phone)) {
+        e.preventDefault();
+        SweetAlert.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'El número de teléfono no es válido!, debes ingresar 10 dígitos sin espacios ni guiones',
+        })
+    }
 });

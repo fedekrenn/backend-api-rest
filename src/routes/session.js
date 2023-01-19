@@ -14,6 +14,7 @@ routerSesions.get('/', authMiddleware, async (req, res) => {
     req.session.email = req.user.email
     req.session.avatar = req.user.avatar
     req.session.personName = req.user.personName
+    req.session.phone = req.user.phone
 
     res.redirect('/pages/carritos.html')
 })
@@ -56,7 +57,8 @@ routerSesions.get('/get-data', async (req, res) => {
     res.send({
         email: req.session.email,
         avatar: req.session.avatar,
-        personName: req.session.personName
+        personName: req.session.personName,
+        phone: req.session.phone
     })
 })
 

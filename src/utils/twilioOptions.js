@@ -21,4 +21,17 @@ async function handleSubmitWhatsapp(msg) {
     }
 }
 
-module.exports = handleSubmitWhatsapp;
+async function handleSubmitSMS(msg, phone) {
+    try {
+        const message = await client.messages.create({
+            body: msg,
+            from: '+13205253112',
+            to: `+54${phone}`
+        });
+        logger.info('SMS enviado correctamente')
+    } catch (error) {
+        loggerError.error(error);
+    }
+}
+
+module.exports = { handleSubmitWhatsapp, handleSubmitSMS };

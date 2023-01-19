@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const { CarritosModel } = require('../../model/carritosModel');
 const { loggerError, loggerBuy } = require('../../utils/logger');
 const handleSubmitMail = require('../../utils/mailOptions');
-const handleSubmitWhatsapp = require('../../utils/twilioOptions');
+const { handleSubmitWhatsapp, handleSubmitSMS } = require('../../utils/twilioOptions');
 
 mongoose.connect(process.env.DB_URL_MONGO, {
     useNewUrlParser: true,
@@ -10,7 +10,6 @@ mongoose.connect(process.env.DB_URL_MONGO, {
 }, (err) => {
     if (err) loggerError.error(err);
 });
-
 
 
 class ContenedorCarritosMongo {
@@ -66,7 +65,7 @@ class ContenedorCarritosMongo {
 
     async buyCart(buyInfo) {
         try {
-            const { cart, email, personName } = buyInfo;
+            const { cart, email, personName, phone } = buyInfo;
 
             const productsName = cart.map(element => element.nombre);
             const totalPrice = cart.reduce((acc, element) => acc + element.precio, 0);
@@ -88,9 +87,11 @@ class ContenedorCarritosMongo {
             };
 
             const whatsappMsg = `Nueva compra!\n\nSe compraron los siguientes productos:\n${productsName.map(element => `◆ ${element}`).join('\n')}\n\nPor un total de: $${totalPrice}\n\nEl pedido es a nombre de ${personName} y su email es ${email}`
+            const smsMsg = `Hola ${personName}! Te confirmamos que se recibió tu pedido correctamente. En breve nos comunicaremos con vos para coordinar la entrega. Gracias por elegirnos!`	
 
             handleSubmitMail(mailOptions);
             handleSubmitWhatsapp(whatsappMsg);
+            handleSubmitSMS(smsMsg, phone);
 
             loggerBuy.trace(`Se compraron los productos: ${productsName.join(', ')} por un total de: $${totalPrice}`);
 

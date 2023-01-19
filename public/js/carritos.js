@@ -141,24 +141,22 @@ deleteProductForm.addEventListener('submit', async (e) => {
     alert(data.message || data.error);
 })
 
-
-
-
-
-
 buyBtn.addEventListener('click', async (e) => {
     e.preventDefault();
 
+    if (!currentCart) return alert('No hay carrito seleccionado, debajo encontrarás los ID con los que puedes comprar');
+
     const data = JSON.parse(sessionStorage.getItem('personalData'));
 
-    const { personName, email } = data;
+    const { personName, email, phone } = data;
 
     const res = await fetch('/api/carrito/confirmar-compra', {
         method: 'POST',
         body: JSON.stringify({
             cart: currentCart,
             email,
-            personName
+            personName,
+            phone
         }),
         headers: {
             'Content-Type': 'application/json'
@@ -167,19 +165,8 @@ buyBtn.addEventListener('click', async (e) => {
 
     const response = await res.json();
 
-    alert(response.message || response.error);
-
-    // Renderizar carritos
-    
+    alert(`${response.message || response.error}.\n\n Te llegará un whatsapp con el detalle de tu compra`);
 })
-
-
-
-
-
-
-
-
 
 async function init() {
     try {

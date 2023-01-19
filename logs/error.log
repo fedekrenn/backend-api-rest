@@ -1,1 +1,116 @@
-[2023-01-16T16:48:00.397] [ERROR] error - Se ha intentado crear una cuenta con un email ya existente
+[2023-01-16T16:48:00.397] [ERROR] error - Se ha intentado crear una cuenta con un email ya existente[2023-01-19T16:01:18.496] [ERROR] error - MongooseError: Operation `accounts.findOne()` buffering timed out after 10000ms
+    at Timeout.<anonymous> (C:\Users\fedek\OneDrive\Escritorio\backend-api-rest\node_modules\mongoose\lib\drivers\node-mongodb-native\collection.js:153:23)
+    at listOnTimeout (node:internal/timers:559:17)
+    at processTimers (node:internal/timers:502:7)
+[2023-01-19T16:37:54.578] [ERROR] error - RestException [Error]: Twilio could not find a Channel with the specified From address
+    at success (C:\Users\fedek\OneDrive\Escritorio\backend-api-rest\node_modules\twilio\lib\base\Version.js:135:15)
+    at Promise_then_fulfilled (C:\Users\fedek\OneDrive\Escritorio\backend-api-rest\node_modules\q\q.js:766:44)
+    at Promise_done_fulfilled (C:\Users\fedek\OneDrive\Escritorio\backend-api-rest\node_modules\q\q.js:835:31)
+    at Fulfilled_dispatch [as dispatch] (C:\Users\fedek\OneDrive\Escritorio\backend-api-rest\node_modules\q\q.js:1229:9)
+    at Pending_become_eachMessage_task (C:\Users\fedek\OneDrive\Escritorio\backend-api-rest\node_modules\q\q.js:1369:30)
+    at RawTask.call (C:\Users\fedek\OneDrive\Escritorio\backend-api-rest\node_modules\asap\asap.js:40:19)
+    at flush (C:\Users\fedek\OneDrive\Escritorio\backend-api-rest\node_modules\asap\raw.js:50:29)
+    at processTicksAndRejections (node:internal/process/task_queues:78:11) {
+  status: 400,
+  code: 63007,
+  moreInfo: 'https://www.twilio.com/docs/errors/63007',
+  details: undefined
+}
+[2023-01-19T16:37:54.592] [ERROR] error - RestException [Error]: Twilio could not find a Channel with the specified From address
+    at success (C:\Users\fedek\OneDrive\Escritorio\backend-api-rest\node_modules\twilio\lib\base\Version.js:135:15)
+    at Promise_then_fulfilled (C:\Users\fedek\OneDrive\Escritorio\backend-api-rest\node_modules\q\q.js:766:44)
+    at Promise_done_fulfilled (C:\Users\fedek\OneDrive\Escritorio\backend-api-rest\node_modules\q\q.js:835:31)
+    at Fulfilled_dispatch [as dispatch] (C:\Users\fedek\OneDrive\Escritorio\backend-api-rest\node_modules\q\q.js:1229:9)
+    at Pending_become_eachMessage_task (C:\Users\fedek\OneDrive\Escritorio\backend-api-rest\node_modules\q\q.js:1369:30)
+    at RawTask.call (C:\Users\fedek\OneDrive\Escritorio\backend-api-rest\node_modules\asap\asap.js:40:19)
+    at flush (C:\Users\fedek\OneDrive\Escritorio\backend-api-rest\node_modules\asap\raw.js:50:29)
+    at processTicksAndRejections (node:internal/process/task_queues:78:11) {
+  status: 400,
+  code: 63007,
+  moreInfo: 'https://www.twilio.com/docs/errors/63007',
+  details: undefined
+}
+[2023-01-19T16:44:05.758] [ERROR] error - RestException [Error]: The From phone number +14155238886 is not a valid, SMS-capable inbound phone number or short code for your account.
+    at success (C:\Users\fedek\OneDrive\Escritorio\backend-api-rest\node_modules\twilio\lib\base\Version.js:135:15)
+    at Promise_then_fulfilled (C:\Users\fedek\OneDrive\Escritorio\backend-api-rest\node_modules\q\q.js:766:44)
+    at Promise_done_fulfilled (C:\Users\fedek\OneDrive\Escritorio\backend-api-rest\node_modules\q\q.js:835:31)
+    at Fulfilled_dispatch [as dispatch] (C:\Users\fedek\OneDrive\Escritorio\backend-api-rest\node_modules\q\q.js:1229:9)
+    at Pending_become_eachMessage_task (C:\Users\fedek\OneDrive\Escritorio\backend-api-rest\node_modules\q\q.js:1369:30)
+    at RawTask.call (C:\Users\fedek\OneDrive\Escritorio\backend-api-rest\node_modules\asap\asap.js:40:19)
+    at flush (C:\Users\fedek\OneDrive\Escritorio\backend-api-rest\node_modules\asap\raw.js:50:29)
+    at processTicksAndRejections (node:internal/process/task_queues:78:11) {
+  status: 400,
+  code: 21606,
+  moreInfo: 'https://www.twilio.com/docs/errors/21606',
+  details: undefined
+}
+[2023-01-19T16:44:31.990] [ERROR] error - RestException [Error]: The number  is unverified. Trial accounts cannot send messages to unverified numbers; verify  at twilio.com/user/account/phone-numbers/verified, or purchase a Twilio number to send messages to unverified numbers.
+    at success (C:\Users\fedek\OneDrive\Escritorio\backend-api-rest\node_modules\twilio\lib\base\Version.js:135:15)
+    at Promise_then_fulfilled (C:\Users\fedek\OneDrive\Escritorio\backend-api-rest\node_modules\q\q.js:766:44)
+    at Promise_done_fulfilled (C:\Users\fedek\OneDrive\Escritorio\backend-api-rest\node_modules\q\q.js:835:31)
+    at Fulfilled_dispatch [as dispatch] (C:\Users\fedek\OneDrive\Escritorio\backend-api-rest\node_modules\q\q.js:1229:9)
+    at Pending_become_eachMessage_task (C:\Users\fedek\OneDrive\Escritorio\backend-api-rest\node_modules\q\q.js:1369:30)
+    at RawTask.call (C:\Users\fedek\OneDrive\Escritorio\backend-api-rest\node_modules\asap\asap.js:40:19)
+    at flush (C:\Users\fedek\OneDrive\Escritorio\backend-api-rest\node_modules\asap\raw.js:50:29)
+    at processTicksAndRejections (node:internal/process/task_queues:78:11) {
+  status: 400,
+  code: 21608,
+  moreInfo: 'https://www.twilio.com/docs/errors/21608',
+  details: undefined
+}
+[2023-01-19T16:59:55.433] [ERROR] error - RestException [Error]: Permission to send an SMS has not been enabled for the region indicated by the 'To' number: 3518081696.
+    at success (C:\Users\fedek\OneDrive\Escritorio\backend-api-rest\node_modules\twilio\lib\base\Version.js:135:15)
+    at Promise_then_fulfilled (C:\Users\fedek\OneDrive\Escritorio\backend-api-rest\node_modules\q\q.js:766:44)
+    at Promise_done_fulfilled (C:\Users\fedek\OneDrive\Escritorio\backend-api-rest\node_modules\q\q.js:835:31)
+    at Fulfilled_dispatch [as dispatch] (C:\Users\fedek\OneDrive\Escritorio\backend-api-rest\node_modules\q\q.js:1229:9)
+    at Pending_become_eachMessage_task (C:\Users\fedek\OneDrive\Escritorio\backend-api-rest\node_modules\q\q.js:1369:30)
+    at RawTask.call (C:\Users\fedek\OneDrive\Escritorio\backend-api-rest\node_modules\asap\asap.js:40:19)
+    at flush (C:\Users\fedek\OneDrive\Escritorio\backend-api-rest\node_modules\asap\raw.js:50:29)
+    at processTicksAndRejections (node:internal/process/task_queues:78:11) {
+  status: 400,
+  code: 21408,
+  moreInfo: 'https://www.twilio.com/docs/errors/21408',
+  details: undefined
+}
+[2023-01-19T17:00:38.802] [ERROR] error - RestException [Error]: The number  is unverified. Trial accounts cannot send messages to unverified numbers; verify  at twilio.com/user/account/phone-numbers/verified, or purchase a Twilio number to send messages to unverified numbers.
+    at success (C:\Users\fedek\OneDrive\Escritorio\backend-api-rest\node_modules\twilio\lib\base\Version.js:135:15)
+    at Promise_then_fulfilled (C:\Users\fedek\OneDrive\Escritorio\backend-api-rest\node_modules\q\q.js:766:44)
+    at Promise_done_fulfilled (C:\Users\fedek\OneDrive\Escritorio\backend-api-rest\node_modules\q\q.js:835:31)
+    at Fulfilled_dispatch [as dispatch] (C:\Users\fedek\OneDrive\Escritorio\backend-api-rest\node_modules\q\q.js:1229:9)
+    at Pending_become_eachMessage_task (C:\Users\fedek\OneDrive\Escritorio\backend-api-rest\node_modules\q\q.js:1369:30)
+    at RawTask.call (C:\Users\fedek\OneDrive\Escritorio\backend-api-rest\node_modules\asap\asap.js:40:19)
+    at flush (C:\Users\fedek\OneDrive\Escritorio\backend-api-rest\node_modules\asap\raw.js:50:29)
+    at processTicksAndRejections (node:internal/process/task_queues:78:11) {
+  status: 400,
+  code: 21608,
+  moreInfo: 'https://www.twilio.com/docs/errors/21608',
+  details: undefined
+}
+[2023-01-19T17:01:44.734] [ERROR] error - RestException [Error]: The number  is unverified. Trial accounts cannot send messages to unverified numbers; verify  at twilio.com/user/account/phone-numbers/verified, or purchase a Twilio number to send messages to unverified numbers.
+    at success (C:\Users\fedek\OneDrive\Escritorio\backend-api-rest\node_modules\twilio\lib\base\Version.js:135:15)
+    at Promise_then_fulfilled (C:\Users\fedek\OneDrive\Escritorio\backend-api-rest\node_modules\q\q.js:766:44)
+    at Promise_done_fulfilled (C:\Users\fedek\OneDrive\Escritorio\backend-api-rest\node_modules\q\q.js:835:31)
+    at Fulfilled_dispatch [as dispatch] (C:\Users\fedek\OneDrive\Escritorio\backend-api-rest\node_modules\q\q.js:1229:9)
+    at Pending_become_eachMessage_task (C:\Users\fedek\OneDrive\Escritorio\backend-api-rest\node_modules\q\q.js:1369:30)
+    at RawTask.call (C:\Users\fedek\OneDrive\Escritorio\backend-api-rest\node_modules\asap\asap.js:40:19)
+    at flush (C:\Users\fedek\OneDrive\Escritorio\backend-api-rest\node_modules\asap\raw.js:50:29)
+    at processTicksAndRejections (node:internal/process/task_queues:78:11) {
+  status: 400,
+  code: 21608,
+  moreInfo: 'https://www.twilio.com/docs/errors/21608',
+  details: undefined
+}
+[2023-01-19T17:02:09.255] [ERROR] error - RestException [Error]: The number  is unverified. Trial accounts cannot send messages to unverified numbers; verify  at twilio.com/user/account/phone-numbers/verified, or purchase a Twilio number to send messages to unverified numbers.
+    at success (C:\Users\fedek\OneDrive\Escritorio\backend-api-rest\node_modules\twilio\lib\base\Version.js:135:15)
+    at Promise_then_fulfilled (C:\Users\fedek\OneDrive\Escritorio\backend-api-rest\node_modules\q\q.js:766:44)
+    at Promise_done_fulfilled (C:\Users\fedek\OneDrive\Escritorio\backend-api-rest\node_modules\q\q.js:835:31)
+    at Fulfilled_dispatch [as dispatch] (C:\Users\fedek\OneDrive\Escritorio\backend-api-rest\node_modules\q\q.js:1229:9)
+    at Pending_become_eachMessage_task (C:\Users\fedek\OneDrive\Escritorio\backend-api-rest\node_modules\q\q.js:1369:30)
+    at RawTask.call (C:\Users\fedek\OneDrive\Escritorio\backend-api-rest\node_modules\asap\asap.js:40:19)
+    at flush (C:\Users\fedek\OneDrive\Escritorio\backend-api-rest\node_modules\asap\raw.js:50:29)
+    at processTicksAndRejections (node:internal/process/task_queues:78:11) {
+  status: 400,
+  code: 21608,
+  moreInfo: 'https://www.twilio.com/docs/errors/21608',
+  details: undefined
+}
