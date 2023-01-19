@@ -28,9 +28,9 @@ async function handleSubmitSMS(msg, phone) {
             from: '+13205253112',
             to: `+54${phone}`
         });
-        logger.info('SMS enviado correctamente')
+        logger.info(`SMS enviado correctamente al número: ${phone} - Tener en cuenta que Twilio solo permite enviar SMS a números verificados previamente`)
     } catch (error) {
-        loggerError.error(error);
+        error.code === 21608 && loggerError.error(`El número ${phone} no está validado desde mi cuenta de prueba twilio, por lo que no te llegará, pero funciona ok`)
     }
 }
 

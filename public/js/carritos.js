@@ -165,7 +165,7 @@ buyBtn.addEventListener('click', async (e) => {
 
     const response = await res.json();
 
-    alert(`${response.message || response.error}.\n\n Te llegará un whatsapp con el detalle de tu compra`);
+    alert(`${response.message || response.error}.\n\n Te llegará un SMS con el detalle de tu compra`);
 })
 
 async function init() {
