@@ -23,7 +23,7 @@ routerCarritos.post('/:id/productos/:idProducto', async (req, res) => {
 
     if (producto.error) {
 
-        res.json({ message: 'No existe el producto' })
+        res.json({ error: 'No existe el producto' })
     } else {
         const result = await handleCarts.addProductToCart(idCarrito, producto);
         res.json(result)

@@ -18,7 +18,13 @@ createCartBtn.addEventListener('click', async (e) => {
 
     let data = await res.json();
 
-    alert(data.message);
+    Swal.fire({
+        icon: 'success',
+        title: 'Carrito creado',
+        text: data.message,
+        showConfirmButton: false,
+        timer: 1500
+    })
 
     // Renderizar carritos
     cartContainer.innerHTML = '';
@@ -35,7 +41,21 @@ deleteCartForm.addEventListener('submit', async (e) => {
 
     const data = await res.json();
 
-    alert(data.message || data.error);
+    if (data.hasOwnProperty('error')) return Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: data.error,
+        showConfirmButton: false,
+        timer: 1500
+    })
+
+    Swal.fire({
+        icon: 'success',
+        title: 'Carrito eliminado',
+        text: data.message,
+        showConfirmButton: false,
+        timer: 1500
+    })
 
     // Renderizar carritos
     cartContainer.innerHTML = '';
@@ -56,9 +76,21 @@ async function getProducts(cartId) {
 
     let data = await res.json();
 
-    if (data.hasOwnProperty('message')) return
+    if (data.hasOwnProperty('message')) return Swal.fire({
+        icon: 'warning',
+        title: 'Atención!',
+        text: data.message,
+        showConfirmButton: false,
+        timer: 1500
+    })
 
-    if (data.hasOwnProperty('error')) return alert(data.error)
+    if (data.hasOwnProperty('error')) return Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: data.error,
+        showConfirmButton: false,
+        timer: 1500
+    })
 
     currentCart = data;
 
@@ -100,17 +132,28 @@ addProductForm.addEventListener('submit', async (e) => {
 
     const data = await res.json();
 
+    if (data.hasOwnProperty('error')) return Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: data.error,
+        showConfirmButton: false,
+        timer: 1500
+    })
+
     getProducts(cartId);
 
-    // Limpiar formulario
     addProductForm.reset();
 
-
-    // Renderizar carritos
     cartContainer.innerHTML = '';
     init();
-    alert(data.message || data.error);
 
+    Swal.fire({
+        icon: 'success',
+        title: 'Producto agregado',
+        text: data.message,
+        showConfirmButton: false,
+        timer: 1500
+    })
 })
 
 deleteProductForm.addEventListener('submit', async (e) => {
@@ -128,27 +171,45 @@ deleteProductForm.addEventListener('submit', async (e) => {
 
     const data = await res.json();
 
+    if (data.hasOwnProperty('error')) return Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: data.error,
+        showConfirmButton: false,
+        timer: 1500
+    })
+
     getProducts(cartId);
 
     // Limpiar formulario
     deleteProductForm.reset();
 
-
     // Renderizar carritos
     cartContainer.innerHTML = '';
-    init();
 
-    alert(data.message || data.error);
+    Swal.fire({
+        icon: 'success',
+        title: 'Producto eliminado',
+        text: data.message,
+        showConfirmButton: false,
+        timer: 1500
+    })
 })
 
 buyBtn.addEventListener('click', async (e) => {
     e.preventDefault();
 
-    if (!currentCart) return alert('No hay carrito seleccionado, debajo encontrarás los ID con los que puedes comprar');
+    if (!currentCart) return Swal.fire({
+        icon: 'warning',
+        title: 'Oops...',
+        text: 'No hay carrito seleccionado, debajo encontrarás los ID con los que puedes comprar',
+        showConfirmButton: false,
+        timer: 1500
+    })
 
-    const data = JSON.parse(sessionStorage.getItem('personalData'));
+    const userData = JSON.parse(sessionStorage.getItem('personalData'));
 
-    const { personName, email, phone } = data;
+    const { personName, email, phone } = userData;
 
     const res = await fetch('/api/carrito/confirmar-compra', {
         method: 'POST',
@@ -163,9 +224,23 @@ buyBtn.addEventListener('click', async (e) => {
         }
     });
 
-    const response = await res.json();
+    const data = await res.json();
 
-    alert(`${response.message || response.error}.\n\n Te llegará un SMS con el detalle de tu compra`);
+    if (data.hasOwnProperty('error')) return Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: data.error,
+        showConfirmButton: false,
+        timer: 1500
+    })
+
+    Swal.fire({
+        icon: 'success',
+        title: 'Compra realizada',
+        html: `${data.message} <br><br><br> Te llegará un SMS con el detalle de tu compra`,
+        showConfirmButton: true,
+        timer: 3500
+    })
 })
 
 async function init() {

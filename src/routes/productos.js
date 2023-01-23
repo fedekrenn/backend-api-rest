@@ -1,18 +1,16 @@
-const express = require('express');
+const express = require("express");
 const { Router } = express;
 
-const { authMiddleware } = require('../middlewares/autorize');
-const { handleProducts: contenedor } = require('../daos/handleDaos');
+const { authMiddleware } = require("../middlewares/autorize");
+const { handleProducts: contenedor } = require("../daos/handleDaos");
 
 const routerProductos = Router();
-
 
 /* ---------- GET ------------ */
 
 // Obtener todos los productos o si se le pasa un id, obtener ese producto
 
-routerProductos.get('/:id?', async (req, res) => {
-
+routerProductos.get("/:id?", async (req, res) => {
     const { id } = req.params;
 
     if (id) {
@@ -22,41 +20,38 @@ routerProductos.get('/:id?', async (req, res) => {
         const productos = await contenedor.getAll();
         res.json(productos);
     }
-})
+});
 
 /* ---------- POST ------------ */
 
 // Agregar un producto
-routerProductos.post('/', authMiddleware, async (req, res) => {
-
+routerProductos.post("/", authMiddleware, async (req, res) => {
     const producto = req.body;
 
     const result = await contenedor.save(producto);
-    res.json(result)
-})
+    res.json(result);
+});
 
 /* ---------- PUT ------------ */
 
 // Actualizar un producto
-routerProductos.put('/:id', authMiddleware, async (req, res) => {
-
+routerProductos.put("/:id", authMiddleware, async (req, res) => {
     const { id } = req.params;
 
     const result = await contenedor.updateById(id, req.body);
 
     res.json(result);
-})
+});
 
 /* ---------- DELETE ------------ */
 
 // Eliminar un producto
-routerProductos.delete('/:id', authMiddleware, async (req, res) => {
-
+routerProductos.delete("/:id", authMiddleware, async (req, res) => {
     const { id } = req.params;
 
     const result = await contenedor.deleteById(id);
 
-    res.json(result)
-})
+    res.json(result);
+});
 
 module.exports = routerProductos;

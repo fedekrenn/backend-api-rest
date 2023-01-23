@@ -26,7 +26,7 @@ class ContenedorCarritosMongo {
 
             return productsInCart;
         } catch (err) {
-            loggerError.error(err);
+            return { error: 'carrito no encontrado' };
         }
     }
 
@@ -51,7 +51,7 @@ class ContenedorCarritosMongo {
 
             const cart = await CarritosModel.findOne({ _id: id });
 
-            if (!cart) return { error: 'carrito no encontrado' }
+            if (!cart) return { error: 'Carrito no encontrado!' }
 
             cart.productos.push(producto);
 
@@ -59,7 +59,7 @@ class ContenedorCarritosMongo {
 
             return { message: `Se agregó el producto: '${producto.nombre}' al carrito ID: ${id}` };
         } catch (err) {
-            loggerError.error(err);
+            return { error: 'Carrito no encontrado!' };
         }
     }
 
@@ -87,7 +87,7 @@ class ContenedorCarritosMongo {
             };
 
             const whatsappMsg = `Nueva compra!\n\nSe compraron los siguientes productos:\n${productsName.map(element => `◆ ${element}`).join('\n')}\n\nPor un total de: $${totalPrice}\n\nEl pedido es a nombre de ${personName} y su email es ${email}`
-            const smsMsg = `Hola ${personName}! Te confirmamos que se recibió tu pedido correctamente. En breve nos comunicaremos con vos para coordinar la entrega. Gracias por elegirnos!`	
+            const smsMsg = `Hola ${personName}! Te confirmamos que se recibió tu pedido correctamente. En breve nos comunicaremos con vos para coordinar la entrega. Gracias por elegirnos!`
 
             handleSubmitMail(mailOptions);
             handleSubmitWhatsapp(whatsappMsg);
@@ -106,11 +106,11 @@ class ContenedorCarritosMongo {
 
             const cart = await CarritosModel.findOne({ _id: id });
 
-            if (!cart) return { error: 'carrito no encontrado' }
+            if (!cart) return { error: 'Carrito no encontrado!' }
 
             const product = cart.productos.find(element => element._id.toString() === idProducto);
 
-            if (!product) return { message: `Ese producto no se encuentra en el carrito ID: ${id}` }
+            if (!product) return { error: `Ese producto no se encuentra en el carrito ID: ${id}` }
 
             const filteredArray = cart.productos.filter(element => element._id.toString() !== idProducto);
 
@@ -120,12 +120,13 @@ class ContenedorCarritosMongo {
 
             return { message: `Se eliminó el producto: '${product.nombre}' del carrito ID: ${id}` };
         } catch (err) {
-            loggerError.error(err);
+            return { error: 'Carrito no encontrado!' }
         }
     }
 
     async deleteCart(id) {
         try {
+
             const cart = await CarritosModel.findOne({ _id: id });
 
             if (!cart) return { error: 'carrito no encontrado' }
@@ -134,7 +135,7 @@ class ContenedorCarritosMongo {
 
             return { message: `Se eliminó el carrito ID: ${id}` };
         } catch (err) {
-            loggerError.error(err);
+            return { error: 'carrito no encontrado' }
         }
     }
 }

@@ -6,7 +6,7 @@ const pass2 = document.querySelector('#password2');
 $form.addEventListener('submit', (e) => {
     if (pass1.value !== pass2.value) {
         e.preventDefault();
-        SweetAlert.fire({
+        Swal.fire({
             icon: 'error',
             title: 'Oops...',
             text: 'Las contraseñas no coinciden!',
@@ -18,7 +18,7 @@ $form.addEventListener('submit', (e) => {
     
     if (!REGEX.test(phone)) {
         e.preventDefault();
-        SweetAlert.fire({
+        Swal.fire({
             icon: 'error',
             title: 'Oops...',
             text: 'El número de teléfono no es válido!, debes ingresar 10 dígitos sin espacios ni guiones',
