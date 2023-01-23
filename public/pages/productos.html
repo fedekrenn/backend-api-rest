@@ -27,11 +27,9 @@
             <i class="fa-solid fa-right-from-bracket grid-item" onclick="logout()"></i>
         </div>
     </header>
-    <!-- Formulario para probar la carga de productos -->
     <main>
         <h1>Mis productos</h1>
         <hr>
-        <!-- Contenedor de productos -->
         <section>
             <h2>Listado de productos:</h2>
             <table>
@@ -56,23 +54,23 @@
                 <h2>Cargar producto:</h2>
                 <form id="create-product-form">
 
-                    <label for="nombre">Nombre</label>
-                    <input type="text" name="nombre" id="nombre" required>
+                    <label for="prodName">Nombre</label>
+                    <input type="text" name="prodName" id="prodName" required>
 
-                    <label for="codigo">Código</label>
-                    <input type="text" name="codigo" id="codigo" required>
+                    <label for="code">Código</label>
+                    <input type="text" name="code" id="code" required>
 
-                    <label for="precio">Precio</label>
-                    <input type="number" name="precio" id="precio" required>
+                    <label for="price">Precio</label>
+                    <input type="number" name="price" id="price" required>
 
                     <label for="stock">Stock</label>
                     <input type="number" name="stock" id="stock" required>
 
-                    <label for="foto">URL de Imagen</label>
-                    <input type="url" name="foto" id="foto" required>
+                    <label for="photo">URL de Imagen</label>
+                    <input type="url" name="photo" id="photo" required>
 
-                    <label for="descripcion">Descripción</label>
-                    <textarea name="descripcion" id="descripcion" cols="30" rows="10" required></textarea>
+                    <label for="description">Descripción</label>
+                    <textarea name="description" id="description" cols="30" rows="10" required></textarea>
 
                     <button type="submit" class="btn">Enviar</button>
                 </form>
@@ -85,23 +83,23 @@
                     <label for="id">ID</label>
                     <input type="text" name="id" id="id" required>
 
-                    <label for="nombre">Nombre</label>
-                    <input type="text" name="nombre" id="nombre" required>
+                    <label for="updateName">Nombre</label>
+                    <input type="text" name="updateName" id="updateName" required>
 
-                    <label for="codigo">Código</label>
-                    <input type="text" name="codigo" id="codigo" required>
+                    <label for="updateCode">Código</label>
+                    <input type="text" name="updateCode" id="updateCode" required>
 
-                    <label for="precio">Precio</label>
-                    <input type="number" name="precio" id="precio" required>
+                    <label for="updatePrice">Precio</label>
+                    <input type="number" name="updatePrice" id="updatePrice" required>
 
-                    <label for="stock">Stock</label>
-                    <input type="number" name="stock" id="stock" required>
+                    <label for="updateStock">Stock</label>
+                    <input type="number" name="updateStock" id="updateStock" required>
 
-                    <label for="foto">URL de Imagen</label>
-                    <input type="url" name="foto" id="foto" required>
+                    <label for="updatePhoto">URL de Imagen</label>
+                    <input type="url" name="updatePhoto" id="updatePhoto" required>
 
-                    <label for="descripcion">Descripción</label>
-                    <textarea name="descripcion" id="descripcion" cols="30" rows="10" required></textarea>
+                    <label for="updateDescription">Descripción</label>
+                    <textarea name="updateDescription" id="updateDescription" cols="30" rows="10" required></textarea>
 
                     <button type="submit" class="btn">Enviar</button>
                 </form>
@@ -111,8 +109,8 @@
                 <h2>Eliminar producto:</h2>
                 <form id="delete-product-form">
 
-                    <label for="productId">ID</label>
-                    <input type="text" name="productId" id="productId" required>
+                    <label for="deleteId">ID</label>
+                    <input type="text" name="deleteId" id="deleteId" required>
 
                     <button type="submit" class="btn">Enviar</button>
                 </form>

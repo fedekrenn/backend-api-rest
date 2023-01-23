@@ -78,9 +78,8 @@
             <div class="div-border">
                 <h3>Eliminar carrito completo</h3>
                 <form id="delete-cart-form">
-                    <label for="cartId">ID del carrito</label>
-                    <input type="text" name="cartId" id="cartId" required
-                        onclick="alert('Cuidado, esto elimina el carrito entero')">
+                    <label for="deleteAllCartId">ID del carrito</label>
+                    <input type="text" name="deleteAllCartId" id="deleteAllCartId" required>
                     <button class="btn" type="submit">Eliminar carrito</button>
                 </form>
             </div>
@@ -93,8 +92,8 @@
             <div class="div-border">
                 <h3>Agregar</h3>
                 <form id="add-product-form">
-                    <label for="cartId">ID del carrito</label>
-                    <input type="text" name="cartId" id="cartId" required>
+                    <label for="addCartId">ID del carrito</label>
+                    <input type="text" name="addCartId" id="addCartId" required>
                     <label for="productId">ID del producto</label>
                     <input type="text" name="productId" id="productId" required>
                     <button class="btn" type="submit">Agregar producto</button>
@@ -103,12 +102,13 @@
             <div class="div-border">
                 <h3>Eliminar</h3>
                 <form id="delete-product-form">
-                    <label for="cartId">ID del carrito</label>
-                    <input type="text" name="cartId" id="cartId" required>
-                    <label for="productId">ID del producto</label>
-                    <input type="text" name="productId" id="productId" required>
+                    <label for="deleteCartId">ID del carrito</label>
+                    <input type="text" name="deleteCartId" id="deleteCartId" required>
+                    <label for="deleteProductId">ID del producto</label>
+                    <input type="text" name="deleteProductId" id="deleteProductId" required>
                     <button class="btn" type="submit">Eliminar producto</button>
                 </form>
+            </div>
         </section>
     </main>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>

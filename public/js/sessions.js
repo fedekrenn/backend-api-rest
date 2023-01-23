@@ -1,48 +1,46 @@
-const spanName = document.getElementById('span-name');
-const smallEmail = document.getElementById('small-email');
-const logoAvatar = document.getElementById('logo-avatar');
+const spanName = document.getElementById("span-name");
+const smallEmail = document.getElementById("small-email");
+const logoAvatar = document.getElementById("logo-avatar");
 
 async function checkSession() {
-    const data = await fetch('/is-auth');
+    const data = await fetch("/is-auth");
 
-    if (data.redirected === true) return window.location.href = '/';
+    if (data.redirected === true) return (window.location.href = "/");
 }
 
-let checkOutEmail = '';
+let checkOutEmail = "";
 
 async function getData() {
     try {
-        const data = await fetch('/get-data');
-        const info = await data.json();
+        const res = await fetch("/get-data");
+        const data = await res.json();
 
-        sessionStorage.setItem('personalData', JSON.stringify(info));
+        sessionStorage.setItem("personalData", JSON.stringify(data));
     } catch (error) {
         console.log(error);
     }
 }
 
 async function logout() {
-
-    sessionStorage.removeItem('personalData');
+    sessionStorage.removeItem("personalData");
 
     Swal.fire({
-        icon: 'success',
+        icon: "success",
         title: `Te desloguaste correctamente ${checkOutEmail}`,
         showConfirmButton: false,
-        timer: 2000
+        timer: 2000,
     });
 
     setInterval(() => {
-        window.location.href = '/logout';
+        window.location.href = "/logout";
     }, 2000);
 }
 
-
 (async function start() {
-    checkSession()
+    checkSession();
 
     await getData();
-    const data = JSON.parse(sessionStorage.getItem('personalData'));
+    const data = JSON.parse(sessionStorage.getItem("personalData"));
 
     const { personName, email, avatar } = data;
 

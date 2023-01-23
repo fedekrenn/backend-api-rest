@@ -2,21 +2,20 @@ const productsContainer = document.getElementById("products-container");
 const createProductForm = document.getElementById("create-product-form");
 const updateProductForm = document.getElementById("update-product-form");
 const deleteProductForm = document.getElementById("delete-product-form");
-const productID = document.getElementById("productId");
+const deleteId = document.getElementById("deleteId");
 
 createProductForm.addEventListener("submit", async (e) => {
     e.preventDefault();
 
     const body = {
-        nombre: e.target.nombre.value,
-        descripcion: e.target.descripcion.value,
-        codigo: e.target.codigo.value,
-        foto: e.target.foto.value,
-        precio: e.target.precio.value,
+        nombre: e.target.prodName.value,
+        descripcion: e.target.description.value,
+        codigo: e.target.code.value,
+        foto: e.target.photo.value,
+        precio: e.target.price.value,
         stock: e.target.stock.value,
     };
 
-    // Envio por post
     let res = await fetch("/api/productos", {
         method: "POST",
         headers: {
@@ -45,17 +44,18 @@ updateProductForm.addEventListener("submit", async (e) => {
     e.preventDefault();
 
     const body = {
-        nombre: e.target.nombre.value,
-        descripcion: e.target.descripcion.value,
-        codigo: e.target.codigo.value,
-        foto: e.target.foto.value,
-        precio: e.target.precio.value,
-        stock: e.target.stock.value,
+        nombre: e.target.updateName.value,
+        descripcion: e.target.updateDescription.value,
+        codigo: e.target.updateCode.value,
+        foto: e.target.updatePhoto.value,
+        precio: e.target.updatePrice.value,
+        stock: e.target.updateStock.value,
     };
 
-    // Envio por put
+    const productId = e.target.id.value;
+
     let res = await fetch(
-        `http://localhost:8080/api/productos/${e.target.id.value}`,
+        `http://localhost:8080/api/productos/${productId}`,
         {
             method: "PUT",
             headers: {
@@ -94,9 +94,10 @@ updateProductForm.addEventListener("submit", async (e) => {
 deleteProductForm.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    // Envio por delete
+    const productID = e.target.deleteId.value;
+
     let res = await fetch(
-        `http://localhost:8080/api/productos/${e.target.productId.value}`,
+        `http://localhost:8080/api/productos/${productID}`,
         {
             method: "DELETE",
             headers: {
@@ -130,7 +131,7 @@ deleteProductForm.addEventListener("submit", async (e) => {
     init();
 });
 
-productID.addEventListener("click", () => {
+deleteId.addEventListener("click", () => {
     const Toast = Swal.mixin({
         toast: true,
         position: "top-end",
@@ -179,9 +180,8 @@ function renderProducts(products) {
             <td>${product.codigo}</td>
             <td>${product.precio}</td>
             <td>${product.stock}</td>
-            <td><img src="${product.foto}" alt="${
-            product.nombre
-        }" width="100px"></td>
+            <td><img src="${product.foto}" alt="${product.nombre
+            }" width="100px"></td>
             <td>${product.timestamp}</td>
             <td>${product.descripcion}</td>
         `;
