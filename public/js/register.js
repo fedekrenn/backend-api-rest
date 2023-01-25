@@ -13,7 +13,7 @@ $form.addEventListener("submit", (e) => {
         });
     }
 
-    const REGEX = /^[1-9]{10}$/;
+    const REGEX = /^[0-9]{10}$/;
     const phone = e.target.phone.value;
 
     if (!REGEX.test(phone)) {
