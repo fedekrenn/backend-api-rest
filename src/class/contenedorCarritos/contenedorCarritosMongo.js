@@ -38,9 +38,9 @@ class ContenedorCarritosMongo {
                 productos: []
             });
 
-            await cart.save();
+            const result = await cart.save();
 
-            return { message: `Se creó correctamente el carrito!` };
+            return { message: `Se creó correctamente el carrito!`, id: result._id.toString() };
         } catch (err) {
             loggerError.error(err);
         }

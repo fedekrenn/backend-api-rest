@@ -21,7 +21,7 @@ createCartBtn.addEventListener("click", async (e) => {
     Swal.fire({
         icon: "success",
         title: "Carrito creado",
-        text: data.message,
+        text: `${data.message}. Su id es: ${data.id}`,
         showConfirmButton: false,
         timer: 1500,
     });
