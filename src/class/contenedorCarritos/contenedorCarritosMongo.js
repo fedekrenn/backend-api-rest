@@ -57,7 +57,7 @@ class ContenedorCarritosMongo {
 
             await cart.save();
 
-            return { message: `Se agregó el producto: '${producto.nombre}' al carrito ID: ${id}` };
+            return { message: `Se agregó el producto: '${producto.nombre}' al carrito` };
         } catch (err) {
             return { error: 'Carrito no encontrado!' };
         }
@@ -118,7 +118,7 @@ class ContenedorCarritosMongo {
 
             await cart.save();
 
-            return { message: `Se eliminó el producto: '${product.nombre}' del carrito ID: ${id}` };
+            return { message: `Se eliminó el producto: '${product.nombre}' del carrito` };
         } catch (err) {
             return { error: 'Carrito no encontrado!' }
         }

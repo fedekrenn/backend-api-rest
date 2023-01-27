@@ -64,7 +64,7 @@ class ContenedorCarritosFirebase {
 
             await carritos.doc(carritoId).update({ productos: productos });
 
-            return { message: `Se agregó correctamente el producto ID: ${product.id} al carrito ID: ${id}` };
+            return { message: `Se agregó correctamente el producto ID: ${product.id} al carrito` };
         } catch (error) {
             loggerError.error(error);
         }
@@ -128,7 +128,7 @@ class ContenedorCarritosFirebase {
 
             await carritos.doc(carritoId).update({ productos: productosFiltrados });
 
-            return { message: `Se eliminó correctamente el producto ID: ${productId} del carrito ID: ${id}` };
+            return { message: `Se eliminó correctamente el producto ID: ${productId} del carrito ID` };
 
         } catch (error) {
             loggerError.error(error);
