@@ -1,3 +1,0 @@
-[2023-01-16T16:48:00.397] [ERROR] error - Se ha intentado crear una cuenta con un email ya existente[2023-01-19T16:01:18.496] [ERROR] error - MongooseError: Operation `accounts.findOne()` buffering timed out after 10000ms
-[2023-01-19T17:38:55.603] [ERROR] error - El número 3518081696 no está validado desde mi cuenta, por lo que no te llegará, pero funciona ok
-[2023-01-19T17:39:52.836] [ERROR] error - El número 3512345671 no está validado desde mi cuenta de prueba twilio, por lo que no te llegará, pero funciona ok

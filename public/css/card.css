@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css?family=Fjalla+One|Montserrat:300,400,700,800|Open+Sans:300");
+@import url("https://fonts.googleapis.com/css?family=Fjalla+One|Montserrat:300,400,700,800|Open+Sans:300,600");
 
 #products-container{
     display: flex;
@@ -193,4 +193,5 @@
 .card .card__footer .action button:hover {
     background: #fff;
     color: #080a30;
+    font-weight: bold;
 }

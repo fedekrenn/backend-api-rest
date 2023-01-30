@@ -1,8 +1,8 @@
 const dialog = document.getElementById('dialog')
 const openDialogBtn = document.getElementById('openDialogBtn')
 const closeDialogBtn = document.getElementById('closeDialogBtn')
-const cartConfirmBtn = document.getElementById('cartConfirmBtn')
 const cartContainer = document.getElementById('cartContainer')
+const buyBtn = document.querySelector('.buy-cart')
 
 openDialogBtn.addEventListener('click', async () => {
   dialog.showModal()
@@ -30,7 +30,55 @@ openDialogBtn.addEventListener('click', async () => {
       await deleteProductFromCart(productId)
 
       btn.parentElement.remove()
+
+      if (cartContainer.children.length === 0)
+        cartContainer.innerHTML = 'No hay productos'
     })
+  })
+})
+
+buyBtn.addEventListener('click', async (e) => {
+  e.preventDefault()
+
+  const userData = JSON.parse(sessionStorage.getItem('personalData'))
+
+  const { personName, email, phone } = userData
+
+  let cartRes = await fetch(`/api/carrito/${cartId}/productos`)
+  let cartData = await cartRes.json()
+
+  const res = await fetch('/api/carrito/confirmar-compra', {
+    method: 'POST',
+    body: JSON.stringify({
+      cart: cartData,
+      email,
+      personName,
+      phone,
+    }),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+
+  const data = await res.json()
+
+  dialog.close()
+
+  if (data.hasOwnProperty('error'))
+    return Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: data.error,
+      showConfirmButton: false,
+      timer: 1500,
+    })
+
+  Swal.fire({
+    icon: 'success',
+    title: 'Compra realizada',
+    html: `${data.message} <br><br><br> Te llegará un SMS con el detalle de tu compra`,
+    showConfirmButton: true,
+    timer: 5500,
   })
 })
 
