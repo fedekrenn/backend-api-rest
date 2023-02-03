@@ -21,6 +21,8 @@ const addProductToCart = async (req, res) => {
 const buyCart = async (req, res) => {
   const dataToBuy = req.body
 
+  if(!Array.isArray(dataToBuy.cart)) return res.json({ error: 'No hay productos en el carrito' })
+
   const result = await handleCarts.buyCart(dataToBuy)
   res.json(result)
 }

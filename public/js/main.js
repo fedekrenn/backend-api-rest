@@ -1,25 +1,15 @@
-const productsContainer = document.getElementById("products-container");
+const productsContainer = document.getElementById('products-container')
 
-let cartId = localStorage.getItem("cartId") || null;
-let btnArr = document.querySelectorAll(".add-cart-btn") || [];
-
-async function getProducts() {
-    try {
-        const response = await fetch("/api/productos/");
-        const data = await response.json();
-        return data;
-    } catch (error) {
-        console.log(error);
-    }
-}
+let cartId = localStorage.getItem('cartId')
+let btnArr = document.querySelectorAll('.add-cart-btn') || []
 
 function renderProducts(products) {
-    products.forEach((product) => {
-        const { nombre, precio, descripcion, foto, stock } = product;
+  products.forEach((product) => {
+    const { nombre, precio, descripcion, foto, stock } = product
 
-        const id = product._id || product.id;
+    const id = product._id || product.id
 
-        productsContainer.innerHTML += `
+    productsContainer.innerHTML += `
         <div class="card">
         <div class="card__body">
           <div class="half">
@@ -44,60 +34,60 @@ function renderProducts(products) {
           </div>
         </div>
       </div>
-        `;
-    });
+        `
+  })
 }
 
 async function addProductToCart(productId) {
-    let res = await fetch(`/api/carrito/${cartId}/productos/${productId}`, {
-        method: "POST",
-    });
+  let res = await fetch(`/api/carrito/${cartId}/productos/${productId}`, {
+    method: 'POST',
+  })
 
-    const data = await res.json();
+  const data = await res.json()
 
-    if (data.hasOwnProperty("error"))
-        return Swal.fire({
-            icon: "error",
-            title: "Oops...",
-            text: data.error,
-            showConfirmButton: false,
-            timer: 1500,
-        });
+  if (data.hasOwnProperty('error'))
+    return Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: data.error,
+      showConfirmButton: false,
+      timer: 1500,
+    })
 
-    Swal.fire({
-        icon: "success",
-        title: "Producto agregado",
-        text: data.message,
-        showConfirmButton: false,
-        timer: 1500,
-    });
+  Swal.fire({
+    icon: 'success',
+    title: 'Producto agregado',
+    text: data.message,
+    showConfirmButton: false,
+    timer: 1500,
+  })
 }
 
-(async function init() {
-    try {
-        if (!cartId) {
-            let res = await fetch("/api/carrito", {
-                method: "POST",
-            });
+async function init() {
+  if (!cartId) {
+    let res = await fetch('/api/carrito', {
+      method: 'POST',
+    })
 
-            let data = await res.json();
+    let data = await res.json()
 
-            cartId = data.id;
-            localStorage.setItem("cartId", cartId);
-        }
+    cartId = data.id
+    localStorage.setItem('cartId', cartId)
+  }
 
-        const products = await getProducts();
-        renderProducts(products);
+  const response = await fetch('/api/productos/')
+  const products = await response.json()
 
-        btnArr = document.querySelectorAll(".add-cart-btn");
+  renderProducts(products)
 
-        btnArr.forEach((btn) => {
-            btn.addEventListener("click", (e) => {
-                const productId = e.target.id;
-                addProductToCart(productId);
-            });
-        });
-    } catch (error) {
-        console.log(error);
-    }
-})();
+  btnArr = document.querySelectorAll('.add-cart-btn')
+
+  btnArr.forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      const productId = e.target.id
+      addProductToCart(productId)
+    })
+  })
+}
+
+init()

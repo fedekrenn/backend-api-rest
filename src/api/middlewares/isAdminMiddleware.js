@@ -1,12 +1,12 @@
 const { loggerWarn } = require('../../utils/logger');
 
-const authMiddleware = (req, res, next) => {
+const isAdminMiddleware = (req, res, next) => {
     if (req.headers.role === 'admin') {
         next();
     } else {
-        loggerWarn.warn(`Hubo un acceso en la ruta '${req.path}' método '${req.method}' no autorizada por falta de credenciales`);
+        loggerWarn.warn(`Un usuario sin los permisos suficientes intentó hacer una transacción en la ruta '${req.path}' método '${req.method}'`);
         res.send({ error: -1, descripcion: `ruta '${req.path}' método '${req.method}' no autorizada` });
     }
 }
 
-module.exports = { authMiddleware };
+module.exports = isAdminMiddleware;

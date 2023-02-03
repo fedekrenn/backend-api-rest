@@ -1,5 +1,5 @@
 const express = require('express')
-const { authMiddleware } = require('../middlewares/autorize')
+const isAdminMiddleware = require('../middlewares/isAdminMiddleware')
 const {
   getProducts,
   addProduct,
@@ -18,16 +18,16 @@ routerProductos.get('/:id?', getProducts)
 /* ---------- POST ------------ */
 
 // Agregar un producto
-routerProductos.post('/', authMiddleware, addProduct)
+routerProductos.post('/', isAdminMiddleware, addProduct)
 
 /* ---------- PUT ------------ */
 
 // Actualizar un producto
-routerProductos.put('/:id', authMiddleware, updateProduct)
+routerProductos.put('/:id', isAdminMiddleware, updateProduct)
 
 /* ---------- DELETE ------------ */
 
 // Eliminar un producto
-routerProductos.delete('/:id', authMiddleware, deleteProduct)
+routerProductos.delete('/:id', isAdminMiddleware, deleteProduct)
 
 module.exports = routerProductos

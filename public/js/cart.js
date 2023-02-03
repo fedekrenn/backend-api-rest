@@ -12,6 +12,8 @@ openDialogBtn.addEventListener('click', async () => {
   if (products.length === 0)
     return (cartContainer.innerHTML = 'No hay productos')
 
+  cartContainer.innerHTML = ''
+
   products.forEach((product) => {
     cartContainer.innerHTML += `
         <div data-id='${product._id}' class='cart-row'>
@@ -26,8 +28,8 @@ openDialogBtn.addEventListener('click', async () => {
   btnForDelete.forEach((btn) => {
     btn.addEventListener('click', async () => {
       const productId = btn.parentElement.getAttribute('data-id')
-
       await deleteProductFromCart(productId)
+      dialog.close()
 
       btn.parentElement.remove()
 

@@ -1,4 +1,4 @@
-const sessionMiddleware = (req, res, next) => {
+const redirectMiddleware = (req, res, next) => {
     if (req.isAuthenticated()) {
         next()
     } else {
@@ -6,4 +6,4 @@ const sessionMiddleware = (req, res, next) => {
     }
 }
 
-module.exports = sessionMiddleware
+module.exports = redirectMiddleware

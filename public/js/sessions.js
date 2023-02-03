@@ -1,52 +1,48 @@
-const spanName = document.getElementById("span-name");
-const smallEmail = document.getElementById("small-email");
-const logoAvatar = document.getElementById("logo-avatar");
+const spanName = document.getElementById('span-name')
+const smallEmail = document.getElementById('small-email')
+const logoAvatar = document.getElementById('logo-avatar')
 
-async function checkSession() {
-    const data = await fetch("/is-auth");
-
-    if (data.redirected === true) return (window.location.href = "/");
-}
-
-let checkOutEmail = "";
+let checkOutEmail = ''
 
 async function getData() {
-    try {
-        const res = await fetch("/get-data");
-        const data = await res.json();
+  try {
+    const res = await fetch('/get-data')
 
-        sessionStorage.setItem("personalData", JSON.stringify(data));
-    } catch (error) {
-        console.log(error);
-    }
+    if (res.status === 401) return false
+
+    return await res.json()
+  } catch (error) {
+    console.log(error)
+  }
 }
 
 async function logout() {
-    sessionStorage.removeItem("personalData");
+  sessionStorage.removeItem('personalData')
 
-    Swal.fire({
-        icon: "success",
-        title: `Te desloguaste correctamente ${checkOutEmail}`,
-        showConfirmButton: false,
-        timer: 2000,
-    });
+  Swal.fire({
+    icon: 'success',
+    title: `Te desloguaste correctamente ${checkOutEmail}`,
+    showConfirmButton: false,
+    timer: 2000,
+  })
 
-    setInterval(() => {
-        window.location.href = "/logout";
-    }, 2000);
+  setInterval(() => {
+    window.location.href = '/logout'
+  }, 2000)
 }
 
-(async function start() {
-    checkSession();
+;(async function start() {
+  const dataIfLogged = await getData()
 
-    await getData();
-    const data = JSON.parse(sessionStorage.getItem("personalData"));
+  if (!dataIfLogged) return (window.location.href = '/')
 
-    const { personName, email, avatar } = data;
+  sessionStorage.setItem('personalData', JSON.stringify(dataIfLogged))
 
-    spanName.innerText = personName;
-    smallEmail.innerText = email;
-    logoAvatar.src = avatar;
+  const { personName, email, avatar } = dataIfLogged
 
-    checkOutEmail = email;
-})();
+  spanName.innerText = personName
+  smallEmail.innerText = email
+  logoAvatar.src = avatar
+
+  checkOutEmail = email
+})()

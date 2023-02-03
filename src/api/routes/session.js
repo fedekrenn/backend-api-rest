@@ -8,12 +8,13 @@ const {
   getNameRoute,
 } = require('../controllers/session')
 
-const authMiddleware = require('../middlewares/auth')
+const redirectMiddleware = require('../middlewares/redirectMiddleware')
+const isLoggedMiddleware = require('../middlewares/isLoggedMiddleware')
 
 const routerSesions = Router()
 
 // Ruta principal
-routerSesions.get('/', authMiddleware, mainRoute)
+routerSesions.get('/', redirectMiddleware, mainRoute)
 
 // Login
 routerSesions.post('/login', loginRoute)
@@ -25,6 +26,6 @@ routerSesions.post('/register', registerRoute)
 routerSesions.get('/logout', logoutRoute)
 
 // Obtener el nombre
-routerSesions.get('/get-data', getNameRoute)
+routerSesions.get('/get-data', isLoggedMiddleware, getNameRoute)
 
 module.exports = routerSesions

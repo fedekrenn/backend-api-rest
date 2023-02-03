@@ -1,72 +1,74 @@
 /* --- Importaciones  ---- */
-const express = require('express');
-const app = express();
+const express = require('express')
+const app = express()
 
-const config = require('./src/config/config');
-const { logger, loggerWarn } = require('./src/utils/logger');
+const config = require('./src/config/config')
+const { logger, loggerWarn } = require('./src/utils/logger')
 
-const routerProductos = require('./src/api/routes/products');
-const routerCarritos = require('./src/api/routes/carts');
+const routerProductos = require('./src/api/routes/products')
+const routerCarritos = require('./src/api/routes/carts')
 const routerSesions = require('./src/api/routes/session')
-const routerAuth = require('./src/api/routes/isAuth')
 
-const passport = require('./src/utils/passport');
-
-const sessionMiddleware = require('./src/api/middlewares/auth')
+const passport = require('./src/utils/passport')
 
 // Clusters
-const cluster = require('cluster');
-const numCPUs = require('os').cpus().length;
+const cluster = require('cluster')
+const numCPUs = require('os').cpus().length
 
-const MODE = process.env.MODE;
+const MODE = process.env.MODE
 
 if (MODE === 'cluster' && cluster.isMaster) {
-    logger.info(`Master ${process.pid} is running in ${MODE} mode`);
-    logger.info(`Numero de procesadores: ${numCPUs}`);
+  logger.info(`Master ${process.pid} is running in ${MODE} mode`)
+  logger.info(`Numero de procesadores: ${numCPUs}`)
 
-    // Fork workers.
-    for (let i = 0; i < numCPUs; i++) {
-        cluster.fork();
-    }
+  // Fork workers.
+  for (let i = 0; i < numCPUs; i++) {
+    cluster.fork()
+  }
 
-    cluster.on('exit', worker => {
-        loggerWarn.warn(`worker ${worker.process.pid} died, ${new Date().toLocaleString()}`);
-        cluster.fork();
-    });
-
+  cluster.on('exit', (worker) => {
+    loggerWarn.warn(
+      `worker ${worker.process.pid} died, ${new Date().toLocaleString()}`
+    )
+    cluster.fork()
+  })
 } else {
+  app.use(express.json())
+  app.use(express.urlencoded({ extended: true }))
+  app.use(express.static('public'))
 
-    app.use(express.json());
-    app.use(express.urlencoded({ extended: true }));
-    app.use(express.static('public'));
+  /* ------ Session  -------- */
 
-    /* ------ Session  -------- */
+  const session = require('express-session')
 
-    const session = require('express-session')
+  app.use(session(config.sessionConfig))
 
-    app.use(session(config.sessionConfig))
+  /* -----  Passport  ------- */
 
-    /* -----  Passport  ------- */
+  app.use(passport.initialize())
+  app.use(passport.session())
 
-    app.use(passport.initialize());
-    app.use(passport.session());
+  /* ------ Rutas  -------- */
 
+  app.use('/api/productos', routerProductos)
+  app.use('/api/carrito', routerCarritos)
+  app.use('/', routerSesions)
 
-    /* ------ Rutas  -------- */
+  app.use((req, res) => {
+    res
+      .status(404)
+      .json({
+        error: -2,
+        descripcion: `ruta '${req.path}' método '${req.method}' no implementada`,
+      })
+  })
 
-    app.use('/is-auth', sessionMiddleware, routerAuth)
-    app.use('/api/productos', routerProductos);
-    app.use('/api/carrito', routerCarritos);
-    app.use('/', routerSesions)
+  /* ------ Servidor  -------- */
 
-    app.use((req, res) => {
-        res.status(404).json({ error: -2, descripcion: `ruta '${req.path}' método '${req.method}' no implementada` });
-    });
-
-
-
-    /* ------ Servidor  -------- */
-
-    const server = app.listen(config.puerto, () => logger.info(`Servidor http escuchando en el puerto ${server.address().port}`));
-    server.on('error', error => logger.error(`Error en servidor ${error}`));
+  const server = app.listen(config.puerto, () =>
+    logger.info(
+      `Servidor http escuchando en el puerto ${server.address().port}`
+    )
+  )
+  server.on('error', (error) => logger.error(`Error en servidor ${error}`))
 }
