@@ -5,14 +5,14 @@ const app = express();
 const config = require('./src/config/config');
 const { logger, loggerWarn } = require('./src/utils/logger');
 
-const routerProductos = require('./src/routes/productos');
-const routerCarritos = require('./src/routes/carritos');
-const routerSesions = require('./src/routes/session')
-const routerAuth = require('./src/routes/isAuth')
+const routerProductos = require('./src/api/routes/products');
+const routerCarritos = require('./src/api/routes/carts');
+const routerSesions = require('./src/api/routes/session')
+const routerAuth = require('./src/api/routes/isAuth')
 
 const passport = require('./src/utils/passport');
 
-const sessionMiddleware = require('./src/middlewares/auth')
+const sessionMiddleware = require('./src/api/middlewares/auth')
 
 // Clusters
 const cluster = require('cluster');

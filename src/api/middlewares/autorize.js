@@ -1,4 +1,4 @@
-const { loggerWarn } = require('../utils/logger');
+const { loggerWarn } = require('../../utils/logger');
 
 const authMiddleware = (req, res, next) => {
     if (req.headers.role === 'admin') {
