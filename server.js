@@ -1,6 +1,7 @@
 /* --- Importaciones  ---- */
 const express = require('express')
 const app = express()
+const cors = require('cors')
 
 const config = require('./src/config/config')
 const { logger, loggerWarn } = require('./src/utils/logger')
@@ -33,6 +34,10 @@ if (MODE === 'cluster' && cluster.isMaster) {
     cluster.fork()
   })
 } else {
+
+  /* ------ API  -------- */
+
+  app.use(cors())
   app.use(express.json())
   app.use(express.urlencoded({ extended: true }))
   app.use(express.static('public'))
