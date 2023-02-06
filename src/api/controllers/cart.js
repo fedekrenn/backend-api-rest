@@ -1,4 +1,4 @@
-const { handleProducts, handleCarts } = require('../../daos/handleDaos')
+const { handleProducts, handleCarts } = require('../../components/factory/Factory')
 
 const createCart = async (req, res) => {
   const result = await handleCarts.createCart()
@@ -21,7 +21,7 @@ const addProductToCart = async (req, res) => {
 const buyCart = async (req, res) => {
   const dataToBuy = req.body
 
-  if(!Array.isArray(dataToBuy.cart)) return res.json({ error: 'No hay productos en el carrito' })
+  if (!Array.isArray(dataToBuy.cart)) return res.json({ error: 'No hay productos en el carrito' })
 
   const result = await handleCarts.buyCart(dataToBuy)
   res.json(result)

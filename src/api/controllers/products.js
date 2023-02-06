@@ -1,4 +1,4 @@
-const { handleProducts: contenedor } = require("../../daos/handleDaos");
+const { handleProducts: contenedor } = require("../../components/factory/Factory");
 
 const getProducts = async (req, res) => {
   const { id } = req.params

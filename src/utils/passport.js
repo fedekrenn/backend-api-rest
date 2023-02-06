@@ -1,6 +1,6 @@
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
-const ContenedorSesiones = require("../class/sessions/Sessions");
+const ContenedorSesiones = require("../components/dao/sessions/Sessions");
 
 const { loggerError } = require("./logger");
 const { isValidPassword } = require("./handlePass");

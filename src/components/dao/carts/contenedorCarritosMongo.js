@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 const { CarritosModel } = require('../../model/carritosModel');
-const { loggerError, loggerBuy } = require('../../utils/logger');
-const handleSubmitMail = require('../../utils/mailOptions');
-const { handleSubmitWhatsapp, handleSubmitSMS } = require('../../utils/twilioOptions');
+const { loggerError, loggerBuy } = require('../../../utils/logger');
+const handleSubmitMail = require('../../../utils/mailOptions');
+const { handleSubmitWhatsapp, handleSubmitSMS } = require('../../../utils/twilioOptions');
 
 mongoose.connect(process.env.DB_URL_MONGO, {
     useNewUrlParser: true,
@@ -136,6 +136,16 @@ class ContenedorCarritosMongo {
             return { message: `Se eliminó el carrito ID: ${id}` };
         } catch (err) {
             return { error: 'carrito no encontrado' }
+        }
+    }
+
+    async getAll() {
+        try {
+            const carritos = await CarritosModel.find();
+
+            return carritos;
+        } catch (error) {
+            loggerError.error(error);
         }
     }
 }

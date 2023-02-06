@@ -1,6 +1,6 @@
 const uniqid = require('uniqid');
-const { loggerError, loggerBuy } = require('../../utils/logger');
-const handleSubmitMail = require('../../utils/mailOptions');
+const { loggerError, loggerBuy } = require('../../../utils/logger');
+const handleSubmitMail = require('../../../utils/mailOptions');
 
 class ContenedorCarritosFirebase {
     constructor(db) {
@@ -39,7 +39,7 @@ class ContenedorCarritosFirebase {
                 productos: []
             });
 
-            return { message: `Se creó correctamente el carrito! ID: ${id}` };
+            return { message: `Se creó correctamente el carrito!`, id: id };
         } catch (error) {
             loggerError.error(error);
         }
@@ -128,7 +128,7 @@ class ContenedorCarritosFirebase {
 
             await carritos.doc(carritoId).update({ productos: productosFiltrados });
 
-            return { message: `Se eliminó correctamente el producto ID: ${productId} del carrito ID` };
+            return { message: `Se eliminó correctamente el producto ID: ${productId} del carrito` };
 
         } catch (error) {
             loggerError.error(error);
@@ -151,6 +151,18 @@ class ContenedorCarritosFirebase {
             await carritos.doc(carritoId).delete();
 
             return { message: `Se eliminó correctamente el carrito!` };
+        } catch (error) {
+            loggerError.error(error);
+        }
+    }
+
+    async getAll() {
+        try {
+            const carritos = this.db.collection('carritos');
+            const querySnapshot = await carritos.get();
+            const carritosArray = querySnapshot.docs.map(doc => doc.data());
+
+            return carritosArray;
         } catch (error) {
             loggerError.error(error);
         }

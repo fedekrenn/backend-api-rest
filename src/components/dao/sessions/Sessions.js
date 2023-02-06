@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
 
-const config = require('../../config/config');
+const config = require('../../../config/config');
 const { SessModel } = require('../../model/sessModel');
-const { createHash } = require('../../utils/handlePass');
-const handleSubmitMail = require('../../utils/mailOptions');
-const { loggerError, logger } = require('../../utils/logger');
+const { createHash } = require('../../../utils/handlePass');
+const handleSubmitMail = require('../../../utils/mailOptions');
+const { loggerError, logger } = require('../../../utils/logger');
 
 mongoose.connect(config.mongoDB.host, {
     useNewUrlParser: true,

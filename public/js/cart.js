@@ -16,7 +16,7 @@ openDialogBtn.addEventListener('click', async () => {
 
   products.forEach((product) => {
     cartContainer.innerHTML += `
-        <div data-id='${product._id}' class='cart-row'>
+        <div data-id='${product._id || product.id}' class='cart-row'>
             <img src="${product.foto}" alt="${product.nombre}" width="50px">
             <h5>${product.nombre}</h5>
             <i class="fa-solid fa-trash">
@@ -112,6 +112,8 @@ async function deleteProductFromCart(productId) {
   let res = await fetch(`/api/carrito/${cartId}/productos/${productId}`, {
     method: 'DELETE',
   })
+
+  dialog.close()
 
   const data = await res.json()
 
