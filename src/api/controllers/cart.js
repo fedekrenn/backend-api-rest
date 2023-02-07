@@ -1,4 +1,8 @@
-const { handleProducts, handleCarts } = require('../../components/factory/Factory')
+const ContenedorCarritosMongo = require('../../components/repository/CartRepository')
+const ContenedorProductosMongo = require('../../components/repository/ProductRepository')
+
+const handleCarts = new ContenedorCarritosMongo()
+const handleProducts = new ContenedorProductosMongo()
 
 const createCart = async (req, res) => {
   const result = await handleCarts.createCart()
@@ -21,7 +25,8 @@ const addProductToCart = async (req, res) => {
 const buyCart = async (req, res) => {
   const dataToBuy = req.body
 
-  if (!Array.isArray(dataToBuy.cart)) return res.json({ error: 'No hay productos en el carrito' })
+  if (!Array.isArray(dataToBuy.cart))
+    return res.json({ error: 'No hay productos en el carrito' })
 
   const result = await handleCarts.buyCart(dataToBuy)
   res.json(result)
@@ -37,7 +42,7 @@ const deleteCart = async (req, res) => {
 const deleteProductFromCart = async (req, res) => {
   const { id: idCarrito, idProducto } = req.params
 
-  const result = await handleCarts.deleteProductToCart(idCarrito, idProducto)
+  const result = await handleCarts.deleteProductFromCart(idCarrito, idProducto)
   res.json(result)
 }
 

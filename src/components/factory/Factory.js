@@ -8,8 +8,8 @@ let handleCarts
 
 switch (process.env.PERS) {
   case 'mongo':
-    const ContenedorProductosMongo = require('../dao/products/contenedorProductosMongo')
-    const ContenedorCarritosMongo = require('../dao/carts/contenedorCarritosMongo')
+    const ContenedorProductosMongo = require('../dao/products/ProductMongo')
+    const ContenedorCarritosMongo = require('../dao/carts/CartMongo')
 
     logger.info('Using Mongo')
 
@@ -24,8 +24,8 @@ switch (process.env.PERS) {
 
     const db = admin.firestore()
 
-    const ContenedorProductosFb = require('../dao/products/contenedorProductosFirebase')
-    const ContenedorCarritosFb = require('../dao/carts/contenedorCarritosFirebase')
+    const ContenedorProductosFb = require('../dao/products/ProductFirebase')
+    const ContenedorCarritosFb = require('../dao/carts/CartFirebase')
 
 
     logger.info('Using Firebase')
@@ -36,8 +36,8 @@ switch (process.env.PERS) {
     break
 
   default:
-    const ContenedorProductosDefault = require('../dao/products/contenedorProductosMongo')
-    const ContenedorCarritosDefault = require('../carts/contenedorCarritosMongo')
+    const ContenedorProductosDefault = require('../dao/products/ProductMongo')
+    const ContenedorCarritosDefault = require('../dao/carts/CartMongo')
 
     logger.info('Using Mongo by default mode')
 

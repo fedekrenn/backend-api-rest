@@ -13,17 +13,12 @@ mongoose.connect(
   }
 )
 
-class ContenedorProductosMongo {
+class ProductMongo {
   async getById(id) {
     try {
-      const productos = await this.getAll()
-      const producto = productos.find((elemento) => elemento.id == id)
-
-      if (!producto) return { error: 'Producto no encontrado' }
-
-      return producto
+      return await ProductosModel.findById(id)
     } catch (error) {
-      loggerError.error(error)
+      return { error: 'Producto no encontrado' }
     }
   }
 
@@ -34,8 +29,6 @@ class ContenedorProductosMongo {
       const newProduct = new ProductosModel(product)
 
       await newProduct.save()
-
-      return { message: `Producto ${product.nombre} guardado!` }
     } catch (err) {
       loggerError.error(err)
     }
@@ -43,10 +36,10 @@ class ContenedorProductosMongo {
 
   async updateById(id, newData) {
     try {
-      const productos = await this.getAll()
-      const producto = productos.find((elemento) => elemento.id == id)
+      const products = await this.getAll()
+      const product = products.find((prod) => prod.id == id)
 
-      if (!producto) return { error: 'Producto no encontrado' }
+      if (!product) return { error: 'Producto no encontrado' }
 
       await ProductosModel.updateOne({ _id: id }, newData)
 
@@ -58,10 +51,10 @@ class ContenedorProductosMongo {
 
   async deleteById(id) {
     try {
-      const productos = await this.getAll()
-      const producto = productos.find((elemento) => elemento.id == id)
+      const products = await this.getAll()
+      const product = products.find((prod) => prod.id == id)
 
-      if (!producto) return { error: 'Producto no encontrado' }
+      if (!product) return { error: 'Producto no encontrado' }
 
       await ProductosModel.deleteOne({ _id: id })
 
@@ -73,13 +66,11 @@ class ContenedorProductosMongo {
 
   async getAll() {
     try {
-      const productos = await ProductosModel.find()
-
-      return productos
+      return await ProductosModel.find()
     } catch (error) {
       loggerError.error(error)
     }
   }
 }
 
-module.exports = ContenedorProductosMongo
+module.exports = ProductMongo

@@ -1,4 +1,5 @@
-const { handleProducts: contenedor } = require("../../components/factory/Factory");
+const ContenedorProductosMongo = require('../../components/repository/ProductRepository')
+const contenedor = new ContenedorProductosMongo()
 
 const getProducts = async (req, res) => {
   const { id } = req.params

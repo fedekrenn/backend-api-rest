@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
 
-const config = require('../../../config/config');
-const { SessModel } = require('../../model/sessModel');
-const { createHash } = require('../../../utils/handlePass');
-const handleSubmitMail = require('../../../utils/mailOptions');
-const { loggerError, logger } = require('../../../utils/logger');
+const config = require('../../config/config');
+const { SessModel } = require('../model/sessModel');
+const { createHash } = require('../../utils/handlePass');
+const handleSubmitMail = require('../../utils/mailOptions');
+const { loggerError } = require('../../utils/logger');
 
 mongoose.connect(config.mongoDB.host, {
     useNewUrlParser: true,
@@ -17,8 +17,7 @@ class ContenedorSesiones {
 
     async findUser(user) {
         try {
-            const userFound = await SessModel.findOne({ email: user });
-            return userFound;
+            return await SessModel.findOne({ email: user });
         } catch (err) {
             loggerError.error(err);
         }
