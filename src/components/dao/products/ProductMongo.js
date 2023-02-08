@@ -29,8 +29,10 @@ class ProductMongo {
       const newProduct = new ProductosModel(product)
 
       await newProduct.save()
+
+      return { message: `Producto ${product.nombre} guardado!` }
     } catch (err) {
-      loggerError.error(err)
+      return { error: 'Producto no guardado, faltan datos' }
     }
   }
 

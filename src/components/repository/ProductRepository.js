@@ -17,9 +17,7 @@ class ContenedorProductosMongo {
 
   async save(product) {
     try {
-      await handleProducts.save(product)
-
-      return { message: `Producto ${product.nombre} guardado!` }
+      return await handleProducts.save(product)
     } catch (err) {
       loggerError.error(err)
     }

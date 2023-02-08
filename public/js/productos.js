@@ -1,190 +1,193 @@
-const productsContainer = document.getElementById("products-container");
-const createProductForm = document.getElementById("create-product-form");
-const updateProductForm = document.getElementById("update-product-form");
-const deleteProductForm = document.getElementById("delete-product-form");
-const deleteId = document.getElementById("deleteId");
+const productsContainer = document.getElementById('products-container')
+const createProductForm = document.getElementById('create-product-form')
+const updateProductForm = document.getElementById('update-product-form')
+const deleteProductForm = document.getElementById('delete-product-form')
+const deleteId = document.getElementById('deleteId')
 
-createProductForm.addEventListener("submit", async (e) => {
-    e.preventDefault();
+createProductForm.addEventListener('submit', async (e) => {
+  e.preventDefault()
 
-    const body = {
-        nombre: e.target.prodName.value,
-        descripcion: e.target.description.value,
-        codigo: e.target.code.value,
-        foto: e.target.photo.value,
-        precio: e.target.price.value,
-        stock: e.target.stock.value,
-    };
+  const body = {
+    nombre: e.target.prodName.value,
+    descripcion: e.target.description.value,
+    codigo: e.target.code.value,
+    foto: e.target.photo.value,
+    precio: e.target.price.value,
+    stock: e.target.stock.value,
+  }
 
-    let res = await fetch("/api/productos", {
-        method: "POST",
-        headers: {
-            role: "admin",
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(body),
-    });
+  let res = await fetch('/api/productos', {
+    method: 'POST',
+    headers: {
+      role: 'admin',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(body),
+  })
 
-    const data = await res.json();
+  const data = await res.json()
 
-    Swal.fire({
-        icon: "success",
-        title: "Carga exitosa",
-        text: data.message,
-        showConfirmButton: false,
-        timer: 1500,
-    });
+  if (data.error) {
+    return Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: data.error,
+    })
+  }
 
-    createProductForm.reset();
-    productsContainer.innerHTML = "";
-    init();
-});
+  Swal.fire({
+    icon: 'success',
+    title: 'Carga exitosa',
+    text: data.message,
+    showConfirmButton: false,
+    timer: 1500,
+  })
 
-updateProductForm.addEventListener("submit", async (e) => {
-    e.preventDefault();
+  createProductForm.reset()
+  productsContainer.innerHTML = ''
+  init()
+})
 
-    const body = {
-        nombre: e.target.updateName.value,
-        descripcion: e.target.updateDescription.value,
-        codigo: e.target.updateCode.value,
-        foto: e.target.updatePhoto.value,
-        precio: e.target.updatePrice.value,
-        stock: e.target.updateStock.value,
-    };
+updateProductForm.addEventListener('submit', async (e) => {
+  e.preventDefault()
 
-    const productId = e.target.id.value;
+  const body = {
+    nombre: e.target.updateName.value,
+    descripcion: e.target.updateDescription.value,
+    codigo: e.target.updateCode.value,
+    foto: e.target.updatePhoto.value,
+    precio: e.target.updatePrice.value,
+    stock: e.target.updateStock.value,
+  }
 
-    let res = await fetch(
-        `http://localhost:8080/api/productos/${productId}`,
-        {
-            method: "PUT",
-            headers: {
-                role: "admin",
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(body),
-        }
-    );
+  const productId = e.target.id.value
 
-    const data = await res.json();
+  let res = await fetch(`http://localhost:8080/api/productos/${productId}`, {
+    method: 'PUT',
+    headers: {
+      role: 'admin',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(body),
+  })
 
-    if (data.hasOwnProperty("error"))
-        return Swal.fire({
-            icon: "error",
-            title: "Oops...",
-            text: data.error,
-            showConfirmButton: false,
-            timer: 1500,
-        });
+  const data = await res.json()
 
-    updateProductForm.reset();
-    productsContainer.innerHTML = "";
+  if (data.hasOwnProperty('error'))
+    return Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: data.error,
+      showConfirmButton: false,
+      timer: 1500,
+    })
 
-    Swal.fire({
-        icon: "success",
-        title: "Actualización exitosa",
-        text: data.message,
-        showConfirmButton: false,
-        timer: 1500,
-    });
+  updateProductForm.reset()
+  productsContainer.innerHTML = ''
 
-    init();
-});
+  Swal.fire({
+    icon: 'success',
+    title: 'Actualización exitosa',
+    text: data.message,
+    showConfirmButton: false,
+    timer: 1500,
+  })
 
-deleteProductForm.addEventListener("submit", async (e) => {
-    e.preventDefault();
+  init()
+})
 
-    const productID = e.target.deleteId.value;
+deleteProductForm.addEventListener('submit', async (e) => {
+  e.preventDefault()
 
-    let res = await fetch(
-        `http://localhost:8080/api/productos/${productID}`,
-        {
-            method: "DELETE",
-            headers: {
-                role: "admin",
-            },
-        }
-    );
+  const productID = e.target.deleteId.value
 
-    const data = await res.json();
+  let res = await fetch(`http://localhost:8080/api/productos/${productID}`, {
+    method: 'DELETE',
+    headers: {
+      role: 'admin',
+    },
+  })
 
-    if (data.hasOwnProperty("error"))
-        return Swal.fire({
-            icon: "error",
-            title: "Oops...",
-            text: data.error,
-            showConfirmButton: false,
-            timer: 1500,
-        });
+  const data = await res.json()
 
-    deleteProductForm.reset();
-    productsContainer.innerHTML = "";
+  if (data.hasOwnProperty('error'))
+    return Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: data.error,
+      showConfirmButton: false,
+      timer: 1500,
+    })
 
-    Swal.fire({
-        icon: "success",
-        title: "Eliminación exitosa",
-        text: data.message,
-        showConfirmButton: false,
-        timer: 1500,
-    });
+  deleteProductForm.reset()
+  productsContainer.innerHTML = ''
 
-    init();
-});
+  Swal.fire({
+    icon: 'success',
+    title: 'Eliminación exitosa',
+    text: data.message,
+    showConfirmButton: false,
+    timer: 1500,
+  })
 
-deleteId.addEventListener("click", () => {
-    const Toast = Swal.mixin({
-        toast: true,
-        position: "top-end",
-        showConfirmButton: false,
-        timer: 3000,
-        timerProgressBar: true,
-        didOpen: (toast) => {
-            toast.addEventListener("mouseenter", Swal.stopTimer);
-            toast.addEventListener("mouseleave", Swal.resumeTimer);
-        },
-    });
+  init()
+})
 
-    Toast.fire({
-        icon: "warning",
-        title: "Cuidado, esto borrará el producto",
-    });
-});
+deleteId.addEventListener('click', () => {
+  const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener('mouseenter', Swal.stopTimer)
+      toast.addEventListener('mouseleave', Swal.resumeTimer)
+    },
+  })
+
+  Toast.fire({
+    icon: 'warning',
+    title: 'Cuidado, esto borrará el producto',
+  })
+})
 
 async function init() {
-    try {
-        const products = await getProducts();
-        renderProducts(products);
-    } catch (error) {
-        console.log(error);
-    }
+  try {
+    const products = await getProducts()
+    renderProducts(products)
+  } catch (error) {
+    console.log(error)
+  }
 }
 
-init();
+init()
 
 async function getProducts() {
-    try {
-        const response = await fetch("/api/productos/");
-        const data = await response.json();
-        return data;
-    } catch (error) {
-        console.log(error);
-    }
+  try {
+    const response = await fetch('/api/productos/')
+    const data = await response.json()
+    return data
+  } catch (error) {
+    console.log(error)
+  }
 }
 
 function renderProducts(products) {
-    products.forEach((product) => {
-        const productCard = document.createElement("tr");
-        productCard.innerHTML = `
+  products.forEach((product) => {
+    const productCard = document.createElement('tr')
+    productCard.innerHTML = `
             <td>${product._id || product.id}</td>
             <td>${product.nombre}</td>
             <td>${product.codigo}</td>
             <td>${product.precio}</td>
             <td>${product.stock}</td>
-            <td><img src="${product.foto}" alt="${product.nombre
-            }" width="100px"></td>
+            <td><img src="${product.foto}" alt="${
+      product.nombre
+    }" width="100px"></td>
             <td>${product.timestamp}</td>
             <td>${product.descripcion}</td>
-        `;
-        productsContainer.appendChild(productCard);
-    });
+        `
+    productsContainer.appendChild(productCard)
+  })
 }

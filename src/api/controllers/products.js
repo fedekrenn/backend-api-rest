@@ -16,12 +16,28 @@ const getProducts = async (req, res) => {
 const addProduct = async (req, res) => {
   const producto = req.body
 
+  const { nombre, descripcion, codigo, foto, precio, stock } = req.body
+
+  if (!nombre || !descripcion || !codigo || !foto || !precio || !stock) {
+    return res.status(400).json({
+      error: 'Faltan datos',
+    })
+  }
+
   const result = await contenedor.save(producto)
-  res.json(result)
+  res.status(201).json(result)
 }
 
 const updateProduct = async (req, res) => {
   const { id } = req.params
+
+  const { nombre, descripcion, codigo, foto, precio, stock } = req.body
+
+  if (!nombre || !descripcion || !codigo || !foto || !precio || !stock) {
+    return res.status(400).json({
+      error: 'Faltan datos',
+    })
+  }
 
   const result = await contenedor.updateById(id, req.body)
 
