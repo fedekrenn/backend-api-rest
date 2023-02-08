@@ -9,20 +9,12 @@ class ContenedorCarritosFirebase {
 
   async getProducts(id) {
     try {
+
       const carritos = this.db.collection('carritos')
       const querySnapshot = await carritos.get()
       const carritosArray = querySnapshot.docs.map((doc) => doc.data())
 
-      const carrito = carritosArray.find((elemento) => elemento.id == id)
-
-      if (!carrito) return { error: 'carrito no encontrado' }
-
-      const productos = carrito.productos
-
-      if (productos.length === 0)
-        return { message: `El carrito ID: ${id} no tiene productos todavía` }
-
-      return productos
+      return carritosArray.find((cart) => cart.id === id)
     } catch (error) {
       loggerError.error(error)
     }
@@ -40,7 +32,7 @@ class ContenedorCarritosFirebase {
         productos: [],
       })
 
-      return { message: `Se creó correctamente el carrito!`, id: id }
+      return id
     } catch (error) {
       loggerError.error(error)
     }
@@ -122,7 +114,7 @@ class ContenedorCarritosFirebase {
     }
   }
 
-  async deleteProductToCart(id, productId) {
+  async deleteProductFromCart(id, productId) {
     try {
       const carritos = this.db.collection('carritos')
       const querySnapshot = await carritos.get()
