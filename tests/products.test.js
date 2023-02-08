@@ -3,6 +3,7 @@ const expect = require('chai').expect
 
 // Test para obtener todos los productos
 describe('Testing products of API', () => {
+
   it('Debería devolver un array de objetos', (done) => {
     request
       .get('/api/productos')
@@ -74,7 +75,7 @@ describe('Testing products of API', () => {
       stock: '3',
     }
 
-    const productID = '63e2989a80d43735949ff8bb' // Escribir el ID de un producto existente
+    const productID = '63e41157ef1f5834bffeffcd' // Escribir el ID de un producto existente
 
     request
       .put(`/api/productos/${productID}`)
@@ -91,7 +92,7 @@ describe('Testing products of API', () => {
 
   // Test para eliminar un producto
   it('Debería eliminar un producto existente', (done) => {
-    const productID = '63e2989a80d43735949ff8bb' // Escribir el ID de un producto existente
+    const productID = '63e41157ef1f5834bffeffcd' // Escribir el ID de un producto existente
 
     request
       .delete(`/api/productos/${productID}`)
