@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const { ProductosModel } = require('../../model/productosModel')
 const { loggerError } = require('../../../utils/logger')
-const { ProductMongoDto } = require('../../dto/ProductDTO')
+const { ProductMongoDto, ProductNormaliceIdDto } = require('../../dto/ProductDTO')
 
 mongoose.connect(
   process.env.DB_URL_MONGO,
@@ -17,7 +17,10 @@ mongoose.connect(
 class ProductMongo {
   async getById(id) {
     try {
-      return await ProductosModel.findById(id)
+      const product = await ProductosModel.findById(id)
+      const normalicedIdProduct = new ProductNormaliceIdDto(product)
+
+      return normalicedIdProduct
     } catch (error) {
       return { error: 'Producto no encontrado' }
     }
@@ -68,7 +71,13 @@ class ProductMongo {
 
   async getAll() {
     try {
-      return await ProductosModel.find()
+      const allProducts = await ProductosModel.find()
+
+      const normalicedIdProducts = allProducts.map(
+        (product) => new ProductNormaliceIdDto(product)
+      )
+
+      return normalicedIdProducts
     } catch (error) {
       loggerError.error(error)
     }

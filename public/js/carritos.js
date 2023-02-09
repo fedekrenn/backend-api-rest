@@ -72,7 +72,7 @@ async function getProducts(cartId) {
   data.forEach((product) => {
     const productCard = document.createElement('tr')
     productCard.innerHTML = `
-            <td>${product._id || product.id}</td>
+            <td>${product.id}</td>
             <td>${product.nombre}</td>
             <td>${product.codigo}</td>
             <td>${product.precio}</td>
@@ -104,7 +104,7 @@ function renderCarts(carts) {
   carts.forEach((cart) => {
     cartContainer.innerHTML += `
           <tr>
-            <td>${cart.id || cart._id}</td>
+            <td>${cart.id}</td>
             <td>${cart.timestamp}</td>
             <td>${cart.productos.length}</td>
           </tr>

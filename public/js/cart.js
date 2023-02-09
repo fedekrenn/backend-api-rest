@@ -16,7 +16,7 @@ openDialogBtn.addEventListener('click', async () => {
 
   products.forEach((product) => {
     cartContainer.innerHTML += `
-        <div data-id='${product._id || product.id}' class='cart-row'>
+        <div data-id='${product.id}' class='cart-row'>
             <img src="${product.foto}" alt="${product.nombre}" width="50px">
             <h5>${product.nombre}</h5>
             <i class="fa-solid fa-trash">
@@ -78,7 +78,7 @@ buyBtn.addEventListener('click', async (e) => {
   Swal.fire({
     icon: 'success',
     title: 'Compra realizada',
-    html: `${data.message} <br><br><br> Te llegará un SMS con el detalle de tu compra`,
+    html: `${data.message} <br><br><br> Te llegará un Whatsapp con el detalle de tu compra`,
     showConfirmButton: true,
     timer: 5500,
   })

@@ -15,4 +15,12 @@ class CartFirebaseDto {
   }
 }
 
-module.exports = { CartMongoDto, CartFirebaseDto }
+class CartNormaliceIdDto {
+  constructor(cart) {
+    this.id = cart._id;
+    this.timestamp = cart.timestamp;
+    this.productos = cart.productos;
+  }
+}
+
+module.exports = { CartMongoDto, CartFirebaseDto, CartNormaliceIdDto }

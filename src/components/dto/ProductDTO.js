@@ -25,4 +25,17 @@ class ProductMongoDto {
     }
 }
 
-module.exports = { ProductFirebaseDto, ProductMongoDto };
+class ProductNormaliceIdDto {
+    constructor(product) {
+        this.id = product._id;
+        this.timestamp = product.timestamp;
+        this.nombre = product.nombre;
+        this.descripcion = product.descripcion;
+        this.codigo = product.codigo;
+        this.foto = product.foto;
+        this.precio = product.precio;
+        this.stock = product.stock;
+    }
+}
+
+module.exports = { ProductFirebaseDto, ProductMongoDto, ProductNormaliceIdDto };

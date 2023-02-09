@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const { CarritosModel } = require('../../model/carritosModel')
 const { loggerError } = require('../../../utils/logger')
-const { CartMongoDto } = require('../../dto/CartDTO')
+const { CartMongoDto, CartNormaliceIdDto } = require('../../dto/CartDTO')
 
 mongoose.connect(
   process.env.DB_URL_MONGO,
@@ -17,7 +17,10 @@ mongoose.connect(
 class CartMongo {
   async getProducts(id) {
     try {
-      return await CarritosModel.findOne({ _id: id })
+      const cart = await CarritosModel.findOne({ _id: id })
+      const normalicedIdCart = new CartNormaliceIdDto(cart)
+
+      return normalicedIdCart
     } catch (err) {
       return { error: 'carrito no encontrado' }
     }
@@ -60,14 +63,14 @@ class CartMongo {
       if (!cart) return { error: 'Carrito no encontrado!' }
 
       const product = cart.productos.find(
-        (element) => element._id.toString() === productId
+        (element) => element.id.toString() === productId
       )
 
       if (!product)
         return { error: `Ese producto no se encuentra en el carrito ID: ${id}` }
 
       const filteredArray = cart.productos.filter(
-        (element) => element._id.toString() !== productId
+        (element) => element.id.toString() !== productId
       )
 
       cart.productos = filteredArray
@@ -98,7 +101,13 @@ class CartMongo {
 
   async getAll() {
     try {
-      return await CarritosModel.find()
+      const allCarts = await CarritosModel.find()
+
+      const normalicedIdCarts = allCarts.map((cart) => {
+        return new CartNormaliceIdDto(cart)
+      })
+
+      return normalicedIdCarts
     } catch (error) {
       loggerError.error(error)
     }

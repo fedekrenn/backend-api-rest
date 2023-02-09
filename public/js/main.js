@@ -7,7 +7,7 @@ function renderProducts(products) {
   products.forEach((product) => {
     const { nombre, precio, descripcion, foto, stock } = product
 
-    const id = product._id || product.id
+    const id = product.id
 
     productsContainer.innerHTML += `
         <div class="card">
