@@ -1,6 +1,6 @@
-const uniqid = require('uniqid')
 const { loggerError, loggerBuy } = require('../../../utils/logger')
 const handleSubmitMail = require('../../../utils/mailOptions')
+const { CartFirebaseDto } = require('../../dto/CartDTO')
 
 class ContenedorCarritosFirebase {
   constructor(db) {
@@ -9,7 +9,6 @@ class ContenedorCarritosFirebase {
 
   async getProducts(id) {
     try {
-
       const carritos = this.db.collection('carritos')
       const querySnapshot = await carritos.get()
       const carritosArray = querySnapshot.docs.map((doc) => doc.data())
@@ -24,15 +23,10 @@ class ContenedorCarritosFirebase {
     try {
       const carritos = this.db.collection('carritos')
 
-      const id = uniqid()
+      const newCart = new CartFirebaseDto()
+      await carritos.add({ ...newCart })
 
-      await carritos.add({
-        id: id,
-        timestamp: Date.now(),
-        productos: [],
-      })
-
-      return id
+      return newCart.id
     } catch (error) {
       loggerError.error(error)
     }
@@ -46,7 +40,7 @@ class ContenedorCarritosFirebase {
 
       const carrito = carritosArray.find((elemento) => elemento.id == id)
 
-      if (!carrito) return { error: 'carrito no encontrado' }
+      if (!carrito) return { error: 'Carrito no encontrado' }
 
       const carritoId = querySnapshot.docs.find((doc) => doc.data().id == id).id
 
@@ -122,7 +116,7 @@ class ContenedorCarritosFirebase {
 
       const carrito = carritosArray.find((elemento) => elemento.id == id)
 
-      if (!carrito) return { error: 'carrito no encontrado' }
+      if (!carrito) return { error: 'Carrito no encontrado' }
 
       const carritoId = querySnapshot.docs.find((doc) => doc.data().id == id).id
 
@@ -154,7 +148,7 @@ class ContenedorCarritosFirebase {
 
       const carrito = carritosArray.find((elemento) => elemento.id == id)
 
-      if (!carrito) return { error: 'carrito no encontrado' }
+      if (!carrito) return { error: 'Carrito no encontrado' }
 
       const carritoId = querySnapshot.docs.find((doc) => doc.data().id == id).id
 

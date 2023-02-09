@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 const { ProductosModel } = require('../../model/productosModel')
 const { loggerError } = require('../../../utils/logger')
+const { ProductMongoDto } = require('../../dto/ProductDTO')
 
 mongoose.connect(
   process.env.DB_URL_MONGO,
@@ -24,9 +25,8 @@ class ProductMongo {
 
   async save(product) {
     try {
-      product.timestamp = Date.now()
 
-      const newProduct = new ProductosModel(product)
+      const newProduct = new ProductosModel(new ProductMongoDto(product))
 
       await newProduct.save()
 

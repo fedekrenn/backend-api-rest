@@ -1,5 +1,4 @@
-const uniqid = require('uniqid')
-
+const { ProductFirebaseDto } = require('../../dto/ProductDTO')
 const { loggerError } = require('../../../utils/logger')
 
 class ContenedorProductosFirebase {
@@ -25,15 +24,14 @@ class ContenedorProductosFirebase {
 
   async save(product) {
     try {
-      const productos = this.db.collection('productos')
+      const productsCollection = this.db.collection('productos')
 
-      product.id = uniqid()
-      product.timestamp = Date.now()
+      const newProduct = new ProductFirebaseDto(product)
 
-      await productos.add(product)
+      await productsCollection.add({...newProduct})
 
       return {
-        message: `producto ${product.nombre} guardado con el id ${product.id}`,
+        message: `Producto ${newProduct.nombre} guardado con el id ${newProduct.id}`,
       }
     } catch (error) {
       loggerError.error(error)
@@ -47,7 +45,7 @@ class ContenedorProductosFirebase {
       const productosArray = querySnapshot.docs.map((doc) => doc.data())
       const producto = productosArray.find((elemento) => elemento.id == id)
 
-      if (!producto) return { error: 'producto no encontrado' }
+      if (!producto) return { error: 'Producto no encontrado' }
 
       const productoId = querySnapshot.docs.find(
         (doc) => doc.data().id == id
@@ -55,7 +53,7 @@ class ContenedorProductosFirebase {
 
       await productos.doc(productoId).update(newData)
 
-      return { message: `producto id: ${id} actualizado` }
+      return { message: `Producto id: ${id} actualizado` }
     } catch (error) {
       loggerError.error(error)
     }
@@ -69,7 +67,7 @@ class ContenedorProductosFirebase {
 
       const producto = productosArray.find((elemento) => elemento.id == id)
 
-      if (!producto) return { error: 'producto no encontrado' }
+      if (!producto) return { error: 'Producto no encontrado' }
 
       const productoId = querySnapshot.docs.find(
         (doc) => doc.data().id == id
@@ -77,7 +75,7 @@ class ContenedorProductosFirebase {
 
       await productos.doc(productoId).delete()
 
-      return { message: `producto id: ${id} eliminado` }
+      return { message: `Producto id: ${id} eliminado` }
     } catch (error) {
       loggerError.error(error)
     }

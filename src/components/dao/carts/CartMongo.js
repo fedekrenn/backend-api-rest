@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 const { CarritosModel } = require('../../model/carritosModel')
 const { loggerError } = require('../../../utils/logger')
+const { CartMongoDto } = require('../../dto/CartDTO')
 
 mongoose.connect(
   process.env.DB_URL_MONGO,
@@ -24,10 +25,7 @@ class CartMongo {
 
   async createCart() {
     try {
-      const cart = new CarritosModel({
-        timestamp: Date.now(),
-        productos: [],
-      })
+      const cart = new CarritosModel(new CartMongoDto())
 
       const result = await cart.save()
 
