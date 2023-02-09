@@ -86,13 +86,13 @@ class CartMongo {
     try {
       const cart = await CarritosModel.findOne({ _id: id })
 
-      if (!cart) return { error: 'carrito no encontrado' }
+      if (!cart) return { error: 'Carrito no encontrado' }
 
       await CarritosModel.deleteOne({ _id: id })
 
       return { message: `Se eliminó el carrito ID: ${id}` }
     } catch (err) {
-      return { error: 'carrito no encontrado' }
+      return { error: 'Carrito no encontrado' }
     }
   }
 

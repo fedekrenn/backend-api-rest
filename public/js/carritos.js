@@ -1,10 +1,6 @@
 const cartContainer = document.getElementById('cart-container')
-const createCartBtn = document.getElementById('create-cart-btn')
-const deleteCartForm = document.getElementById('delete-cart-form')
 const getProductsForm = document.getElementById('get-products-form')
-const addProductForm = document.getElementById('add-product-form')
-const deleteProductForm = document.getElementById('delete-product-form')
-const deleteAllCartId = document.getElementById('deleteAllCartId')
+const deleteCartForm = document.getElementById('delete-cart-form')
 
 let currentCart
 
@@ -12,6 +8,36 @@ getProductsForm.addEventListener('submit', async (e) => {
   e.preventDefault()
 
   getProducts(e.target.cartId.value)
+})
+
+deleteCartForm.addEventListener('submit', async (e) => {
+  e.preventDefault()
+
+  const res = await fetch(`/api/carrito/${e.target.deleteId.value}`, {
+    method: 'DELETE',
+  })
+
+  const data = await res.json()
+
+  renderCarts(await getCarts())
+
+  if (data.hasOwnProperty('message'))
+    return Swal.fire({
+      icon: 'success',
+      title: 'Éxito!',
+      text: data.message,
+      showConfirmButton: false,
+      timer: 1500,
+    })
+
+  if (data.hasOwnProperty('error'))
+    return Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: data.error,
+      showConfirmButton: false,
+      timer: 1500,
+    })
 })
 
 async function getProducts(cartId) {
@@ -74,15 +100,15 @@ async function getCarts() {
 }
 
 function renderCarts(carts) {
+  cartContainer.innerHTML = ''
   carts.forEach((cart) => {
-    const cartCard = document.createElement('tr')
-    cartCard.innerHTML = `
+    cartContainer.innerHTML += `
+          <tr>
             <td>${cart.id || cart._id}</td>
             <td>${cart.timestamp}</td>
             <td>${cart.productos.length}</td>
+          </tr>
         `
-
-    cartContainer.appendChild(cartCard)
   })
 }
 

@@ -51,57 +51,7 @@ class ContenedorCarritosFirebase {
       await carritos.doc(carritoId).update({ productos: productos })
 
       return {
-        message: `Se agregó correctamente el producto ID: ${product.id} al carrito`,
-      }
-    } catch (error) {
-      loggerError.error(error)
-    }
-  }
-
-  async buyCart(buyInfo) {
-    try {
-      const { cart, email, personName } = buyInfo
-
-      const productsName = cart.map((element) => element.nombre)
-      const totalPrice = cart.reduce((acc, element) => acc + element.precio, 0)
-
-      const mailOptions = {
-        from: 'Servidor Ecommerce',
-        to: process.env.EMAIL,
-        subject: `Nuevo pedido recibido de ${personName}`,
-        html: `
-                    <h1>Nueva compra!</h1>
-                    <p>Se compraron los siguientes productos</p>
-                    <ul>
-                        ${productsName
-                          .map((element) => `<li>${element}</li>`)
-                          .join('')}
-                    </ul>
-                    <p>Por un total de: $${totalPrice}</p>
-                    <p>El pedido es a nombre de ${personName}</p>
-                    <p>El email de contacto es: ${email}</p>
-                    `,
-      }
-
-      const whatsappMsg = `Nueva compra!\n\nSe compraron los siguientes productos:\n${productsName
-        .map((element) => `◆ ${element}`)
-        .join(
-          '\n'
-        )}\n\nPor un total de: $${totalPrice}\n\nEl pedido es a nombre de ${personName} y su email es ${email}`
-
-      handleSubmitMail(mailOptions)
-      handleSubmitWhatsapp(whatsappMsg)
-
-      loggerBuy.trace(
-        `Se compraron los productos: ${productsName.join(
-          ', '
-        )} por un total de: $${totalPrice}`
-      )
-
-      return {
-        message: `Se compraron los productos: ${productsName.join(
-          ', '
-        )} por un total de: $${totalPrice}`,
+        message: `Se agregó el producto: '${product.nombre}' al carrito`,
       }
     } catch (error) {
       loggerError.error(error)
@@ -116,7 +66,7 @@ class ContenedorCarritosFirebase {
 
       const carrito = carritosArray.find((elemento) => elemento.id == id)
 
-      if (!carrito) return { error: 'Carrito no encontrado' }
+      if (!carrito) return { error: 'Carrito no encontrado!' }
 
       const carritoId = querySnapshot.docs.find((doc) => doc.data().id == id).id
 
@@ -124,7 +74,7 @@ class ContenedorCarritosFirebase {
 
       const producto = productos.find((elemento) => elemento.id == productId)
 
-      if (!producto) return { error: 'Ese producto no está en el carrito' }
+      if (!producto) return { error: `Ese producto no se encuentra en el carrito ID: ${id}` }
 
       const productosFiltrados = productos.filter(
         (elemento) => elemento.id != productId
@@ -133,7 +83,7 @@ class ContenedorCarritosFirebase {
       await carritos.doc(carritoId).update({ productos: productosFiltrados })
 
       return {
-        message: `Se eliminó correctamente el producto ID: ${productId} del carrito`,
+        message: `Se eliminó el producto: '${producto.nombre}' del carrito`,
       }
     } catch (error) {
       loggerError.error(error)
@@ -154,7 +104,7 @@ class ContenedorCarritosFirebase {
 
       await carritos.doc(carritoId).delete()
 
-      return { message: `Se eliminó correctamente el carrito!` }
+      return { message: `Se eliminó el carrito ID: ${id}` }
     } catch (error) {
       loggerError.error(error)
     }
