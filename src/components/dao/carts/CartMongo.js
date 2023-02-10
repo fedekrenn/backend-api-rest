@@ -62,15 +62,15 @@ class CartMongo {
 
       if (!cart) return { error: 'Carrito no encontrado!' }
 
-      const product = cart.productos.find(
-        (element) => element.id.toString() === productId
+      const targetProduct = cart.productos.find(
+        (prod) => prod.id.toString() === productId
       )
 
-      if (!product)
+      if (!targetProduct)
         return { error: `Ese producto no se encuentra en el carrito ID: ${id}` }
 
       const filteredArray = cart.productos.filter(
-        (element) => element.id.toString() !== productId
+        (prod) => prod.id.toString() !== productId
       )
 
       cart.productos = filteredArray
@@ -78,10 +78,10 @@ class CartMongo {
       await cart.save()
 
       return {
-        message: `Se eliminó el producto: '${product.nombre}' del carrito`,
+        message: `Se eliminó el producto: '${targetProduct.nombre}' del carrito`,
       }
     } catch (err) {
-      return { error: 'Carrito no encontrado!' }
+      return { error: 'Carrito no enmechado!' }
     }
   }
 

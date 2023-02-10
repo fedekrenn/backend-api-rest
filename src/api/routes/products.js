@@ -8,26 +8,26 @@ const {
 } = require('../controllers/products')
 
 const { Router } = express
-const routerProductos = Router()
+const routerProducts = Router()
 
 /* ---------- GET ------------ */
 
 // Obtener todos los productos o uno por id
-routerProductos.get('/:id?', getProducts)
+routerProducts.get('/:id?', getProducts)
 
 /* ---------- POST ------------ */
 
 // Agregar un producto
-routerProductos.post('/', isAdminMiddleware, addProduct)
+routerProducts.post('/', isAdminMiddleware, addProduct)
 
 /* ---------- PUT ------------ */
 
 // Actualizar un producto
-routerProductos.put('/:id', isAdminMiddleware, updateProduct)
+routerProducts.put('/:id', isAdminMiddleware, updateProduct)
 
 /* ---------- DELETE ------------ */
 
 // Eliminar un producto
-routerProductos.delete('/:id', isAdminMiddleware, deleteProduct)
+routerProducts.delete('/:id', isAdminMiddleware, deleteProduct)
 
-module.exports = routerProductos
+module.exports = routerProducts

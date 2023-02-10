@@ -1,19 +1,18 @@
-const { loggerError, loggerBuy } = require('../../../utils/logger')
-const handleSubmitMail = require('../../../utils/mailOptions')
+const { loggerError } = require('../../../utils/logger')
 const { CartFirebaseDto } = require('../../dto/CartDTO')
 
-class ContenedorCarritosFirebase {
+class CartFirebase {
   constructor(db) {
     this.db = db
   }
 
   async getProducts(id) {
     try {
-      const carritos = this.db.collection('carritos')
-      const querySnapshot = await carritos.get()
-      const carritosArray = querySnapshot.docs.map((doc) => doc.data())
+      const cartsCollection = this.db.collection('carritos')
+      const querySnapshot = await cartsCollection.get()
+      const allCarts = querySnapshot.docs.map((doc) => doc.data())
 
-      return carritosArray.find((cart) => cart.id === id)
+      return allCarts.find((cart) => cart.id === id)
     } catch (error) {
       loggerError.error(error)
     }
@@ -21,10 +20,10 @@ class ContenedorCarritosFirebase {
 
   async createCart() {
     try {
-      const carritos = this.db.collection('carritos')
+      const cartsCollection = this.db.collection('carritos')
 
       const newCart = new CartFirebaseDto()
-      await carritos.add({ ...newCart })
+      await cartsCollection.add({ ...newCart })
 
       return newCart.id
     } catch (error) {
@@ -34,21 +33,21 @@ class ContenedorCarritosFirebase {
 
   async addProductToCart(id, product) {
     try {
-      const carritos = this.db.collection('carritos')
-      const querySnapshot = await carritos.get()
-      const carritosArray = querySnapshot.docs.map((doc) => doc.data())
+      const cartsCollection = this.db.collection('carritos')
+      const querySnapshot = await cartsCollection.get()
+      const allCarts = querySnapshot.docs.map((doc) => doc.data())
 
-      const carrito = carritosArray.find((elemento) => elemento.id == id)
+      const targetCart = allCarts.find((cart) => cart.id == id)
 
-      if (!carrito) return { error: 'Carrito no encontrado' }
+      if (!targetCart) return { error: 'Carrito no encontrado' }
 
-      const carritoId = querySnapshot.docs.find((doc) => doc.data().id == id).id
+      const cartId = querySnapshot.docs.find((doc) => doc.data().id == id).id
 
-      const productos = carrito.productos
+      const products = targetCart.productos
 
-      productos.push(product)
+      products.push(product)
 
-      await carritos.doc(carritoId).update({ productos: productos })
+      await cartsCollection.doc(cartId).update({ productos: products })
 
       return {
         message: `Se agregó el producto: '${product.nombre}' al carrito`,
@@ -60,30 +59,30 @@ class ContenedorCarritosFirebase {
 
   async deleteProductFromCart(id, productId) {
     try {
-      const carritos = this.db.collection('carritos')
-      const querySnapshot = await carritos.get()
-      const carritosArray = querySnapshot.docs.map((doc) => doc.data())
+      const cartsCollection = this.db.collection('carritos')
+      const querySnapshot = await cartsCollection.get()
+      const allCarts = querySnapshot.docs.map((doc) => doc.data())
 
-      const carrito = carritosArray.find((elemento) => elemento.id == id)
+      const targetCart = allCarts.find((cart) => cart.id == id)
 
-      if (!carrito) return { error: 'Carrito no encontrado!' }
+      if (!targetCart) return { error: 'Carrito no encontrado!' }
 
-      const carritoId = querySnapshot.docs.find((doc) => doc.data().id == id).id
+      const cartId = querySnapshot.docs.find((doc) => doc.data().id == id).id
 
-      const productos = carrito.productos
+      const products = targetCart.productos
 
-      const producto = productos.find((elemento) => elemento.id == productId)
+      const targetProduct = products.find((prod) => prod.id == productId)
 
-      if (!producto) return { error: `Ese producto no se encuentra en el carrito ID: ${id}` }
+      if (!targetProduct) return { error: `Ese producto no se encuentra en el carrito ID: ${id}` }
 
-      const productosFiltrados = productos.filter(
-        (elemento) => elemento.id != productId
+      const filteredProducts = products.filter(
+        (prod) => prod.id != productId
       )
 
-      await carritos.doc(carritoId).update({ productos: productosFiltrados })
+      await cartsCollection.doc(cartId).update({ productos: filteredProducts })
 
       return {
-        message: `Se eliminó el producto: '${producto.nombre}' del carrito`,
+        message: `Se eliminó el producto: '${targetProduct.nombre}' del carrito`,
       }
     } catch (error) {
       loggerError.error(error)
@@ -92,17 +91,17 @@ class ContenedorCarritosFirebase {
 
   async deleteCart(id) {
     try {
-      const carritos = this.db.collection('carritos')
-      const querySnapshot = await carritos.get()
-      const carritosArray = querySnapshot.docs.map((doc) => doc.data())
+      const cartsCollection = this.db.collection('carritos')
+      const querySnapshot = await cartsCollection.get()
+      const allCarts = querySnapshot.docs.map((doc) => doc.data())
 
-      const carrito = carritosArray.find((elemento) => elemento.id == id)
+      const cart = allCarts.find((cart) => cart.id == id)
 
-      if (!carrito) return { error: 'Carrito no encontrado' }
+      if (!cart) return { error: 'Carrito no encontrado' }
 
-      const carritoId = querySnapshot.docs.find((doc) => doc.data().id == id).id
+      const cartId = querySnapshot.docs.find((doc) => doc.data().id == id).id
 
-      await carritos.doc(carritoId).delete()
+      await cartsCollection.doc(cartId).delete()
 
       return { message: `Se eliminó el carrito ID: ${id}` }
     } catch (error) {
@@ -112,15 +111,15 @@ class ContenedorCarritosFirebase {
 
   async getAll() {
     try {
-      const carritos = this.db.collection('carritos')
-      const querySnapshot = await carritos.get()
-      const carritosArray = querySnapshot.docs.map((doc) => doc.data())
+      const cartsCollection = this.db.collection('carritos')
+      const querySnapshot = await cartsCollection.get()
+      const allCarts = querySnapshot.docs.map((doc) => doc.data())
 
-      return carritosArray
+      return allCarts
     } catch (error) {
       loggerError.error(error)
     }
   }
 }
 
-module.exports = ContenedorCarritosFirebase
+module.exports = CartFirebase

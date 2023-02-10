@@ -6,24 +6,24 @@ const cors = require('cors')
 const config = require('./src/config/config')
 const { logger, loggerWarn } = require('./src/utils/logger')
 
-const routerProductos = require('./src/api/routes/products')
-const routerCarritos = require('./src/api/routes/carts')
-const routerSesions = require('./src/api/routes/session')
+const routerProducts = require('./src/api/routes/products')
+const routerCarts = require('./src/api/routes/carts')
+const routerSessions = require('./src/api/routes/session')
 
 const passport = require('./src/utils/passport')
 
 // Clusters
 const cluster = require('cluster')
-const numCPUs = require('os').cpus().length
+const cpuQuantity = require('os').cpus().length
 
 const MODE = process.env.MODE
 
 if (MODE === 'cluster' && cluster.isMaster) {
   logger.info(`Master ${process.pid} is running in ${MODE} mode`)
-  logger.info(`Numero de procesadores: ${numCPUs}`)
+  logger.info(`Numero de procesadores: ${cpuQuantity}`)
 
   // Fork workers.
-  for (let i = 0; i < numCPUs; i++) {
+  for (let i = 0; i < cpuQuantity; i++) {
     cluster.fork()
   }
 
@@ -55,9 +55,9 @@ if (MODE === 'cluster' && cluster.isMaster) {
 
   /* ------ Rutas  -------- */
 
-  app.use('/api/productos', routerProductos)
-  app.use('/api/carrito', routerCarritos)
-  app.use('/', routerSesions)
+  app.use('/api/productos', routerProducts)
+  app.use('/api/carrito', routerCarts)
+  app.use('/', routerSessions)
 
   app.use((req, res) => {
     res
@@ -70,7 +70,7 @@ if (MODE === 'cluster' && cluster.isMaster) {
 
   /* ------ Servidor  -------- */
 
-  const server = app.listen(config.puerto, () =>
+  const server = app.listen(config.port, () =>
     logger.info(
       `Servidor http escuchando en el puerto ${server.address().port}`
     )

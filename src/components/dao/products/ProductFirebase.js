@@ -1,22 +1,22 @@
 const { ProductFirebaseDto } = require('../../dto/ProductDTO')
 const { loggerError } = require('../../../utils/logger')
 
-class ContenedorProductosFirebase {
+class ProductFirebase {
   constructor(db) {
     this.db = db
   }
 
   async getById(id) {
     try {
-      const productos = this.db.collection('productos')
-      const querySnapshot = await productos.get()
-      const productosArray = querySnapshot.docs.map((doc) => doc.data())
+      const productsCollection = this.db.collection('productos')
+      const querySnapshot = await productsCollection.get()
+      const allProducts = querySnapshot.docs.map((doc) => doc.data())
 
-      const producto = productosArray.find((elemento) => elemento.id == id)
+      const targetProduct = allProducts.find((prod) => prod.id == id)
 
-      if (!producto) return { error: 'producto no encontrado' }
+      if (!targetProduct) return { error: 'producto no encontrado' }
 
-      return producto
+      return targetProduct
     } catch (error) {
       loggerError.error(error)
     }
@@ -40,18 +40,19 @@ class ContenedorProductosFirebase {
 
   async updateById(id, newData) {
     try {
-      const productos = this.db.collection('productos')
-      const querySnapshot = await productos.get()
-      const productosArray = querySnapshot.docs.map((doc) => doc.data())
-      const producto = productosArray.find((elemento) => elemento.id == id)
+      const productsCollection = this.db.collection('productos')
+      const querySnapshot = await productsCollection.get()
 
-      if (!producto) return { error: 'Producto no encontrado' }
+      const allProducts = querySnapshot.docs.map((doc) => doc.data())
+      const targetProduct = allProducts.find((prod) => prod.id == id)
 
-      const productoId = querySnapshot.docs.find(
+      if (!targetProduct) return { error: 'Producto no encontrado' }
+
+      const productId = querySnapshot.docs.find(
         (doc) => doc.data().id == id
       ).id
 
-      await productos.doc(productoId).update(newData)
+      await productsCollection.doc(productId).update(newData)
 
       return { message: `Producto id: ${id} actualizado` }
     } catch (error) {
@@ -61,19 +62,19 @@ class ContenedorProductosFirebase {
 
   async deleteById(id) {
     try {
-      const productos = this.db.collection('productos')
-      const querySnapshot = await productos.get()
-      const productosArray = querySnapshot.docs.map((doc) => doc.data())
+      const productsCollection = this.db.collection('productos')
+      const querySnapshot = await productsCollection.get()
+      const allProducts = querySnapshot.docs.map((doc) => doc.data())
 
-      const producto = productosArray.find((elemento) => elemento.id == id)
+      const targetProduct = allProducts.find((prod) => prod.id == id)
 
-      if (!producto) return { error: 'Producto no encontrado' }
+      if (!targetProduct) return { error: 'Producto no encontrado' }
 
-      const productoId = querySnapshot.docs.find(
+      const productId = querySnapshot.docs.find(
         (doc) => doc.data().id == id
       ).id
 
-      await productos.doc(productoId).delete()
+      await productsCollection.doc(productId).delete()
 
       return { message: `Producto id: ${id} eliminado` }
     } catch (error) {
@@ -83,15 +84,15 @@ class ContenedorProductosFirebase {
 
   async getAll() {
     try {
-      const productos = this.db.collection('productos')
-      const querySnapshot = await productos.get()
-      const productosArray = querySnapshot.docs.map((doc) => doc.data())
+      const productsCollection = this.db.collection('productos')
+      const querySnapshot = await productsCollection.get()
+      const allProducts = querySnapshot.docs.map((doc) => doc.data())
 
-      return productosArray
+      return allProducts
     } catch (error) {
       loggerError.error(error)
     }
   }
 }
 
-module.exports = ContenedorProductosFirebase
+module.exports = ProductFirebase

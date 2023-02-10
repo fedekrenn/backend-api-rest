@@ -11,33 +11,33 @@ const {
 } = require('../controllers/cart')
 
 const { Router } = express
-const routerCarritos = Router()
+const routerCarts = Router()
 
 /* ---------- GET ------------ */
 
 // Obtener todos los carritos
-routerCarritos.get('/', getAllCarts)
+routerCarts.get('/', getAllCarts)
 
 // Obtener un carrito por id
-routerCarritos.get('/:id/productos', getProductsFromCart)
+routerCarts.get('/:id/productos', getProductsFromCart)
 
 /* ---------- POST ------------ */
 
 // Crear un carrito
-routerCarritos.post('/', createCart)
+routerCarts.post('/', createCart)
 
 // Agregar un producto al carrito
-routerCarritos.post('/:id/productos/:idProducto', addProductToCart)
+routerCarts.post('/:id/productos/:productId', addProductToCart)
 
 // Confirmación de compra de carrito
-routerCarritos.post('/confirmar-compra', buyCart)
+routerCarts.post('/confirmar-compra', buyCart)
 
 /* ---------- Delete ---------- */
 
 // Eliminar un carrito entero
-routerCarritos.delete('/:id', deleteCart)
+routerCarts.delete('/:id', deleteCart)
 
 // Eliminar un producto del carrito
-routerCarritos.delete('/:id/productos/:idProducto', deleteProductFromCart)
+routerCarts.delete('/:id/productos/:productId', deleteProductFromCart)
 
-module.exports = routerCarritos
+module.exports = routerCarts

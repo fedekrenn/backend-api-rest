@@ -11,21 +11,21 @@ const {
 const redirectMiddleware = require('../middlewares/redirectMiddleware')
 const isLoggedMiddleware = require('../middlewares/isLoggedMiddleware')
 
-const routerSesions = Router()
+const routerSessions = Router()
 
 // Ruta principal
-routerSesions.get('/', redirectMiddleware, mainRoute)
+routerSessions.get('/', redirectMiddleware, mainRoute)
 
 // Login
-routerSesions.post('/login', loginRoute)
+routerSessions.post('/login', loginRoute)
 
 // Registro
-routerSesions.post('/register', registerRoute)
+routerSessions.post('/register', registerRoute)
 
 // Deslogueo
-routerSesions.get('/logout', logoutRoute)
+routerSessions.get('/logout', logoutRoute)
 
 // Obtener el nombre
-routerSesions.get('/get-data', isLoggedMiddleware, getNameRoute)
+routerSessions.get('/get-data', isLoggedMiddleware, getNameRoute)
 
-module.exports = routerSesions
+module.exports = routerSessions

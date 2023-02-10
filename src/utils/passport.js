@@ -1,11 +1,11 @@
 const passport = require('passport')
 const LocalStrategy = require('passport-local').Strategy
-const ContenedorSesiones = require('../components/repository/Sessions')
+const SessionRepository = require('../components/repository/Sessions')
 
 const { loggerError } = require('./logger')
 const { isValidPassword } = require('./handlePass')
 
-const manejadorSesiones = new ContenedorSesiones()
+const handleSession = new SessionRepository()
 
 passport.use(
   'login',
@@ -17,7 +17,7 @@ passport.use(
     },
     async (req, email, password, done) => {
       try {
-        const user = await manejadorSesiones.findUser(email)
+        const user = await handleSession.findUser(email)
 
         if (!user) return done(null, false)
 
@@ -44,7 +44,7 @@ passport.use(
       try {
         const { personName, adress, age, phone, avatar } = req.body
 
-        const user = await manejadorSesiones.createUser({
+        const user = await handleSession.createUser({
           email,
           password,
           personName,

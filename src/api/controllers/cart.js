@@ -1,8 +1,8 @@
-const ContenedorCarritosMongo = require('../../components/repository/CartRepository')
-const ContenedorProductosMongo = require('../../components/repository/ProductRepository')
+const CartRepository = require('../../components/repository/CartRepository')
+const ProductRepository = require('../../components/repository/ProductRepository')
 
-const handleCarts = new ContenedorCarritosMongo()
-const handleProducts = new ContenedorProductosMongo()
+const handleCarts = new CartRepository()
+const handleProducts = new ProductRepository()
 
 const createCart = async (req, res) => {
   const result = await handleCarts.createCart()
@@ -10,14 +10,14 @@ const createCart = async (req, res) => {
 }
 
 const addProductToCart = async (req, res) => {
-  const { id: idCarrito, idProducto } = req.params
+  const { id: cartId, productId } = req.params
 
-  const producto = await handleProducts.getById(idProducto)
+  const product = await handleProducts.getById(productId)
 
-  if (producto.error) {
+  if (product.error) {
     res.json({ error: 'No existe el producto' })
   } else {
-    const result = await handleCarts.addProductToCart(idCarrito, producto)
+    const result = await handleCarts.addProductToCart(cartId, product)
     res.json(result)
   }
 }
@@ -40,9 +40,9 @@ const deleteCart = async (req, res) => {
 }
 
 const deleteProductFromCart = async (req, res) => {
-  const { id: idCarrito, idProducto } = req.params
+  const { id: cartId, productId } = req.params
 
-  const result = await handleCarts.deleteProductFromCart(idCarrito, idProducto)
+  const result = await handleCarts.deleteProductFromCart(cartId, productId)
   res.json(result)
 }
 

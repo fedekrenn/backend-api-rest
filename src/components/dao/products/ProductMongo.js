@@ -41,10 +41,10 @@ class ProductMongo {
 
   async updateById(id, newData) {
     try {
-      const products = await this.getAll()
-      const product = products.find((prod) => prod.id == id)
+      const allProducts = await this.getAll()
+      const targetProduct = allProducts.find((prod) => prod.id == id)
 
-      if (!product) return { error: 'Producto no encontrado' }
+      if (!targetProduct) return { error: 'Producto no encontrado' }
 
       await ProductosModel.updateOne({ _id: id }, newData)
 
@@ -56,10 +56,10 @@ class ProductMongo {
 
   async deleteById(id) {
     try {
-      const products = await this.getAll()
-      const product = products.find((prod) => prod.id == id)
+      const allProducts = await this.getAll()
+      const targetProduct = allProducts.find((prod) => prod.id == id)
 
-      if (!product) return { error: 'Producto no encontrado' }
+      if (!targetProduct) return { error: 'Producto no encontrado' }
 
       await ProductosModel.deleteOne({ _id: id })
 

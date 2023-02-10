@@ -23,13 +23,15 @@ openDialogBtn.addEventListener('click', async () => {
         </div>`
   })
 
-  const btnForDelete = document.querySelectorAll('.fa-trash')
+  const deleteBtn = document.querySelectorAll('.fa-trash')
 
-  btnForDelete.forEach((btn) => {
+  deleteBtn.forEach((btn) => {
     btn.addEventListener('click', async () => {
       const productId = btn.parentElement.getAttribute('data-id')
-      await deleteProductFromCart(productId)
+      const res = await deleteProductFromCart(productId)
+
       dialog.close()
+      if (res.hasOwnProperty('error')) return
 
       btn.parentElement.remove()
 
@@ -96,7 +98,8 @@ async function getProducts(cartId) {
 
   if (data.hasOwnProperty('message')) return []
 
-  if (data.hasOwnProperty('error'))
+  // Acá está el tema
+  if (data.hasOwnProperty('error')) {
     return Swal.fire({
       icon: 'error',
       title: 'Oops...',
@@ -104,6 +107,7 @@ async function getProducts(cartId) {
       showConfirmButton: false,
       timer: 1500,
     })
+  }
 
   return data
 }
@@ -117,7 +121,7 @@ async function deleteProductFromCart(productId) {
 
   const data = await res.json()
 
-  if (data.hasOwnProperty('error'))
+  if (data.hasOwnProperty('error')) {
     return Swal.fire({
       icon: 'error',
       title: 'Oops...',
@@ -125,6 +129,7 @@ async function deleteProductFromCart(productId) {
       showConfirmButton: false,
       timer: 1500,
     })
+  }
 
   Swal.fire({
     icon: 'success',
@@ -133,4 +138,6 @@ async function deleteProductFromCart(productId) {
     showConfirmButton: false,
     timer: 1500,
   })
+
+  return data
 }

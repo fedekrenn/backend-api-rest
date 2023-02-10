@@ -2,7 +2,7 @@ const { loggerError } = require('../../utils/logger')
 
 const { handleProducts } = require('../factory/Factory')
 
-class ContenedorProductosMongo {
+class ProductRepository {
   async getById(id) {
     try {
       const product = await handleProducts.getById(id)
@@ -48,4 +48,4 @@ class ContenedorProductosMongo {
   }
 }
 
-module.exports = ContenedorProductosMongo
+module.exports = ProductRepository

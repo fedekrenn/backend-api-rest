@@ -45,22 +45,23 @@ async function addProductToCart(productId) {
 
   const data = await res.json()
 
-  if (data.hasOwnProperty('error'))
-    return Swal.fire({
+  if (data.hasOwnProperty('error')) {
+    Swal.fire({
       icon: 'error',
       title: 'Oops...',
       text: data.error,
       showConfirmButton: false,
       timer: 1500,
     })
-
-  Swal.fire({
-    icon: 'success',
-    title: 'Producto agregado',
-    text: data.message,
-    showConfirmButton: false,
-    timer: 1500,
-  })
+  } else {
+    Swal.fire({
+      icon: 'success',
+      title: 'Producto agregado',
+      text: data.message,
+      showConfirmButton: false,
+      timer: 1500,
+    })
+  }
 }
 
 async function init() {
@@ -73,6 +74,15 @@ async function init() {
 
     cartId = data.id
     localStorage.setItem('cartId', cartId)
+  } else {
+    let res = await fetch(`/api/carrito/${cartId}/productos`)
+    let data = await res.json()
+
+    if (data.hasOwnProperty('error')) {
+      localStorage.removeItem('cartId')
+      cartId = null
+      init()
+    }
   }
 
   const response = await fetch('/api/productos/')

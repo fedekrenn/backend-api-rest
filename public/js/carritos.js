@@ -91,9 +91,8 @@ async function getProducts(cartId) {
 
 async function getCarts() {
   try {
-    const response = await fetch('/api/carrito/')
-    const data = await response.json()
-    return data
+    const res = await fetch('/api/carrito/')
+    return await res.json()
   } catch (error) {
     console.log(error)
   }
@@ -101,6 +100,7 @@ async function getCarts() {
 
 function renderCarts(carts) {
   cartContainer.innerHTML = ''
+  
   carts.forEach((cart) => {
     cartContainer.innerHTML += `
           <tr>

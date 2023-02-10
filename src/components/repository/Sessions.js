@@ -13,7 +13,7 @@ mongoose.connect(config.mongoDB.host, {
     if (err) loggerError.error(err);
 });
 
-class ContenedorSesiones {
+class SessionRepository {
 
     async findUser(user) {
         try {
@@ -32,6 +32,7 @@ class ContenedorSesiones {
                 return { err: "El usuario ya existe" }
             } else {
                 user.password = createHash(user.password);
+                // user.role = "user";
                 const newUser = new SessModel(user);
                 await newUser.save();
 
@@ -60,4 +61,4 @@ class ContenedorSesiones {
     }
 }
 
-module.exports = ContenedorSesiones;
+module.exports = SessionRepository;
