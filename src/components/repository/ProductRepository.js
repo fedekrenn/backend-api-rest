@@ -1,5 +1,4 @@
 const { loggerError } = require('../../utils/logger')
-
 const { handleProducts } = require('../factory/Factory')
 
 class ProductRepository {
@@ -12,6 +11,14 @@ class ProductRepository {
       return product
     } catch (error) {
       return { error: 'Producto no encontrado' }
+    }
+  }
+
+  async getByCategory(category) {
+    try {
+      return await handleProducts.getByCategory(category)
+    } catch (error) {
+      loggerError.error(error)
     }
   }
 

@@ -81,6 +81,7 @@ async function getProducts(cartId) {
       product.nombre
     }" width="100px"></td>
             <td>${product.timestamp}</td>
+            <td>${product.categoria}</td>
             <td>${product.descripcion}</td>
         `
     getProductsContainer.appendChild(productCard)

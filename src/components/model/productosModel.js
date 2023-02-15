@@ -7,7 +7,8 @@ const Schema = new mongoose.Schema({
     codigo: { type: String, required: true },
     foto: { type: String, required: true },
     precio: { type: Number, required: true },
-    stock: { type: Number, required: true }
+    stock: { type: Number, required: true }, 
+    categoria: { type: String, required: true },
 });
 
 const ProductosModel = mongoose.model("productos", Schema);

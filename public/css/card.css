@@ -124,6 +124,12 @@
     color: #a1cc16;
 }
 
+.card .card__body span.category {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 600;
+    color: #252525;
+}
+
 .card .card__body .reviews .stars {
     display: inline-block;
     list-style: none;

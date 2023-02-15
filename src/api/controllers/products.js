@@ -13,6 +13,14 @@ const getProducts = async (req, res) => {
   }
 }
 
+const getProductsByCategory = async (req, res) => {
+  const { category } = req.params
+
+  const result = await handleProducts.getByCategory(category)
+
+  res.json(result)
+}
+
 const addProduct = async (req, res) => {
   const product = req.body
 
@@ -54,6 +62,7 @@ const deleteProduct = async (req, res) => {
 
 module.exports = {
   getProducts,
+  getProductsByCategory,
   addProduct,
   updateProduct,
   deleteProduct,

@@ -10,6 +10,7 @@ class ProductFirebaseDto {
         this.foto = product.foto;
         this.precio = product.precio;
         this.stock = product.stock;
+        this.categoria = product.categoria;
     }
 }
 
@@ -22,6 +23,7 @@ class ProductMongoDto {
         this.foto = product.foto;
         this.precio = product.precio;
         this.stock = product.stock;
+        this.categoria = product.categoria;
     }
 }
 
@@ -35,6 +37,7 @@ class ProductNormaliceIdDto {
         this.foto = product.foto;
         this.precio = product.precio;
         this.stock = product.stock;
+        this.categoria = product.categoria;
     }
 }
 

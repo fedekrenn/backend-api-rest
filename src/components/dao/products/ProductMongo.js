@@ -1,7 +1,10 @@
 const mongoose = require('mongoose')
 const { ProductosModel } = require('../../model/productosModel')
 const { loggerError } = require('../../../utils/logger')
-const { ProductMongoDto, ProductNormaliceIdDto } = require('../../dto/ProductDTO')
+const {
+  ProductMongoDto,
+  ProductNormaliceIdDto,
+} = require('../../dto/ProductDTO')
 
 mongoose.connect(
   process.env.DB_URL_MONGO,
@@ -26,9 +29,25 @@ class ProductMongo {
     }
   }
 
+  async getByCategory(category) {
+    try {
+      const allProducts = await this.getAll()
+
+      const productsByCategory = allProducts.filter(
+        (product) => product.categoriatoLowerCase() == categorytoLowerCase()
+      )
+
+      if (productsByCategory.length == 0)
+        return { message: 'No hay productos en esta categoría' }
+
+      return productsByCategory
+    } catch (error) {
+      loggerError.error(error)
+    }
+  }
+
   async save(product) {
     try {
-
       const newProduct = new ProductosModel(new ProductMongoDto(product))
 
       await newProduct.save()

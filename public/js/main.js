@@ -4,10 +4,11 @@ let cartId = localStorage.getItem('cartId')
 let btnArr = document.querySelectorAll('.add-cart-btn') || []
 
 function renderProducts(products) {
-  products.forEach((product) => {
-    const { nombre, precio, descripcion, foto, stock } = product
 
-    const id = product.id
+  productsContainer.innerHTML = ''
+
+  products.forEach((product) => {
+    const { nombre, precio, descripcion, foto, stock, id, categoria } = product
 
     productsContainer.innerHTML += `
         <div class="card">
@@ -26,6 +27,7 @@ function renderProducts(products) {
               <p>${descripcion}</p>
             </div>
             <span class="stock"><i class="fa fa-pen"></i> In stock - ${stock} u.</span>
+            <span class="category">${categoria}</span>
           </div>
         </div>
         <div class="card__footer">

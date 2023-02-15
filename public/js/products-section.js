@@ -14,6 +14,7 @@ createProductForm.addEventListener('submit', async (e) => {
     foto: e.target.photo.value,
     precio: e.target.price.value,
     stock: e.target.stock.value,
+    categoria: e.target.category.value,
   }
 
   let res = await fetch('/api/productos', {
@@ -58,6 +59,7 @@ updateProductForm.addEventListener('submit', async (e) => {
     foto: e.target.updatePhoto.value,
     precio: e.target.updatePrice.value,
     stock: e.target.updateStock.value,
+    categoria: e.target.updateCategory.value,
   }
 
   const productId = e.target.id.value
@@ -186,6 +188,7 @@ function renderProducts(products) {
       product.nombre
     }" width="100px"></td>
             <td>${product.timestamp}</td>
+            <td>${product.categoria}</td>
             <td>${product.descripcion}</td>
         `
     productsContainer.appendChild(productCard)

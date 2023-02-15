@@ -69,3 +69,10 @@
     at processTicksAndRejections (node:internal/process/task_queues:96:5)
     at async ProductRepository.updateById (C:\Users\fedek\OneDrive\Escritorio\Programación\backend-api-rest\src\components\repository\ProductRepository.js:28:14)
     at async updateProduct (C:\Users\fedek\OneDrive\Escritorio\Programación\backend-api-rest\src\api\controllers\products.js:42:18)
+[2023-02-15T19:16:40.991] [ERROR] error - TypeError: prod.categoria.toLowercase is not a function
+    at C:\Users\fedek\OneDrive\Escritorio\Programación\backend-api-rest\src\components\dao\products\ProductFirebase.js:33:34
+    at Array.filter (<anonymous>)
+    at ProductFirebase.getByCategory (C:\Users\fedek\OneDrive\Escritorio\Programación\backend-api-rest\src\components\dao\products\ProductFirebase.js:32:46)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async ProductRepository.getByCategory (C:\Users\fedek\OneDrive\Escritorio\Programación\backend-api-rest\src\components\repository\ProductRepository.js:19:14)
+    at async getProductsByCategory (C:\Users\fedek\OneDrive\Escritorio\Programación\backend-api-rest\src\api\controllers\products.js:19:18)
