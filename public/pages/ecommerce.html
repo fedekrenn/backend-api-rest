@@ -44,6 +44,25 @@
     <main>
       <h1>Tienda de productos</h1>
       <hr />
+      <div class="filter-section">
+        <label for="category">Filtrar por categoría:</label>
+        <select
+          name="category"
+          id="category"
+          class="select"
+        >
+          <option value="Todos">Todos</option>
+          <option value="Alimentos">Alimentos</option>
+          <option value="Electrónica">Electrónica</option>
+          <option value="Herramientas">Herramientas</option>
+          <option value="Ropa">Ropa</option>
+          <option value="Juguetes">Juguetes</option>
+          <option value="Deportes">Deportes</option>
+          <option value="Muebles">Muebles</option>
+          <option value="Otros">Otros</option>
+        </select>
+      </div>
+      <hr />
       <div id="products-container"></div>
       <dialog id="dialog">
         <h2>Carrito</h2>

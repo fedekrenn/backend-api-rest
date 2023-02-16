@@ -1,10 +1,28 @@
 const productsContainer = document.getElementById('products-container')
+const categorySelect = document.getElementById('category')
 
 let cartId = localStorage.getItem('cartId')
 let btnArr = document.querySelectorAll('.add-cart-btn') || []
 
-function renderProducts(products) {
+categorySelect.addEventListener('change', async (e) => {
+  const category = e.target.value
 
+  if (category === 'Todos') {
+    init()
+  } else {
+    const response = await fetch(`/api/productos/categoria/${category}`)
+    const products = await response.json()
+
+    if (products.message) {
+      productsContainer.innerHTML = `<h2>${products.message}</h2>`
+    } else {
+      renderProducts(products)
+    }
+  }
+  enableBtns()
+})
+
+function renderProducts(products) {
   productsContainer.innerHTML = ''
 
   products.forEach((product) => {
@@ -37,6 +55,17 @@ function renderProducts(products) {
         </div>
       </div>
         `
+  })
+}
+
+function enableBtns() {
+  btnArr = document.querySelectorAll('.add-cart-btn')
+
+  btnArr.forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      const productId = e.target.id
+      addProductToCart(productId)
+    })
   })
 }
 
@@ -91,15 +120,7 @@ async function init() {
   const products = await response.json()
 
   renderProducts(products)
-
-  btnArr = document.querySelectorAll('.add-cart-btn')
-
-  btnArr.forEach((btn) => {
-    btn.addEventListener('click', (e) => {
-      const productId = e.target.id
-      addProductToCart(productId)
-    })
-  })
+  enableBtns()
 }
 
 init()
