@@ -52,7 +52,7 @@ class CartRepository {
       const { cart, email, personName, phone } = buyInfo
 
       const productsName = cart.map((element) => element.nombre)
-      const totalPrice = cart.reduce((acc, element) => acc + element.precio, 0)
+      const totalPrice = cart.reduce((acc, element) => acc + parseInt(element.precio), 0)
 
       const mailOptions = {
         from: 'Servidor Ecommerce',

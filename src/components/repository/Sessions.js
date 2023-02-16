@@ -32,7 +32,7 @@ class SessionRepository {
                 return { err: "El usuario ya existe" }
             } else {
                 user.password = createHash(user.password);
-                // user.role = "user";
+                user.role = "user";
                 const newUser = new SessModel(user);
                 await newUser.save();
 

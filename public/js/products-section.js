@@ -4,6 +4,8 @@ const updateProductForm = document.getElementById('update-product-form')
 const deleteProductForm = document.getElementById('delete-product-form')
 const deleteId = document.getElementById('deleteId')
 
+let userRole = ''
+
 createProductForm.addEventListener('submit', async (e) => {
   e.preventDefault()
 
@@ -20,7 +22,7 @@ createProductForm.addEventListener('submit', async (e) => {
   let res = await fetch('/api/productos', {
     method: 'POST',
     headers: {
-      role: 'admin',
+      role: userRole,
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(body),
@@ -67,7 +69,7 @@ updateProductForm.addEventListener('submit', async (e) => {
   let res = await fetch(`http://localhost:8080/api/productos/${productId}`, {
     method: 'PUT',
     headers: {
-      role: 'admin',
+      role: userRole,
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(body),
@@ -106,7 +108,7 @@ deleteProductForm.addEventListener('submit', async (e) => {
   let res = await fetch(`http://localhost:8080/api/productos/${productID}`, {
     method: 'DELETE',
     headers: {
-      role: 'admin',
+      role: userRole,
     },
   })
 

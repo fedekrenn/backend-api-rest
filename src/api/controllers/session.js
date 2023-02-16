@@ -6,6 +6,7 @@ const mainRoute = async (req, res) => {
   req.session.avatar = req.user.avatar
   req.session.personName = req.user.personName
   req.session.phone = req.user.phone
+  req.session.role = req.user.role
 
   res.redirect('/pages/ecommerce.html')
 }
@@ -40,6 +41,7 @@ const getNameRoute = async (req, res) => {
     avatar: req.session.avatar,
     personName: req.session.personName,
     phone: req.session.phone,
+    role: req.session.role,
   })
 }
 

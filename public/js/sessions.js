@@ -1,6 +1,7 @@
 const spanName = document.getElementById('span-name')
 const smallEmail = document.getElementById('small-email')
 const logoAvatar = document.getElementById('logo-avatar')
+const adminNavbar = document.getElementById('admin-navbar')
 
 let checkOutEmail = ''
 
@@ -38,11 +39,21 @@ async function logout() {
 
   sessionStorage.setItem('personalData', JSON.stringify(dataIfLogged))
 
-  const { personName, email, avatar } = dataIfLogged
+  const { personName, email, avatar, role } = dataIfLogged
 
   spanName.innerText = personName
   smallEmail.innerText = email
   logoAvatar.src = avatar
 
   checkOutEmail = email
+
+  userRole = role
+
+  if (role === 'admin') {
+    adminNavbar.innerHTML = `
+      <li><a href="./ecommerce.html">Tienda</a></li>
+      <li><a href="./productos.html">Productos</a></li>
+      <li><a href="./carritos.html">Carritos</a></li>
+    `
+  }
 })()
