@@ -66,7 +66,7 @@ updateProductForm.addEventListener('submit', async (e) => {
 
   const productId = e.target.id.value
 
-  let res = await fetch(`http://localhost:8080/api/productos/${productId}`, {
+  let res = await fetch(`/api/productos/${productId}`, {
     method: 'PUT',
     headers: {
       role: userRole,
@@ -105,7 +105,7 @@ deleteProductForm.addEventListener('submit', async (e) => {
 
   const productID = e.target.deleteId.value
 
-  let res = await fetch(`http://localhost:8080/api/productos/${productID}`, {
+  let res = await fetch(`/api/productos/${productID}`, {
     method: 'DELETE',
     headers: {
       role: userRole,
