@@ -403,3 +403,15 @@ dialog i {
 .cart-row img {
   margin: unset;
 }
+
+.btn-to-cart{
+  margin: 0;
+  padding: 0;
+  background-color: 0;
+}
+
+.btn-to-cart:hover{
+  cursor: pointer;
+  color: #bd2424;
+  transition: 0.5s;
+}

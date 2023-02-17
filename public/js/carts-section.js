@@ -77,9 +77,7 @@ async function getProducts(cartId) {
             <td>${product.codigo}</td>
             <td>${product.precio}</td>
             <td>${product.stock}</td>
-            <td><img src="${product.foto}" alt="${
-      product.nombre
-    }" width="100px"></td>
+            <td><img src="${product.foto}" alt="${product.nombre}" width="100px"></td>
             <td>${product.timestamp}</td>
             <td>${product.categoria}</td>
             <td>${product.descripcion}</td>
@@ -101,15 +99,31 @@ async function getCarts() {
 
 function renderCarts(carts) {
   cartContainer.innerHTML = ''
-  
+
   carts.forEach((cart) => {
     cartContainer.innerHTML += `
           <tr>
             <td>${cart.id}</td>
             <td>${cart.timestamp}</td>
             <td>${cart.productos.length}</td>
+            <td><button class='btn-to-cart' id=${cart.id}>✅</button></td>
           </tr>
         `
+  })
+
+  const addToLocalStorageBtns = document.querySelectorAll('.btn-to-cart')
+
+  addToLocalStorageBtns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      localStorage.setItem('cartId', btn.id)
+      Swal.fire({
+        icon: 'success',
+        title: 'Éxito!',
+        text: 'El carrito se ha marcado como activo',
+        showConfirmButton: false,
+        timer: 1500,
+      })
+    })
   })
 }
 
