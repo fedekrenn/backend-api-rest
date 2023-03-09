@@ -1,5 +1,13 @@
 const { loggerError } = require('../../utils/logger')
 const passport = require('passport')
+const jwt = require('jsonwebtoken')
+
+const generateToken = (user) => {
+  const token = jwt.sign({ data: user }, process.env.JWT_SECRET, {
+    expiresIn: '1h',
+  })
+  return token
+}
 
 const mainRoute = async (req, res) => {
   req.session.email = req.user.email
@@ -7,6 +15,9 @@ const mainRoute = async (req, res) => {
   req.session.personName = req.user.personName
   req.session.phone = req.user.phone
   req.session.role = req.user.role
+
+  const token = generateToken(req.user)
+  req.session.token = token
 
   res.redirect('/pages/ecommerce.html')
 }
@@ -42,6 +53,7 @@ const getNameRoute = async (req, res) => {
     personName: req.session.personName,
     phone: req.session.phone,
     role: req.session.role,
+    token: req.session.token,
   })
 }
 

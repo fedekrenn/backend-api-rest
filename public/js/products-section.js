@@ -19,11 +19,14 @@ createProductForm.addEventListener('submit', async (e) => {
     categoria: e.target.category.value,
   }
 
+  const personalData = sessionStorage.getItem('personalData')
+  token = JSON.parse(personalData).token
+
   let res = await fetch('/api/productos', {
     method: 'POST',
     headers: {
-      role: userRole,
       'Content-Type': 'application/json',
+      authorization: `Bearer ${token}`,
     },
     body: JSON.stringify(body),
   })
@@ -54,6 +57,9 @@ createProductForm.addEventListener('submit', async (e) => {
 updateProductForm.addEventListener('submit', async (e) => {
   e.preventDefault()
 
+  const personalData = sessionStorage.getItem('personalData')
+  token = JSON.parse(personalData).token
+
   const body = {
     nombre: e.target.updateName.value,
     descripcion: e.target.updateDescription.value,
@@ -69,8 +75,8 @@ updateProductForm.addEventListener('submit', async (e) => {
   let res = await fetch(`/api/productos/${productId}`, {
     method: 'PUT',
     headers: {
-      role: userRole,
       'Content-Type': 'application/json',
+      authorization: `Bearer ${token}`,
     },
     body: JSON.stringify(body),
   })
@@ -103,12 +109,16 @@ updateProductForm.addEventListener('submit', async (e) => {
 deleteProductForm.addEventListener('submit', async (e) => {
   e.preventDefault()
 
+  const personalData = sessionStorage.getItem('personalData')
+  token = JSON.parse(personalData).token
+
   const productID = e.target.deleteId.value
 
   let res = await fetch(`/api/productos/${productID}`, {
     method: 'DELETE',
     headers: {
-      role: userRole,
+      'Content-Type': 'application/json',
+      authorization: `Bearer ${token}`,
     },
   })
 
@@ -186,9 +196,7 @@ function renderProducts(products) {
             <td>${product.codigo}</td>
             <td>${product.precio}</td>
             <td>${product.stock}</td>
-            <td><img src="${product.foto}" alt="${
-      product.nombre
-    }" width="100px"></td>
+            <td><img src="${product.foto}" alt="${product.nombre}" width="100px"></td>
             <td>${product.timestamp}</td>
             <td>${product.categoria}</td>
             <td>${product.descripcion}</td>
