@@ -104,7 +104,6 @@ function renderCarts(carts) {
     cartContainer.innerHTML += `
           <tr>
             <td>${cart.id}</td>
-            <td>${cart.timestamp}</td>
             <td>${cart.productos.length}</td>
             <td><button class='btn-to-cart' id=${cart.id}>✅</button></td>
           </tr>
