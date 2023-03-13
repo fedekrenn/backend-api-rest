@@ -95,10 +95,19 @@ async function addProductToCart(productId) {
   }
 }
 
-async function init() {
+;(async function init() {
   if (!cartId) {
+    const { email, address } = await getData()
+
     let res = await fetch('/api/carrito', {
       method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email,
+        address,
+      }),
     })
 
     let data = await res.json()
@@ -121,6 +130,4 @@ async function init() {
 
   renderProducts(products)
   enableBtns()
-}
-
-init()
+})()

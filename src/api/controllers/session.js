@@ -15,6 +15,7 @@ const mainRoute = async (req, res) => {
   req.session.personName = req.user.personName
   req.session.phone = req.user.phone
   req.session.role = req.user.role
+  req.session.address = req.user.address
 
   const token = generateToken(req.user)
   req.session.token = token
@@ -54,6 +55,7 @@ const getNameRoute = async (req, res) => {
     phone: req.session.phone,
     role: req.session.role,
     token: req.session.token,
+    address: req.session.address,
   })
 }
 

@@ -42,13 +42,13 @@ passport.use(
     },
     async (req, email, password, done) => {
       try {
-        const { personName, adress, age, phone, avatar } = req.body
+        const { personName, address, age, phone, avatar } = req.body
 
         const user = await handleSession.createUser({
           email,
           password,
           personName,
-          adress,
+          address,
           age,
           phone,
           avatar,

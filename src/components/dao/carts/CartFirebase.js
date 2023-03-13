@@ -18,11 +18,12 @@ class CartFirebase {
     }
   }
 
-  async createCart() {
+  async createCart(email, address) {
     try {
       const cartsCollection = this.db.collection('carritos')
 
-      const newCart = new CartFirebaseDto()
+      const newCart = new CartFirebaseDto(email, address)
+
       await cartsCollection.add({ ...newCart })
 
       return newCart.id
@@ -73,11 +74,10 @@ class CartFirebase {
 
       const targetProduct = products.find((prod) => prod.id == productId)
 
-      if (!targetProduct) return { error: `Ese producto no se encuentra en el carrito ID: ${id}` }
+      if (!targetProduct)
+        return { error: `Ese producto no se encuentra en el carrito ID: ${id}` }
 
-      const filteredProducts = products.filter(
-        (prod) => prod.id != productId
-      )
+      const filteredProducts = products.filter((prod) => prod.id != productId)
 
       await cartsCollection.doc(cartId).update({ productos: filteredProducts })
 

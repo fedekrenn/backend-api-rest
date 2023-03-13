@@ -26,9 +26,9 @@ class CartMongo {
     }
   }
 
-  async createCart() {
+  async createCart(email, address) {
     try {
-      const cart = new CarritosModel(new CartMongoDto())
+      const cart = new CarritosModel(new CartMongoDto(email, address))
 
       const result = await cart.save()
 

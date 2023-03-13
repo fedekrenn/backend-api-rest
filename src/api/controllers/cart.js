@@ -5,7 +5,9 @@ const handleCarts = new CartRepository()
 const handleProducts = new ProductRepository()
 
 const createCart = async (req, res) => {
-  const result = await handleCarts.createCart()
+  const { email, address } = req.body
+
+  const result = await handleCarts.createCart(email, address)
   res.json(result)
 }
 

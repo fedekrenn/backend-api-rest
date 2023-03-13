@@ -34,7 +34,7 @@ class ProductMongo {
       const allProducts = await this.getAll()
 
       const productsByCategory = allProducts.filter(
-        (product) => product.categoriatoLowerCase() == categorytoLowerCase()
+        (product) => product.categoria.toLowerCase() == category.toLowerCase()
       )
 
       if (productsByCategory.length == 0)

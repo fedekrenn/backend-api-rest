@@ -26,9 +26,9 @@ class CartRepository {
     }
   }
 
-  async createCart() {
+  async createCart(email, address) {
     try {
-      const result = await handleCarts.createCart()
+      const result = await handleCarts.createCart(email, address)
 
       return {
         message: `Se creó correctamente el carrito!`,
