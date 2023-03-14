@@ -95,7 +95,7 @@ async function addProductToCart(productId) {
   }
 }
 
-;(async function init() {
+async function init() {
   if (!cartId) {
     const { email, address } = await getData()
 
@@ -130,4 +130,6 @@ async function addProductToCart(productId) {
 
   renderProducts(products)
   enableBtns()
-})()
+}
+
+init()

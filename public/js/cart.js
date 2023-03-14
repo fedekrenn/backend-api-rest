@@ -2,6 +2,7 @@ const dialog = document.getElementById('dialog')
 const openDialogBtn = document.getElementById('openDialogBtn')
 const closeDialogBtn = document.getElementById('closeDialogBtn')
 const cartContainer = document.getElementById('cartContainer')
+const totalPriceContainer = document.getElementById('dialogTotalPrice')
 const buyBtn = document.querySelector('.buy-cart')
 
 openDialogBtn.addEventListener('click', async () => {
@@ -14,11 +15,22 @@ openDialogBtn.addEventListener('click', async () => {
 
   cartContainer.innerHTML = ''
 
+  const total = products.reduce((acc, product) => {
+    return acc + product.precio * product.cantidad
+  }, 0)
+
+  totalPriceContainer.innerHTML = `
+          <hr>
+          <p class="dialog__total-price">Total: ${total}</p>
+          <hr>`
+
   products.forEach((product) => {
+    const { id, nombre, foto, cantidad } = product
+
     cartContainer.innerHTML += `
-        <div data-id='${product.id}' class='cart-row'>
-            <img src="${product.foto}" alt="${product.nombre}" width="50px">
-            <h5>${product.nombre}</h5>
+        <div data-id='${id}' class='cart-row'>
+            <img src="${foto}" alt="${nombre}" width="50px">
+            <h5>${nombre} x ${cantidad}</h5>
             <i class="fa-solid fa-trash">
         </div>`
   })
@@ -30,7 +42,7 @@ openDialogBtn.addEventListener('click', async () => {
       const productId = btn.parentElement.getAttribute('data-id')
       const res = await deleteProductFromCart(productId)
 
-      dialog.close()
+      resetAll()
       if (res.hasOwnProperty('error')) return
 
       btn.parentElement.remove()
@@ -66,7 +78,7 @@ buyBtn.addEventListener('click', async (e) => {
 
   const data = await res.json()
 
-  dialog.close()
+  resetAll()
 
   if (data.hasOwnProperty('error'))
     return Swal.fire({
@@ -94,8 +106,7 @@ buyBtn.addEventListener('click', async (e) => {
 })
 
 closeDialogBtn.addEventListener('click', () => {
-  dialog.close()
-  cartContainer.innerHTML = ''
+  resetAll()
 })
 
 async function getProducts(cartId) {
@@ -123,7 +134,7 @@ async function deleteProductFromCart(productId) {
     method: 'DELETE',
   })
 
-  dialog.close()
+  resetAll()
 
   const data = await res.json()
 
@@ -146,4 +157,10 @@ async function deleteProductFromCart(productId) {
   })
 
   return data
+}
+
+function resetAll() {
+  cartContainer.innerHTML = ''
+  totalPriceContainer.innerHTML = ''
+  dialog.close()
 }

@@ -29,7 +29,7 @@ class ProductMongoDto {
 
 class ProductNormaliceIdDto {
     constructor(product) {
-        this.id = product._id;
+        this.id = product._id.toString();
         this.timestamp = product.timestamp;
         this.nombre = product.nombre;
         this.descripcion = product.descripcion;

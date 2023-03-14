@@ -45,8 +45,18 @@ class CartFirebase {
       const cartId = querySnapshot.docs.find((doc) => doc.data().id == id).id
 
       const products = targetCart.productos
+      const targetProduct = products.find((prod) => prod.id == product.id)
 
-      products.push(product)
+      if (targetProduct) {
+        targetProduct.cantidad += 1
+      } else {
+        product.cantidad = 1
+        products.push(product)
+      }
+
+      if (targetProduct?.cantidad > targetProduct?.stock) {
+        return { error: 'Ya tienes la cantidad máxima para esta unidad según su stock' }
+      }
 
       await cartsCollection.doc(cartId).update({ productos: products })
 

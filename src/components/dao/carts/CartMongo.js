@@ -44,7 +44,21 @@ class CartMongo {
 
       if (!cart) return { error: 'Carrito no encontrado!' }
 
-      cart.productos.push(product)
+      const targetProduct = cart.productos.find(
+        (prod) => prod.id.toString() === product.id
+      )
+
+      if (targetProduct) {
+        targetProduct.cantidad += 1
+        cart.markModified('productos')
+      } else {
+        product.cantidad = 1
+        cart.productos.push(product)
+      }
+
+      if (targetProduct?.cantidad > targetProduct?.stock) {
+        return { error: 'Ya tienes la cantidad máxima para esta unidad según su stock' }
+      }
 
       await cart.save()
 

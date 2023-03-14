@@ -368,6 +368,18 @@ dialog {
   color: #ccc;
 }
 
+.dialog__buttons {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.dialog__total-price{
+  text-align: center;
+  margin: 10px 0;
+}
+
+
 dialog h3 {
   text-align: center;
   margin: 20px 0;
@@ -415,3 +427,4 @@ dialog i {
   color: #bd2424;
   transition: 0.5s;
 }
+
