@@ -1,6 +1,9 @@
 const { loggerError, loggerBuy } = require('../../utils/logger')
 const handleSubmitMail = require('../../utils/mailOptions')
 
+const ContenedorOrdenes = require('./OrderRepository')
+const OrderRepository = new ContenedorOrdenes()
+
 const {
   handleSubmitWhatsapp,
   handleSubmitSMS,
@@ -52,7 +55,10 @@ class CartRepository {
       const { cart, email, personName, phone } = buyInfo
 
       const productsName = cart.map((element) => element.nombre)
-      const totalPrice = cart.reduce((acc, element) => acc + parseInt(element.precio), 0)
+      const totalPrice = cart.reduce(
+        (acc, element) => acc + parseInt(element.precio),
+        0
+      )
 
       const mailOptions = {
         from: 'Servidor Ecommerce',
@@ -79,9 +85,11 @@ class CartRepository {
         )}\n\nPor un total de: $${totalPrice}\n\nEl pedido es a nombre de ${personName} y su email es ${email}`
       const smsMsg = `Hola ${personName}! Te confirmamos que se recibió tu pedido correctamente. En breve nos comunicaremos con vos para coordinar la entrega. Gracias por elegirnos!`
 
-      handleSubmitMail(mailOptions)
-      handleSubmitWhatsapp(whatsappMsg)
-      handleSubmitSMS(smsMsg, phone)
+      // handleSubmitMail(mailOptions)
+      // handleSubmitWhatsapp(whatsappMsg)
+      // handleSubmitSMS(smsMsg, phone)
+
+      OrderRepository.createOrder(buyInfo)
 
       loggerBuy.trace(
         `Se compraron los productos: ${productsName.join(

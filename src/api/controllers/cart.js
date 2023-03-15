@@ -7,6 +7,10 @@ const handleProducts = new ProductRepository()
 const createCart = async (req, res) => {
   const { email, address } = req.body
 
+  if (!email || !address) {
+    return res.json({ error: 'No se han enviado todos los datos' })
+  }
+
   const result = await handleCarts.createCart(email, address)
   res.json(result)
 }

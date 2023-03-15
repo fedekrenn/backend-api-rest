@@ -95,13 +95,6 @@ buyBtn.addEventListener('click', async (e) => {
     html: `${data.message} <br><br><br> Te llegará un Whatsapp con el detalle de tu compra`,
     showConfirmButton: true,
     timer: 5500,
-  }).then(async (result) => {
-    if (result.isConfirmed) {
-      await fetch(`/api/carrito/${cartId}`, {
-        method: 'DELETE',
-      })
-      init()
-    }
   })
 })
 

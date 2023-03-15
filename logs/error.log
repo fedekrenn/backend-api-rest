@@ -1,15 +1,93 @@
-[2023-03-14T19:15:20.513] [ERROR] error - TypeError: Cannot read properties of undefined (reading 'cantidad')
-    at CartFirebase.addProductToCart (C:\Users\fedek\OneDrive\Escritorio\Programación\backend-api-rest\src\components\dao\carts\CartFirebase.js:57:33)
-    at processTicksAndRejections (node:internal/process/task_queues:96:5)
-    at async CartRepository.addProductToCart (C:\Users\fedek\OneDrive\Escritorio\Programación\backend-api-rest\src\components\repository\CartRepository.js:44:14)
-    at async addProductToCart (C:\Users\fedek\OneDrive\Escritorio\Programación\backend-api-rest\src\api\controllers\cart.js:22:20)
-[2023-03-14T19:18:23.404] [ERROR] error - TypeError: Cannot read properties of undefined (reading 'cantidad')
-    at CartFirebase.addProductToCart (C:\Users\fedek\OneDrive\Escritorio\Programación\backend-api-rest\src\components\dao\carts\CartFirebase.js:57:25)
-    at processTicksAndRejections (node:internal/process/task_queues:96:5)
-    at async CartRepository.addProductToCart (C:\Users\fedek\OneDrive\Escritorio\Programación\backend-api-rest\src\components\repository\CartRepository.js:44:14)
-    at async addProductToCart (C:\Users\fedek\OneDrive\Escritorio\Programación\backend-api-rest\src\api\controllers\cart.js:22:20)
-[2023-03-14T19:18:46.782] [ERROR] error - TypeError: Cannot read properties of undefined (reading 'stock')
-    at CartFirebase.addProductToCart (C:\Users\fedek\OneDrive\Escritorio\Programación\backend-api-rest\src\components\dao\carts\CartFirebase.js:57:51)
-    at processTicksAndRejections (node:internal/process/task_queues:96:5)
-    at async CartRepository.addProductToCart (C:\Users\fedek\OneDrive\Escritorio\Programación\backend-api-rest\src\components\repository\CartRepository.js:44:14)
-    at async addProductToCart (C:\Users\fedek\OneDrive\Escritorio\Programación\backend-api-rest\src\api\controllers\cart.js:22:20)
+[2023-03-15T18:41:19.417] [ERROR] error - TypeError: handleCarts.createOrder is not a function
+    at OrderRepository.createOrder (C:\Users\fedek\OneDrive\Escritorio\Programación\backend-api-rest\src\components\repository\OrderRepository.js:23:32)
+    at CartRepository.buyCart (C:\Users\fedek\OneDrive\Escritorio\Programación\backend-api-rest\src\components\repository\CartRepository.js:89:23)
+    at buyCart (C:\Users\fedek\OneDrive\Escritorio\Programación\backend-api-rest\src\api\controllers\cart.js:37:36)
+    at Layer.handle [as handle_request] (C:\Users\fedek\OneDrive\Escritorio\Programación\backend-api-rest\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\fedek\OneDrive\Escritorio\Programación\backend-api-rest\node_modules\express\lib\router\route.js:144:13)
+    at Route.dispatch (C:\Users\fedek\OneDrive\Escritorio\Programación\backend-api-rest\node_modules\express\lib\router\route.js:114:3)
+    at Layer.handle [as handle_request] (C:\Users\fedek\OneDrive\Escritorio\Programación\backend-api-rest\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Users\fedek\OneDrive\Escritorio\Programación\backend-api-rest\node_modules\express\lib\router\index.js:284:15
+    at Function.process_params (C:\Users\fedek\OneDrive\Escritorio\Programación\backend-api-rest\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Users\fedek\OneDrive\Escritorio\Programación\backend-api-rest\node_modules\express\lib\router\index.js:280:10)
+[2023-03-15T18:42:52.832] [ERROR] error - ReferenceError: handleCarts is not defined
+    at OrderRepository.createOrder (C:\Users\fedek\OneDrive\Escritorio\Programación\backend-api-rest\src\components\repository\OrderRepository.js:23:7)
+    at CartRepository.buyCart (C:\Users\fedek\OneDrive\Escritorio\Programación\backend-api-rest\src\components\repository\CartRepository.js:89:23)
+    at buyCart (C:\Users\fedek\OneDrive\Escritorio\Programación\backend-api-rest\src\api\controllers\cart.js:37:36)
+    at Layer.handle [as handle_request] (C:\Users\fedek\OneDrive\Escritorio\Programación\backend-api-rest\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\fedek\OneDrive\Escritorio\Programación\backend-api-rest\node_modules\express\lib\router\route.js:144:13)
+    at Route.dispatch (C:\Users\fedek\OneDrive\Escritorio\Programación\backend-api-rest\node_modules\express\lib\router\route.js:114:3)
+    at Layer.handle [as handle_request] (C:\Users\fedek\OneDrive\Escritorio\Programación\backend-api-rest\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Users\fedek\OneDrive\Escritorio\Programación\backend-api-rest\node_modules\express\lib\router\index.js:284:15
+    at Function.process_params (C:\Users\fedek\OneDrive\Escritorio\Programación\backend-api-rest\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Users\fedek\OneDrive\Escritorio\Programación\backend-api-rest\node_modules\express\lib\router\index.js:280:10)
+[2023-03-15T19:43:51.873] [ERROR] error - Error: ordenes validation failed: numeroOrden: Path `numeroOrden` is required.
+    at ValidationError.inspect (C:\Users\fedek\OneDrive\Escritorio\Programación\backend-api-rest\node_modules\mongoose\lib\error\validation.js:50:26)
+    at formatValue (node:internal/util/inspect:782:19)
+    at inspect (node:internal/util/inspect:347:10)
+    at formatWithOptionsInternal (node:internal/util/inspect:2167:40)
+    at Object.format (node:internal/util/inspect:2021:10)
+    at basicLayout (C:\Users\fedek\OneDrive\Escritorio\Programación\backend-api-rest\node_modules\log4js\lib\layouts.js:65:52)
+    at app (C:\Users\fedek\OneDrive\Escritorio\Programación\backend-api-rest\node_modules\log4js\lib\appenders\file.js:98:23)
+    at C:\Users\fedek\OneDrive\Escritorio\Programación\backend-api-rest\node_modules\log4js\lib\log4js.js:43:5
+    at Array.forEach (<anonymous>)
+    at sendLogEventToAppender (C:\Users\fedek\OneDrive\Escritorio\Programación\backend-api-rest\node_modules\log4js\lib\log4js.js:42:21) {
+  errors: {
+    numeroOrden: ValidatorError: Path `numeroOrden` is required.
+        at validate (C:\Users\fedek\OneDrive\Escritorio\Programación\backend-api-rest\node_modules\mongoose\lib\schematype.js:1346:13)
+        at SchemaNumber.SchemaType.doValidate (C:\Users\fedek\OneDrive\Escritorio\Programación\backend-api-rest\node_modules\mongoose\lib\schematype.js:1330:7)
+        at C:\Users\fedek\OneDrive\Escritorio\Programación\backend-api-rest\node_modules\mongoose\lib\document.js:2877:18
+        at processTicksAndRejections (node:internal/process/task_queues:78:11) {
+      properties: [Object],
+      kind: 'required',
+      path: 'numeroOrden',
+      value: undefined,
+      reason: undefined,
+      [Symbol(mongoose:validatorError)]: true
+    }
+  },
+  _message: 'ordenes validation failed'
+}
+[2023-03-15T20:03:27.003] [ERROR] error - TypeError: loggerError.error is not a function
+    at OrderFirebase.createOrder (C:\Users\fedek\OneDrive\Escritorio\Programación\backend-api-rest\src\components\dao\orders\OrderFirebase.js:36:19)
+    at OrderRepository.createOrder (C:\Users\fedek\OneDrive\Escritorio\Programación\backend-api-rest\src\components\repository\OrderRepository.js:23:33)
+    at CartRepository.buyCart (C:\Users\fedek\OneDrive\Escritorio\Programación\backend-api-rest\src\components\repository\CartRepository.js:92:23)
+    at buyCart (C:\Users\fedek\OneDrive\Escritorio\Programación\backend-api-rest\src\api\controllers\cart.js:37:36)
+    at Layer.handle [as handle_request] (C:\Users\fedek\OneDrive\Escritorio\Programación\backend-api-rest\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\fedek\OneDrive\Escritorio\Programación\backend-api-rest\node_modules\express\lib\router\route.js:144:13)
+    at Route.dispatch (C:\Users\fedek\OneDrive\Escritorio\Programación\backend-api-rest\node_modules\express\lib\router\route.js:114:3)
+    at Layer.handle [as handle_request] (C:\Users\fedek\OneDrive\Escritorio\Programación\backend-api-rest\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Users\fedek\OneDrive\Escritorio\Programación\backend-api-rest\node_modules\express\lib\router\index.js:284:15
+    at Function.process_params (C:\Users\fedek\OneDrive\Escritorio\Programación\backend-api-rest\node_modules\express\lib\router\index.js:346:12)
+[2023-03-15T20:03:54.779] [ERROR] error - Error: Value for argument "data" is not a valid Firestore document. Couldn't serialize object of type "OrderFirebaseDto". Firestore doesn't support JavaScript objects with custom prototypes (i.e. objects that were created via the "new" operator).
+    at validateDocumentData (C:\Users\fedek\OneDrive\Escritorio\Programación\backend-api-rest\node_modules\@google-cloud\firestore\build\src\write-batch.js:596:15)
+    at CollectionReference.add (C:\Users\fedek\OneDrive\Escritorio\Programación\backend-api-rest\node_modules\@google-cloud\firestore\build\src\reference.js:2235:48)
+    at OrderFirebase.createOrder (C:\Users\fedek\OneDrive\Escritorio\Programación\backend-api-rest\src\components\dao\orders\OrderFirebase.js:31:53)
+    at OrderRepository.createOrder (C:\Users\fedek\OneDrive\Escritorio\Programación\backend-api-rest\src\components\repository\OrderRepository.js:23:33)
+    at CartRepository.buyCart (C:\Users\fedek\OneDrive\Escritorio\Programación\backend-api-rest\src\components\repository\CartRepository.js:92:23)
+    at buyCart (C:\Users\fedek\OneDrive\Escritorio\Programación\backend-api-rest\src\api\controllers\cart.js:37:36)
+    at Layer.handle [as handle_request] (C:\Users\fedek\OneDrive\Escritorio\Programación\backend-api-rest\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\fedek\OneDrive\Escritorio\Programación\backend-api-rest\node_modules\express\lib\router\route.js:144:13)
+    at Route.dispatch (C:\Users\fedek\OneDrive\Escritorio\Programación\backend-api-rest\node_modules\express\lib\router\route.js:114:3)
+    at Layer.handle [as handle_request] (C:\Users\fedek\OneDrive\Escritorio\Programación\backend-api-rest\node_modules\express\lib\router\layer.js:95:5)
+[2023-03-15T20:05:48.300] [ERROR] error - ReferenceError: newOrder is not defined
+    at OrderFirebase.createOrder (C:\Users\fedek\OneDrive\Escritorio\Programación\backend-api-rest\src\components\dao\orders\OrderFirebase.js:36:19)
+    at OrderRepository.createOrder (C:\Users\fedek\OneDrive\Escritorio\Programación\backend-api-rest\src\components\repository\OrderRepository.js:23:33)
+    at CartRepository.buyCart (C:\Users\fedek\OneDrive\Escritorio\Programación\backend-api-rest\src\components\repository\CartRepository.js:92:23)
+    at buyCart (C:\Users\fedek\OneDrive\Escritorio\Programación\backend-api-rest\src\api\controllers\cart.js:37:36)
+    at Layer.handle [as handle_request] (C:\Users\fedek\OneDrive\Escritorio\Programación\backend-api-rest\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\fedek\OneDrive\Escritorio\Programación\backend-api-rest\node_modules\express\lib\router\route.js:144:13)
+    at Route.dispatch (C:\Users\fedek\OneDrive\Escritorio\Programación\backend-api-rest\node_modules\express\lib\router\route.js:114:3)
+    at Layer.handle [as handle_request] (C:\Users\fedek\OneDrive\Escritorio\Programación\backend-api-rest\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Users\fedek\OneDrive\Escritorio\Programación\backend-api-rest\node_modules\express\lib\router\index.js:284:15
+    at Function.process_params (C:\Users\fedek\OneDrive\Escritorio\Programación\backend-api-rest\node_modules\express\lib\router\index.js:346:12)
+[2023-03-15T20:08:14.934] [ERROR] error - Error: Value for argument "data" is not a valid Firestore document. Couldn't serialize object of type "OrderFirebaseDto". Firestore doesn't support JavaScript objects with custom prototypes (i.e. objects that were created via the "new" operator).
+    at validateDocumentData (C:\Users\fedek\OneDrive\Escritorio\Programación\backend-api-rest\node_modules\@google-cloud\firestore\build\src\write-batch.js:596:15)
+    at CollectionReference.add (C:\Users\fedek\OneDrive\Escritorio\Programación\backend-api-rest\node_modules\@google-cloud\firestore\build\src\reference.js:2235:48)
+    at OrderFirebase.createOrder (C:\Users\fedek\OneDrive\Escritorio\Programación\backend-api-rest\src\components\dao\orders\OrderFirebase.js:34:55)
+    at OrderRepository.createOrder (C:\Users\fedek\OneDrive\Escritorio\Programación\backend-api-rest\src\components\repository\OrderRepository.js:23:33)
+    at CartRepository.buyCart (C:\Users\fedek\OneDrive\Escritorio\Programación\backend-api-rest\src\components\repository\CartRepository.js:92:23)
+    at buyCart (C:\Users\fedek\OneDrive\Escritorio\Programación\backend-api-rest\src\api\controllers\cart.js:37:36)
+    at Layer.handle [as handle_request] (C:\Users\fedek\OneDrive\Escritorio\Programación\backend-api-rest\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\fedek\OneDrive\Escritorio\Programación\backend-api-rest\node_modules\express\lib\router\route.js:144:13)
+    at Route.dispatch (C:\Users\fedek\OneDrive\Escritorio\Programación\backend-api-rest\node_modules\express\lib\router\route.js:114:3)
+    at Layer.handle [as handle_request] (C:\Users\fedek\OneDrive\Escritorio\Programación\backend-api-rest\node_modules\express\lib\router\layer.js:95:5)
