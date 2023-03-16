@@ -12,6 +12,8 @@ class OrderFirebase {
       const querySnapshot = await orderCollection.get()
       const allOrders = querySnapshot.docs.map((doc) => doc.data())
 
+      if (allOrders.length === 0) return { error: 'Todavía no se generaron órdenes de compra' }
+
       return allOrders
     } catch (err) {
       loggerError.error(err)

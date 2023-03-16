@@ -7,3 +7,4 @@
 [2023-03-14T18:39:24.994] [ERROR] warn - Error al verificar el token de autenticación: JsonWebTokenError: invalid token
 [2023-03-14T18:39:30.692] [WARN] warn - Un usuario sin los permisos suficientes intentó hacer una transacción en la ruta '/' método 'POST'
 [2023-03-14T18:40:42.897] [ERROR] warn - Error al verificar el token de autenticación: TokenExpiredError: jwt expired
+[2023-03-16T17:18:15.900] [ERROR] warn - Error al verificar el token de autenticación: JsonWebTokenError: invalid token

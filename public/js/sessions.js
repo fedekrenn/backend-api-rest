@@ -42,6 +42,7 @@ async function logout() {
       <li><a href="./ecommerce.html">Tienda</a></li>
       <li><a href="./productos.html">Productos</a></li>
       <li><a href="./carritos.html">Carritos</a></li>
+      <li><a href="./orders.html">Ordenes</a></li>
     `
   }
 })()

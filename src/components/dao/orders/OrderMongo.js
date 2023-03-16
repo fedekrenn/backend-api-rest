@@ -18,6 +18,10 @@ class OrderMongo {
   async getOrders() {
     try {
       const orders = await OrdenesModel.find()
+
+      if (orders.length === 0)
+        return { error: 'Todavía no se generaron órdenes de compra' }
+
       const ordersNormalice = orders.map((order) => {
         return new OrderNormaliceIdDto(order)
       })
@@ -31,9 +35,11 @@ class OrderMongo {
   async getOrderById(id) {
     try {
       const order = await OrdenesModel.findById(id)
-      return new OrderNormaliceIdDto(order)
+      const normalicedOrder = new OrderNormaliceIdDto(order)
+
+      return normalicedOrder
     } catch (err) {
-      loggerError.error(err)
+      return { error: 'Orden no encontrada' }
     }
   }
 
@@ -68,7 +74,7 @@ class OrderMongo {
 
       return { message: 'Orden completada' }
     } catch (err) {
-      loggerError.error(err)
+      return { error: 'Orden no encontrada' }
     }
   }
 }

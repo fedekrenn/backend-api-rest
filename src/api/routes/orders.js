@@ -1,9 +1,8 @@
 const express = require('express')
 
-const {
-  getOrders,
-  markOrderAsCompleted,
-} = require('../controllers/orders')
+const isAdminMiddleware = require('../middlewares/isAdminMiddleware')
+
+const { getOrders, markOrderAsCompleted } = require('../controllers/orders')
 
 const { Router } = express
 const routerOrders = Router()
@@ -15,6 +14,6 @@ routerOrders.get('/:id?', getOrders)
 
 /* ---------- PUT ------------ */
 // Marcar una orden como completada
-routerOrders.put('/:id', markOrderAsCompleted)
+routerOrders.put('/:id', isAdminMiddleware, markOrderAsCompleted)
 
 module.exports = routerOrders
