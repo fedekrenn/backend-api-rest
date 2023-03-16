@@ -8,8 +8,11 @@ class OrderFirebase {
 
   async getOrders() {
     try {
-      // TODO
-      console.log('eeee')
+      const orderCollection = this.db.collection('ordenes')
+      const querySnapshot = await orderCollection.get()
+      const allOrders = querySnapshot.docs.map((doc) => doc.data())
+
+      return allOrders
     } catch (err) {
       loggerError.error(err)
     }
@@ -17,8 +20,15 @@ class OrderFirebase {
 
   async getOrderById(id) {
     try {
-      // TODO
-      console.log('eeee')
+      const orderCollection = this.db.collection('ordenes')
+      const querySnapshot = await orderCollection.get()
+      const allOrders = querySnapshot.docs.map((doc) => doc.data())
+
+      const targetOrder = allOrders.find((order) => order.numeroDeOrden === id)
+
+      if (!targetOrder) return { error: 'Orden no encontrada' }
+
+      return targetOrder
     } catch (err) {
       loggerError.error(err)
     }
@@ -43,8 +53,19 @@ class OrderFirebase {
 
   async markOrderAsCompleted(id) {
     try {
-      // TODO
-      console.log(order)
+      const orderCollection = this.db.collection('ordenes')
+      const querySnapshot = await orderCollection.get()
+      const allOrders = querySnapshot.docs.map(doc => doc.data())
+
+      const targetOrder = allOrders.find(order => order.numeroDeOrden == id)
+
+      if (!targetOrder) return { error: 'Orden no encontrada' }
+
+      const orderId = querySnapshot.docs.find(doc => doc.data().numeroDeOrden == id).id
+
+      await this.db.collection('ordenes').doc(orderId).update({ estado: 'Completada' })
+
+      return { message: 'Orden completada' }
     } catch (err) {
       loggerError.error(err)
     }

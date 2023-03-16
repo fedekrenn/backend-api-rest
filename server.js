@@ -8,6 +8,7 @@ const { logger, loggerWarn } = require('./src/utils/logger')
 
 const routerProducts = require('./src/api/routes/products')
 const routerCarts = require('./src/api/routes/carts')
+const routerOrders = require('./src/api/routes/orders')
 const routerSessions = require('./src/api/routes/session')
 
 const passport = require('./src/utils/passport')
@@ -57,6 +58,7 @@ if (MODE === 'cluster' && cluster.isMaster) {
 
   app.use('/api/productos', routerProducts)
   app.use('/api/carrito', routerCarts)
+  app.use('/api/ordenes', routerOrders)
   app.use('/', routerSessions)
 
   app.use((req, res) => {

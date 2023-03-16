@@ -91,3 +91,8 @@
     at next (C:\Users\fedek\OneDrive\Escritorio\Programación\backend-api-rest\node_modules\express\lib\router\route.js:144:13)
     at Route.dispatch (C:\Users\fedek\OneDrive\Escritorio\Programación\backend-api-rest\node_modules\express\lib\router\route.js:114:3)
     at Layer.handle [as handle_request] (C:\Users\fedek\OneDrive\Escritorio\Programación\backend-api-rest\node_modules\express\lib\router\layer.js:95:5)
+[2023-03-16T16:55:32.453] [ERROR] error - TypeError: Cannot read properties of undefined (reading 'id')
+    at OrderFirebase.markOrderAsCompleted (C:\Users\fedek\OneDrive\Escritorio\Programación\backend-api-rest\src\components\dao\orders\OrderFirebase.js:64:76)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async OrderRepository.markOrderAsCompleted (C:\Users\fedek\OneDrive\Escritorio\Programación\backend-api-rest\src\components\repository\OrderRepository.js:31:14)
+    at async markOrderAsCompleted (C:\Users\fedek\OneDrive\Escritorio\Programación\backend-api-rest\src\api\controllers\orders.js:18:18)

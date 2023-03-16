@@ -17,8 +17,12 @@ mongoose.connect(
 class OrderMongo {
   async getOrders() {
     try {
-      // TODO
-      console.log('getOrders')
+      const orders = await OrdenesModel.find()
+      const ordersNormalice = orders.map((order) => {
+        return new OrderNormaliceIdDto(order)
+      })
+
+      return ordersNormalice
     } catch (err) {
       loggerError.error(err)
     }
@@ -26,8 +30,8 @@ class OrderMongo {
 
   async getOrderById(id) {
     try {
-      // TODO
-      console.log(id)
+      const order = await OrdenesModel.findById(id)
+      return new OrderNormaliceIdDto(order)
     } catch (err) {
       loggerError.error(err)
     }
@@ -54,8 +58,15 @@ class OrderMongo {
 
   async markOrderAsCompleted(id) {
     try {
-      // TODO
-      console.log(id)
+      const orderToModify = await OrdenesModel.findById(id)
+
+      if (!orderToModify) return { error: 'Orden no encontrada' }
+
+      orderToModify.estado = 'Completada'
+
+      await orderToModify.save()
+
+      return { message: 'Orden completada' }
     } catch (err) {
       loggerError.error(err)
     }
