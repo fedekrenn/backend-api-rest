@@ -1,6 +1,7 @@
 const cartContainer = document.getElementById('cart-container')
 const getProductsForm = document.getElementById('get-products-form')
 const deleteCartForm = document.getElementById('delete-cart-form')
+const deleteIdInput = document.getElementById('deleteId')
 
 let currentCart
 
@@ -38,6 +39,26 @@ deleteCartForm.addEventListener('submit', async (e) => {
       showConfirmButton: false,
       timer: 1500,
     })
+})
+
+deleteIdInput.addEventListener('click', () => {
+  const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener('mouseenter', Swal.stopTimer)
+      toast.addEventListener('mouseleave', Swal.resumeTimer)
+    },
+  })
+
+  Toast.fire({
+    icon: 'warning',
+    title:
+      'Cuidado, esto borrará el carrito entero para ese usuario. Si él/ella está navegando en este momento le generarás un error',
+  })
 })
 
 async function getProducts(cartId) {
@@ -78,7 +99,7 @@ async function getProducts(cartId) {
             <td>${product.precio}</td>
             <td>${product.stock}</td>
             <td><img src="${product.foto}" alt="${product.nombre}" width="100px"></td>
-            <td>${product.timestamp}</td>
+            <td>${product.cantidad}</td>
             <td>${product.categoria}</td>
             <td>${product.descripcion}</td>
         `
@@ -105,24 +126,9 @@ function renderCarts(carts) {
           <tr>
             <td>${cart.id}</td>
             <td>${cart.productos.length}</td>
-            <td><button class='btn-to-cart' id=${cart.id}>✅</button></td>
+            <td>${cart.email}</td>
           </tr>
         `
-  })
-
-  const addToLocalStorageBtns = document.querySelectorAll('.btn-to-cart')
-
-  addToLocalStorageBtns.forEach((btn) => {
-    btn.addEventListener('click', () => {
-      localStorage.setItem('cartId', btn.id)
-      Swal.fire({
-        icon: 'success',
-        title: 'Éxito!',
-        text: 'El carrito se ha marcado como activo',
-        showConfirmButton: false,
-        timer: 1500,
-      })
-    })
   })
 }
 

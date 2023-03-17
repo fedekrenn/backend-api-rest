@@ -37,10 +37,29 @@
       </div>
     </header>
     <main>
-      <h1>Sección verificación Carritos</h1>
+      <h1>Carritos activos/pendientes de compra de todos los usuarios</h1>
+      <hr />
+
       <hr />
       <section>
-        <h2>Productos dentro de un carrito</h2>
+        <h2>Listado total de carritos:</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Q Productos únicos</th>
+              <th>Usuario</th>
+            </tr>
+          </thead>
+          <tbody id="cart-container"></tbody>
+        </table>
+      </section>
+      <hr />
+      <section>
+        <h2>
+          Introduce un ID para ver los productos que seleccionó el usuario y
+          todavía no compró
+        </h2>
         <form id="get-products-form">
           <label for="cartId">ID del carrito</label>
           <input type="text" name="cartId" id="cartId" required />
@@ -55,26 +74,12 @@
               <th>Precio</th>
               <th>Stock</th>
               <th>Imagen</th>
-              <th>Timestamp</th>
+              <th>Cantidad</th>
               <th>Categoría</th>
               <th>Descripción</th>
             </tr>
           </thead>
           <tbody id="get-products-container"></tbody>
-        </table>
-      </section>
-      <hr />
-      <section>
-        <h2>Listado total de carritos:</h2>
-        <table>
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Q Productos</th>
-              <th>Selecionar activo</th>
-            </tr>
-          </thead>
-          <tbody id="cart-container"></tbody>
         </table>
       </section>
       <hr />

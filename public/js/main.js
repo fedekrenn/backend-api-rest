@@ -1,7 +1,7 @@
 const productsContainer = document.getElementById('products-container')
 const categorySelect = document.getElementById('category')
 
-let cartId = localStorage.getItem('cartId')
+let cartId
 let btnArr = document.querySelectorAll('.add-cart-btn') || []
 
 categorySelect.addEventListener('change', async (e) => {
@@ -96,7 +96,17 @@ async function addProductToCart(productId) {
 }
 
 async function init() {
-  if (!cartId) {
+  const data = await fetch('/api/carrito')
+  const allCart = await data.json()
+
+  const userMail = JSON.parse(sessionStorage.getItem('personalData')).email
+
+  const userCart = allCart.find((cart) => cart.email === userMail)
+
+  if (userCart) {
+    cartId = userCart.id
+    localStorage.setItem('cartId', cartId)
+  } else {
     const { email, address } = await getData()
 
     let res = await fetch('/api/carrito', {
@@ -111,20 +121,10 @@ async function init() {
     })
 
     let data = await res.json()
-
     cartId = data.id
+
     localStorage.setItem('cartId', cartId)
-  } else {
-    let res = await fetch(`/api/carrito/${cartId}/productos`)
-    let data = await res.json()
-
-    if (data.hasOwnProperty('error')) {
-      localStorage.removeItem('cartId')
-      cartId = null
-      init()
-    }
   }
-
   const response = await fetch('/api/productos/')
   const products = await response.json()
 

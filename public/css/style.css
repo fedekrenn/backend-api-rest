@@ -172,6 +172,16 @@ img {
   align-items: center;
 }
 
+i.pointer{
+  margin-left: 5px;
+  padding: 2px;
+  font-size: 14px;
+  background-color: #ffffff;
+  color: #000;
+  border: 1px solid rgb(138, 138, 138);
+  border-radius: 2px;
+}
+
 .pointer:hover {
   cursor: pointer;
 }
@@ -179,6 +189,12 @@ img {
 .btn:hover {
   box-shadow: 0 0 10px #fff;
   font-weight: bolder;
+  transition: 0.5s;
+}
+
+.mark-checked:hover {
+  cursor: pointer;
+  transform: scale(1.7);
   transition: 0.5s;
 }
 

@@ -55,8 +55,7 @@ class OrderMongo {
       const newOrder = new OrdenesModel(order)
       const res = await newOrder.save()
 
-      // TODO - retornar los datos correctos
-      console.log(res._id)
+      return res
     } catch (err) {
       loggerError.error(err)
     }

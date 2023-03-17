@@ -6,6 +6,16 @@ ordersForm.addEventListener('submit', async (e) => {
   e.preventDefault()
   const id = e.target.searchInput.value
 
+  if (!id) {
+    return Swal.fire({
+      icon: 'warning',
+      title: 'Atención!...',
+      text: 'Debes ingresar un ID',
+      showConfirmButton: false,
+      timer: 1500,
+    })
+  }
+
   const targetOrder = await getOrders(id)
   targetOrder && renderProducts([targetOrder])
 })
@@ -43,7 +53,7 @@ function renderProducts(data) {
             ${
               isAdmin()
                 ? `<td>${order.email}</td>
-            <td class='mark-checked pointer'>✅</td>`
+            <td class='mark-checked pointer' title='Esto marcará el pedido como "Entregado"'>✅</td>`
                 : ''
             }
         </tr>
