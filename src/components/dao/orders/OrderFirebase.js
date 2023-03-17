@@ -61,11 +61,13 @@ class OrderFirebase {
 
       const targetOrder = allOrders.find(order => order.numeroDeOrden == id)
 
+      if (targetOrder.estado == 'Entregado') return { error: 'La orden ya fue entregada' }
+
       if (!targetOrder) return { error: 'Orden no encontrada' }
 
       const orderId = querySnapshot.docs.find(doc => doc.data().numeroDeOrden == id).id
 
-      await this.db.collection('ordenes').doc(orderId).update({ estado: 'Completada' })
+      await this.db.collection('ordenes').doc(orderId).update({ estado: 'Entregado' })
 
       return { message: 'Orden completada' }
     } catch (err) {

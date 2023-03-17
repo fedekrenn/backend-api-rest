@@ -68,7 +68,10 @@ class OrderMongo {
 
       if (!orderToModify) return { error: 'Orden no encontrada' }
 
-      orderToModify.estado = 'Completada'
+      if (orderToModify.estado === 'Entregado')
+        return { error: 'La orden ya fue entregada' }
+
+      orderToModify.estado = 'Entregado'
 
       await orderToModify.save()
 

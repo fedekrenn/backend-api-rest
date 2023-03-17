@@ -34,7 +34,7 @@ function renderProducts(data) {
     const date = new Date(parseInt(order.timestamp)).toLocaleString()
 
     html += `
-        <tr>
+        <tr data-id='${order.numeroDeOrden}'>
             <td>${order.numeroDeOrden}</td>
             <td>${date}</td>
             <td>${products}</td>
@@ -43,7 +43,7 @@ function renderProducts(data) {
             ${
               isAdmin()
                 ? `<td>${order.email}</td>
-            <td onclick=(alert('HOla!!!'))>✅</td>`
+            <td class='mark-checked pointer'>✅</td>`
                 : ''
             }
         </tr>
@@ -51,6 +51,45 @@ function renderProducts(data) {
   })
 
   tableBody.innerHTML = html
+
+  const markChecked = document.querySelectorAll('.mark-checked')
+
+  markChecked.forEach((btn) => {
+    btn.addEventListener('click', async () => {
+      const orderId = btn.parentElement.getAttribute('data-id')
+
+      const token = JSON.parse(sessionStorage.getItem('personalData')).token
+
+      const res = await fetch(`/api/ordenes/${orderId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          authorization: `Bearer ${token}`,
+        },
+      })
+
+      const data = await res.json()
+
+      if (data.hasOwnProperty('error')) {
+        return Swal.fire({
+          icon: 'warning',
+          title: 'Atención!...',
+          text: data.error,
+          showConfirmButton: false,
+          timer: 1500,
+        })
+      }
+
+      Swal.fire({
+        icon: 'success',
+        title: 'Orden marcada como entregada',
+        showConfirmButton: false,
+        timer: 1500,
+      })
+
+      init()
+    })
+  })
 }
 
 async function getOrders(id) {

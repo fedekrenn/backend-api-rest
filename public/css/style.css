@@ -91,6 +91,7 @@ button {
 table {
   border-collapse: collapse;
   margin: 3em auto;
+  max-width: 90vw;
 }
 
 th,
@@ -148,7 +149,7 @@ img {
   text-transform: uppercase;
 }
 
-.filter-section{
+.filter-section {
   margin: 20px auto;
   width: 200px;
   display: flex;
@@ -169,6 +170,10 @@ img {
   display: flex;
   justify-content: space-around;
   align-items: center;
+}
+
+.pointer:hover {
+  cursor: pointer;
 }
 
 .btn:hover {
@@ -374,11 +379,10 @@ dialog {
   align-items: center;
 }
 
-.dialog__total-price{
+.dialog__total-price {
   text-align: center;
   margin: 10px 0;
 }
-
 
 dialog h3 {
   text-align: center;
@@ -404,7 +408,7 @@ dialog i {
   margin: 2em 0;
 }
 
-.cart-row{
+.cart-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -416,13 +420,13 @@ dialog i {
   margin: unset;
 }
 
-.btn-to-cart{
+.btn-to-cart {
   margin: 0;
   padding: 0;
   background-color: 0;
 }
 
-.btn-to-cart:hover{
+.btn-to-cart:hover {
   cursor: pointer;
   color: #bd2424;
   transition: 0.5s;
@@ -434,7 +438,7 @@ dialog i {
   flex-direction: row;
 }
 
-button[type="submit"].sbm {
+button[type='submit'].sbm {
   padding: 0;
   margin: 0;
 }
