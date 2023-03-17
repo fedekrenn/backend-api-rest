@@ -1,22 +1,22 @@
 const uniqid = require('uniqid')
 
 class OrderFirebaseDto {
-  constructor(buyInfo, totalPrice) {
+  constructor(cart, email, totalPrice) {
     this.numeroDeOrden = uniqid()
     this.timestamp = Date.now()
-    this.productos = buyInfo.cart
+    this.productos = cart
     this.estado = 'Generada'
-    this.email = buyInfo.email
+    this.email = email
     this.total = totalPrice
   }
 }
 
 class OrderMongoDto {
-  constructor(buyInfo, totalPrice) {
+  constructor(cart, email, totalPrice) {
     this.timestamp = Date.now()
-    this.productos = buyInfo.cart
+    this.productos = cart
     this.estado = 'Generada'
-    this.email = buyInfo.email
+    this.email = email
     this.total = totalPrice
   }
 }

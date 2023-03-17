@@ -1,0 +1,18 @@
+[2023-03-17T17:23:31.865] [ERROR] error - TypeError: buyInfo.cart.reduce is not a function
+    at OrderMongo.createOrder (C:\Users\fedek\OneDrive\Escritorio\Programación\backend-api-rest\src\components\dao\orders\OrderMongo.js:48:39)
+    at OrderRepository.createOrder (C:\Users\fedek\OneDrive\Escritorio\Programación\backend-api-rest\src\components\repository\OrderRepository.js:23:33)
+    at CartRepository.buyCart (C:\Users\fedek\OneDrive\Escritorio\Programación\backend-api-rest\src\components\repository\CartRepository.js:65:50)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async buyCart (C:\Users\fedek\OneDrive\Escritorio\Programación\backend-api-rest\src\api\controllers\cart.js:34:18)
+[2023-03-17T17:34:45.461] [ERROR] error - TypeError: Cannot read properties of undefined (reading 'error')
+    at CartRepository.buyCart (C:\Users\fedek\OneDrive\Escritorio\Programación\backend-api-rest\src\components\repository\CartRepository.js:67:24)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async buyCart (C:\Users\fedek\OneDrive\Escritorio\Programación\backend-api-rest\src\api\controllers\cart.js:34:18)
+[2023-03-17T17:35:34.385] [ERROR] error - TypeError: Cannot read properties of undefined (reading 'error')
+    at CartRepository.buyCart (C:\Users\fedek\OneDrive\Escritorio\Programación\backend-api-rest\src\components\repository\CartRepository.js:67:24)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async buyCart (C:\Users\fedek\OneDrive\Escritorio\Programación\backend-api-rest\src\api\controllers\cart.js:34:18)
+[2023-03-17T17:41:31.781] [ERROR] error - TypeError: targetCart.map is not a function
+    at CartRepository.buyCart (C:\Users\fedek\OneDrive\Escritorio\Programación\backend-api-rest\src\components\repository\CartRepository.js:59:39)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async buyCart (C:\Users\fedek\OneDrive\Escritorio\Programación\backend-api-rest\src\api\controllers\cart.js:34:18)

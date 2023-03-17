@@ -12,7 +12,8 @@ class OrderFirebase {
       const querySnapshot = await orderCollection.get()
       const allOrders = querySnapshot.docs.map((doc) => doc.data())
 
-      if (allOrders.length === 0) return { error: 'Todavía no se generaron órdenes de compra' }
+      if (allOrders.length === 0)
+        return { error: 'Todavía no se generaron órdenes de compra' }
 
       return allOrders
     } catch (err) {
@@ -36,20 +37,15 @@ class OrderFirebase {
     }
   }
 
-  async createOrder(buyInfo) {
+  async createOrder(products, email, totalPrice) {
     try {
-      const totalPrice = buyInfo.cart.reduce(
-        (acc, curr) => acc + curr.precio.toString() * curr.cantidad,
-        0
-      )
+      const order = new OrderFirebaseDto(products, email, totalPrice)
+      await this.db.collection('ordenes').add({ ...order })
 
-      const order = new OrderFirebaseDto(buyInfo, totalPrice)
-      const res = await this.db.collection('ordenes').add({ ...order })
-
-      // TODO - retornar los datos correctos
-      // console.log(res)
+      return { message: 'Orden creada!' }
     } catch (err) {
       loggerError.error(err)
+      return { error: 'Error al crear la orden' }
     }
   }
 
@@ -57,17 +53,23 @@ class OrderFirebase {
     try {
       const orderCollection = this.db.collection('ordenes')
       const querySnapshot = await orderCollection.get()
-      const allOrders = querySnapshot.docs.map(doc => doc.data())
+      const allOrders = querySnapshot.docs.map((doc) => doc.data())
 
-      const targetOrder = allOrders.find(order => order.numeroDeOrden == id)
+      const targetOrder = allOrders.find((order) => order.numeroDeOrden == id)
 
-      if (targetOrder.estado == 'Entregado') return { error: 'La orden ya fue entregada' }
+      if (targetOrder.estado == 'Entregado')
+        return { error: 'La orden ya fue entregada' }
 
       if (!targetOrder) return { error: 'Orden no encontrada' }
 
-      const orderId = querySnapshot.docs.find(doc => doc.data().numeroDeOrden == id).id
+      const orderId = querySnapshot.docs.find(
+        (doc) => doc.data().numeroDeOrden == id
+      ).id
 
-      await this.db.collection('ordenes').doc(orderId).update({ estado: 'Entregado' })
+      await this.db
+        .collection('ordenes')
+        .doc(orderId)
+        .update({ estado: 'Entregado' })
 
       return { message: 'Orden completada' }
     } catch (err) {

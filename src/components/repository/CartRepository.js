@@ -54,11 +54,21 @@ class CartRepository {
     try {
       const { cart, email, personName, phone } = buyInfo
 
-      const productsName = cart.map((element) => element.nombre)
-      const totalPrice = cart.reduce(
-        (acc, element) => acc + parseInt(element.precio),
+      const targetCart = await this.getProducts(cart)
+
+      if (!Array.isArray(targetCart)) return { error: 'No hay productos en el carrito' }
+
+      const productsName = targetCart.map((element) => element.nombre)
+      const totalPrice = targetCart.reduce(
+        (acc, element) => acc + parseInt(element.precio) * element.cantidad,
         0
       )
+
+      const orderConfirm = await OrderRepository.createOrder(targetCart, email, totalPrice)
+
+      if (orderConfirm.error) return { error: orderConfirm.error }
+
+      this.deleteCart(cart)
 
       const mailOptions = {
         from: 'Servidor Ecommerce',
@@ -88,8 +98,6 @@ class CartRepository {
       // handleSubmitMail(mailOptions)
       // handleSubmitWhatsapp(whatsappMsg)
       // handleSubmitSMS(smsMsg, phone)
-
-      OrderRepository.createOrder(buyInfo)
 
       loggerBuy.trace(
         `Se compraron los productos: ${productsName.join(

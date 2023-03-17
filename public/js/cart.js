@@ -60,13 +60,10 @@ buyBtn.addEventListener('click', async (e) => {
 
   const { personName, email, phone } = userData
 
-  let cartRes = await fetch(`/api/carrito/${cartId}/productos`)
-  let cartData = await cartRes.json()
-
   const res = await fetch('/api/carrito/confirmar-compra', {
     method: 'POST',
     body: JSON.stringify({
-      cart: cartData,
+      cart: cartId,
       email,
       personName,
       phone,
@@ -96,6 +93,8 @@ buyBtn.addEventListener('click', async (e) => {
     showConfirmButton: true,
     timer: 5500,
   })
+
+  init()
 })
 
 closeDialogBtn.addEventListener('click', () => {

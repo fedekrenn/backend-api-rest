@@ -18,9 +18,9 @@ class OrderRepository {
     }
   }
 
-  async createOrder(cart) {
+  async createOrder(products, email, totalPrice) {
     try {
-      return await handleOrders.createOrder(cart)
+      return await handleOrders.createOrder(products, email, totalPrice)
     } catch (err) {
       loggerError.error(err)
     }

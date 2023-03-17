@@ -43,21 +43,16 @@ class OrderMongo {
     }
   }
 
-  async createOrder(buyInfo) {
+  async createOrder(products, email, totalPrice) {
     try {
-      const totalPrice = buyInfo.cart.reduce(
-        (acc, curr) => acc + curr.precio.toString() * curr.cantidad,
-        0
-      )
-
-      const order = new OrderMongoDto(buyInfo, totalPrice)
-
+      const order = new OrderMongoDto(products, email, totalPrice)
       const newOrder = new OrdenesModel(order)
       const res = await newOrder.save()
 
-      return res
+      return { message: 'Orden creada bajo el id: ' + res._id }
     } catch (err) {
       loggerError.error(err)
+      return { error: 'Error al crear la orden' }
     }
   }
 
