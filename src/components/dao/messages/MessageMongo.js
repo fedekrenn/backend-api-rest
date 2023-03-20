@@ -33,6 +33,24 @@ class MessageMongo {
     }
   }
 
+  async getByMail(email) {
+    try {
+      const messages = await MensajesModel.find({ email: email })
+
+      if (messages.length === 0) {
+        return { error: 'No se encontraron mensajes de ese usuario' }
+      }
+
+      const messagesNormalice = messages.map((msg) => {
+        return new MessageNormaliceIdDto(msg)
+      })
+
+      return messagesNormalice
+    } catch (error) {
+      loggerError.error(error)
+    }
+  }
+
   async getAll() {
     try {
       const messages = await MensajesModel.find({})

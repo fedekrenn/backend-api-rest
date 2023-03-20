@@ -10,6 +10,14 @@ class MessageRepository {
     }
   }
 
+  async getByMail(email) {
+    try {
+      return await handleMessages.getByMail(email)
+    } catch (err) {
+      loggerError.error(err)
+    }
+  }
+
   async getAll() {
     try {
       return await handleMessages.getAll()
