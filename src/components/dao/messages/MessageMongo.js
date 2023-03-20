@@ -1,0 +1,58 @@
+const mongoose = require('mongoose')
+const { MensajesModel } = require('../../model/messagesModel')
+const { loggerError } = require('../../../utils/logger')
+
+const {
+  MessageMongoDto,
+  MessageNormaliceIdDto,
+} = require('../../dto/MessageDTO')
+
+mongoose.connect(
+  process.env.DB_URL_MONGO,
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  },
+  (err) => {
+    if (err) console.log(err)
+  }
+)
+
+let instance = null
+
+class MessageMongo {
+  async save(msg) {
+    try {
+      const message = new MessageMongoDto(msg)
+      const newMessage = new MensajesModel(message)
+      await newMessage.save()
+
+      return { message: 'Se guardó correctamente el mensaje' }
+    } catch (err) {
+      loggerError.error(err)
+    }
+  }
+
+  async getAll() {
+    try {
+      const messages = await MensajesModel.find({})
+
+      const messagesNormalice = messages.map((msg) => {
+        return new MessageNormaliceIdDto(msg)
+      })
+
+      return messagesNormalice
+    } catch (error) {
+      loggerError.error(error)
+    }
+  }
+
+  static getInstance() {
+    if (!instance) {
+      instance = new MessageMongo()
+    }
+    return instance
+  }
+}
+
+module.exports = MessageMongo

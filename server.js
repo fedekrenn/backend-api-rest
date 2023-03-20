@@ -6,11 +6,18 @@ const cors = require('cors')
 const config = require('./src/config/config')
 const { logger, loggerWarn } = require('./src/utils/logger')
 
+// Websocket
+const chat = require('./src/utils/chatSocket')
+const { Server: HttpServer } = require('http')
+const { Server: Socket } = require('socket.io')
+
+// Routers
 const routerProducts = require('./src/api/routes/products')
 const routerCarts = require('./src/api/routes/carts')
 const routerOrders = require('./src/api/routes/orders')
 const routerSessions = require('./src/api/routes/session')
 
+// Passport
 const passport = require('./src/utils/passport')
 
 // Clusters
@@ -35,7 +42,6 @@ if (MODE === 'cluster' && cluster.isMaster) {
     cluster.fork()
   })
 } else {
-
   /* ------ API  -------- */
 
   app.use(cors())
@@ -54,6 +60,13 @@ if (MODE === 'cluster' && cluster.isMaster) {
   app.use(passport.initialize())
   app.use(passport.session())
 
+  /* -----  Socket.io  ------- */
+
+  const httpServer = new HttpServer(app);
+  const io = new Socket(httpServer);
+
+  chat.listen(io);
+
   /* ------ Rutas  -------- */
 
   app.use('/api/productos', routerProducts)
@@ -62,17 +75,15 @@ if (MODE === 'cluster' && cluster.isMaster) {
   app.use('/', routerSessions)
 
   app.use((req, res) => {
-    res
-      .status(404)
-      .json({
-        error: -2,
-        descripcion: `ruta '${req.path}' método '${req.method}' no implementada`,
-      })
+    res.status(404).json({
+      error: -2,
+      descripcion: `ruta '${req.path}' método '${req.method}' no implementada`,
+    })
   })
 
   /* ------ Servidor  -------- */
 
-  const server = app.listen(config.port, () =>
+  const server = httpServer.listen(config.port, () =>
     logger.info(
       `Servidor http escuchando en el puerto ${server.address().port}`
     )
