@@ -51,6 +51,14 @@ class MessageFirebase {
     }
   }
 
+  async getUniqueUsers() {
+    try {
+      // TODO
+    } catch (err) {
+      loggerError.error(err)
+    }
+  }
+
   static getInstance() {
     if (!instance) {
       instance = new MessageFirebase()

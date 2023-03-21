@@ -2,16 +2,42 @@ const socket = io()
 
 const newMsgForm = document.getElementById('chat-form')
 const personalData = JSON.parse(sessionStorage.getItem('personalData'))
+const listUsers = document.getElementById('listUsers')
 
 const currentUser = { email: personalData.email, role: personalData.role }
 
+let userSelected
+let listOfUsers = []
+
 socket.emit('userIdReceived', currentUser)
+
+socket.on('listOfUsers', (data) => {
+  if (listOfUsers.length !== data.length) {
+    listUsers.innerHTML = ''
+
+    userSelected = data[0]
+    listOfUsers = data
+
+    data.forEach((user) => {
+      listUsers.innerHTML += `<option value="${user}">${user}</option>`
+    })
+  } else if (data.length === 0) {
+    listUsers.innerHTML =
+      '<option value="No hay usuarios conectados">No hay usuarios conectados</option>'
+  }
+})
+
+listUsers.addEventListener('change', async (e) => {
+  userSelected = e.target.value
+
+  socket.emit('changeUser', userSelected)
+})
 
 newMsgForm.addEventListener('submit', (e) => {
   e.preventDefault()
 
   const data = {
-    email: personalData.email,
+    email: userSelected,
     tipo: personalData.role,
     mensaje: e.target.chatMessage.value,
   }

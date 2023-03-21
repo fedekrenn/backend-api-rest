@@ -43,7 +43,7 @@ async function logout() {
       <li><a href="./productos.html">Productos</a></li>
       <li><a href="./carritos.html">Carritos</a></li>
       <li><a href="./orders.html">Ordenes</a></li>
-      <li><a href="./chat.html">Responder consultas</a></li>
+      <li><a href="./admin-chat.html">Responder consultas</a></li>
     `
   }
 })()

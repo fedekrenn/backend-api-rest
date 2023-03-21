@@ -65,6 +65,22 @@ class MessageMongo {
     }
   }
 
+  async getUniqueUsers() {
+    try {
+      const messages = await this.getAll()
+
+      const uniqueUsers = messages.map((msg) => {
+        return msg.email
+      })
+
+      const uniqueUsersSet = [...new Set(uniqueUsers)]
+
+      return uniqueUsersSet
+    } catch (error) {
+      loggerError.error(error)
+    }
+  }
+
   static getInstance() {
     if (!instance) {
       instance = new MessageMongo()

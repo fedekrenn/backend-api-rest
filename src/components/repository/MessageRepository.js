@@ -25,6 +25,14 @@ class MessageRepository {
       loggerError.error(err)
     }
   }
+
+  async getUniqueUsers() {
+    try {
+      return await handleMessages.getUniqueUsers()
+    } catch (err) {
+      loggerError.error(err)
+    }
+  }
 }
 
 module.exports = MessageRepository

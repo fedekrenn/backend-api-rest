@@ -461,3 +461,12 @@ button[type='submit'].sbm {
   padding: 0;
   margin: 0;
 }
+
+#listUsers {
+  margin: 2rem auto;
+  display: block;
+}
+
+#chatMessage{
+  width: 90%
+}
