@@ -93,11 +93,12 @@ class CartRepository {
         .join(
           '\n'
         )}\n\nPor un total de: $${totalPrice}\n\nEl pedido es a nombre de ${personName} y su email es ${email}`
+
       const smsMsg = `Hola ${personName}! Te confirmamos que se recibió tu pedido correctamente. En breve nos comunicaremos con vos para coordinar la entrega. Gracias por elegirnos!`
 
-      // handleSubmitMail(mailOptions)
-      // handleSubmitWhatsapp(whatsappMsg)
-      // handleSubmitSMS(smsMsg, phone)
+      handleSubmitMail(mailOptions)
+      handleSubmitWhatsapp(whatsappMsg)
+      handleSubmitSMS(smsMsg, phone)
 
       loggerBuy.trace(
         `Se compraron los productos: ${productsName.join(

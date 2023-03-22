@@ -427,6 +427,10 @@ dialog i {
   margin: 2em 0;
 }
 
+#cartContainer h5 {
+  padding: 10px;
+}
+
 .cart-row {
   display: flex;
   justify-content: space-between;
@@ -467,16 +471,102 @@ button[type='submit'].sbm {
   display: block;
 }
 
-#chatMessage{
-  width: 90%
+#chatMessage {
+  width: 90%;
 }
 
-#hidden-admin{
-  display: inline
+#hidden-admin {
+  display: inline;
 }
 
-.admin-chat{
+.admin-chat {
   width: 60%;
   text-align: center;
   margin: 4em auto;
+}
+
+@media screen and (max-width: 568px) {
+  h1 {
+    font-size: 1.5em;
+  }
+
+  header {
+    padding-top: 10px;
+  }
+
+  header i {
+    margin: 0;
+  }
+
+  nav {
+    margin-left: 0;
+  }
+
+  li {
+    margin: 0 5px;
+    text-align: center;
+    width: min-content;
+  }
+
+  #admin-navbar {
+    font-size: 0.6em;
+    justify-content: space-around;
+  }
+
+  .header__user {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .user-data {
+    margin-right: 0;
+  }
+
+  .icon-container i {
+    margin: 0 15px;
+  }
+
+  .header__user .icon-container,
+  .header__user i {
+    margin-left: 0;
+  }
+
+  #products-container {
+    padding: 20px;
+  }
+
+  table {
+    width: 100vw;
+  }
+
+  th,
+  td {
+    padding: 5px;
+  }
+
+  tr {
+    min-height: 50px;
+  }
+
+  .hide-mobile {
+    display: none;
+  }
+
+  .handle-products {
+    flex-direction: column;
+  }
+
+  .chat-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #messages {
+    width: 100%;
+    margin-top: 20px;
+  }
+
+  #orders-table {
+    font-size: 0.7em;
+  }
 }

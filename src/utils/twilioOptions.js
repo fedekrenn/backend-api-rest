@@ -11,13 +11,13 @@ const client = new twilio(accountSid, authToken)
 async function handleSubmitWhatsapp(msg) {
   try {
     await client.messages.create({
-      body: msg,
+      body: 'msg',
       from: 'whatsapp:+13205253112',
       to: `whatsapp:${adminPhone}`,
     })
-    logger.info('Whatsapp enviado correctamente')
+    logger.info(`Whatsapp enviado correctamente al número: ${adminPhone}`)
   } catch (error) {
-    // El número está en proceso de verificación por parte de meta, por eso arroja error y se debuguea con el logger
+    // Twilio recibe bien el msj pero no lo envía ya que en su plataforma dice que no puede enviar msjs fuera de whatwsapp web
     if (error.code === 21212)
       logger.info('Whatsapp enviado correctamente al administrador!')
   }

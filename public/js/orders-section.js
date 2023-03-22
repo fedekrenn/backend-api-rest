@@ -46,10 +46,10 @@ function renderProducts(data) {
     html += `
         <tr data-id='${order.numeroDeOrden}'>
             <td>${order.numeroDeOrden}</td>
-            <td>${date}</td>
-            <td>${products}</td>
-            <td>${order.estado}</td>
-            <td>$${order.total}</td>
+            <td class="hide-mobile">${date}</td>
+            <td class="hide-mobile">${products}</td>
+            <td class="hide-mobile">${order.estado}</td>
+            <td class="hide-mobile">$${order.total}</td>
             ${
               isAdmin()
                 ? `<td>${order.email}</td>

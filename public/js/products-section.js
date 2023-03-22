@@ -193,13 +193,13 @@ function renderProducts(products) {
     productCard.innerHTML = `
             <td>${product.id}</td>
             <td>${product.nombre}</td>
-            <td>${product.codigo}</td>
-            <td>${product.precio}</td>
-            <td>${product.stock}</td>
-            <td><img src="${product.foto}" alt="${product.nombre}" width="100px"></td>
-            <td>${product.timestamp}</td>
-            <td>${product.categoria}</td>
-            <td>${product.descripcion}</td>
+            <td class="hide-mobile">${product.codigo}</td>
+            <td class="hide-mobile">${product.precio}</td>
+            <td class="hide-mobile">${product.stock}</td>
+            <td class="hide-mobile"><img src="${product.foto}" alt="${product.nombre}" width="100px"></td>
+            <td class="hide-mobile">${product.timestamp}</td>
+            <td class="hide-mobile">${product.categoria}</td>
+            <td class='hide-mobile'>${product.descripcion}</td>
         `
     productsContainer.appendChild(productCard)
   })

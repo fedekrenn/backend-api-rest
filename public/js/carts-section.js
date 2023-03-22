@@ -124,7 +124,7 @@ function renderCarts(carts) {
   carts.forEach((cart) => {
     cartContainer.innerHTML += `
           <tr>
-            <td>${cart.id}</td>
+            <td class="hide-mobile">${cart.id}</td>
             <td>${cart.productos.length}</td>
             <td>${cart.email}</td>
           </tr>

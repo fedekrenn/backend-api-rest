@@ -10,9 +10,13 @@
     transition: 200ms;
     background: #fff;
     width: 500px;
+    min-height: 500px;
     margin: 2em auto;
     padding: 15px;
     border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center
 }
 
 .card .card__title {
@@ -55,21 +59,21 @@
 }
 
 .card .card__body>.half {
+    width: 50%;
     box-sizing: border-box;
     padding: 0 15px;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
-    align-items: flex-start;
+    text-align: center;
 }
 
 .card .card__body .featured_text h3 {
-    margin: 0;
+    margin: 0 0 30px 0;
     padding: 0;
     font-weight: 800;
     font-family: "Montserrat", sans-serif;
     font-size: 24px;
-    line-height: 50px;
     color: #181e28;
 }
 
@@ -100,7 +104,7 @@
 
 .card .card__body .image img {
     display: block;
-    max-height: 230px;
+    max-height: 140px;
     border-radius: 20px;
     box-shadow: 0 6px 6px rgba(0, 0, 0, 0.3);
 }
@@ -200,4 +204,22 @@
     background: #fff;
     color: #080a30;
     font-weight: bold;
+}
+
+@media screen and (max-width: 568px) {
+    .card .card__body .image img {
+        max-height: 100px;
+    }
+
+    .card .card__body {
+        flex-direction: column;
+    }
+
+    .card .card__body>.half{
+        width: 100%;
+    }
+
+    .card .card__body .description p {
+        margin: 30px 0 0 0;
+    }
 }

@@ -4,7 +4,7 @@ const advancedOptions = { useNewUrlParser: true, useUnifiedTopology: true }
 require('dotenv').config()
 
 const config = {
-    port: 8080,
+    port: process.env.PORT || process.env.DEFAULT_PORT,
     mongoDB: {
         host: process.env.DB_URL_MONGO || 'mongodb://localhost/ecommerce',
         options: {
