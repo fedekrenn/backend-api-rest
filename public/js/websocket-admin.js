@@ -18,12 +18,20 @@ socket.on('listOfUsers', (data) => {
     userSelected = data[0]
     listOfUsers = data
 
+    newMsgForm.chatMessage.disabled = false
+    newMsgForm.chatMessageButton.disabled = false
+    newMsgForm.chatMessageButton.style.backgroundColor = 'white'
+
     data.forEach((user) => {
       listUsers.innerHTML += `<option value="${user}">${user}</option>`
     })
   } else if (data.length === 0) {
     listUsers.innerHTML =
-      '<option value="No hay usuarios conectados">No hay usuarios conectados</option>'
+      '<option value="Todavía no se enviaron mensajes">Todavía no se enviaron mensajes</option>'
+
+      newMsgForm.chatMessage.disabled = true
+      newMsgForm.chatMessageButton.disabled = true
+      newMsgForm.chatMessageButton.style.backgroundColor = 'gray'
   }
 })
 
@@ -68,12 +76,13 @@ socket.on('mensajes', (data) => {
     const date = new Date(parseInt(timestamp)).toLocaleString('es-AR')
 
     const role = tipo === 'admin' ? 'is-admin' : ''
+    const sender = tipo === 'admin' ? 'Admin' : email
 
     chatContainer.innerHTML += `
             <div class="message-container ${role}">
                 <div class="message-container__child">
                     <div>
-                        <p class="message-user" title='${tipo}'>${email}</p>
+                        <p class="message-user" title='${tipo}'>${sender}</p>
                         <p class="message-text">${mensaje}</p>
                     </div>
                 </div>

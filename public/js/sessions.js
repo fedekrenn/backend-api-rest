@@ -2,6 +2,7 @@ const spanName = document.getElementById('span-name')
 const smallEmail = document.getElementById('small-email')
 const logoAvatar = document.getElementById('logo-avatar')
 const adminNavbar = document.getElementById('admin-navbar')
+const hiddenAdmin = document.getElementById('hidden-admin')
 
 let checkOutEmail = ''
 
@@ -45,5 +46,6 @@ async function logout() {
       <li><a href="./orders.html">Ordenes</a></li>
       <li><a href="./admin-chat.html">Responder consultas</a></li>
     `
+    if (hiddenAdmin) hiddenAdmin.style.display = 'none'
   }
 })()

@@ -37,17 +37,18 @@ socket.on('mensajes', (data) => {
   data.reverse()
 
   data.forEach((message) => {
-    const { email, tipo, timestamp, mensaje } = message
+    const { tipo, timestamp, mensaje } = message
 
     const date = new Date(parseInt(timestamp)).toLocaleString('es-AR')
 
     const role = tipo === 'admin' ? 'is-admin' : ''
+    const sender = tipo === 'admin' ? 'Admin' : 'Yo'
 
     chatContainer.innerHTML += `
             <div class="message-container ${role}">
                 <div class="message-container__child">
                     <div>
-                        <p class="message-user" title='${tipo}'>${email}</p>
+                        <p class="message-user" title='${tipo}'>${sender}</p>
                         <p class="message-text">${mensaje}</p>
                     </div>
                 </div>

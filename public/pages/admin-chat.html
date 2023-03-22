@@ -38,10 +38,10 @@
     <main>
       <section>
         <h2>Listado de consultas de usuarios:</h2>
-        <p>
+        <p class="admin-chat">
           Hola Admin! En el primer ingreso verás todos los mensajes, luego
           cuando selecciones un usuario puntual podrás ver sólo esa conversación
-          y responderle.
+          y responderle. No te olvides de seleccionar el usuario correcto para enviarle el mensaje
         </p>
         <select name="listUsers" id="listUsers"></select>
         <div class="chat-container">
@@ -54,7 +54,13 @@
               placeholder="Hola usuario!..."
               required
             />
-            <input type="submit" class="btn" value="Enviar" />
+            <input
+              type="submit"
+              id="chatMessageButton"
+              name="chatMessageButton"
+              class="btn"
+              value="Enviar"
+            />
           </form>
           <div id="messages"></div>
         </div>

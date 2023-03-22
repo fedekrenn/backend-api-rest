@@ -470,3 +470,13 @@ button[type='submit'].sbm {
 #chatMessage{
   width: 90%
 }
+
+#hidden-admin{
+  display: inline
+}
+
+.admin-chat{
+  width: 60%;
+  text-align: center;
+  margin: 4em auto;
+}

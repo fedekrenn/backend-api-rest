@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="../img/favicon.png" type="image/x-icon" />
     <link rel="stylesheet" href="../css/style.css" />
     <title>Chat</title>
   </head>
@@ -27,6 +28,12 @@
           Bienvenido <span id="span-name"></span>!
         </h3>
         <div class="icon-container">
+          <a href="./orders.html">
+            <i
+              class="fa-solid fa-list grid-item"
+              title="Mis pedidos anteriores"
+            ></i
+          ></a>
           <i
             class="fa-solid fa-right-from-bracket grid-item"
             onclick="logout()"
@@ -41,13 +48,6 @@
         <div class="chat-container">
           <form id="chat-form">
             <label for="chatMessage">Escribe tu mensaje:</label>
-            <!-- <textarea
-              id="chatMessage"
-              rows="10"
-              name="chatMessage"
-              placeholder="Escribí tu mensaje"
-              required
-            ></textarea> -->
             <input
               type="text"
               id="chatMessage"
@@ -61,6 +61,11 @@
         </div>
       </section>
     </main>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script
+      src="https://kit.fontawesome.com/94c0117dd6.js"
+      crossorigin="anonymous"
+    ></script>
     <script src="../js/getData.js"></script>
     <script src="/socket.io/socket.io.js"></script>
     <script src="../js/websocket.js"></script>

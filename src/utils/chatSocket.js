@@ -7,8 +7,6 @@ const user = []
 
 const listen = (io) => {
   io.on('connection', async (socket) => {
-    console.log('Se conectó un nuevo cliente')
-
     socket.on('userIdReceived', async (data) => {
       user.push({ data, socketId: socket.id })
 
@@ -41,16 +39,6 @@ const listen = (io) => {
       const uniqueUsers = await handleMsg.getUniqueUsers()
       io.sockets.emit('listOfUsers', uniqueUsers)
     })
-
-    // socket.on('disconnect', () => {
-    //   console.log('Se desconectó un cliente')
-
-    //   const index = user.findIndex((user) => user.socketId === socket.id)
-
-    //   if (index !== -1) {
-    //     user.splice(index, 1)
-    //   }
-    // })
   })
 }
 

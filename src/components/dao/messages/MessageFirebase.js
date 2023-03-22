@@ -53,7 +53,15 @@ class MessageFirebase {
 
   async getUniqueUsers() {
     try {
-      // TODO
+      const messages = await this.getAll()
+
+      const uniqueUsers = messages.map((msg) => {
+        return msg.email
+      })
+
+      const uniqueUsersSet = [...new Set(uniqueUsers)]
+
+      return uniqueUsersSet
     } catch (err) {
       loggerError.error(err)
     }
