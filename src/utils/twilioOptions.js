@@ -11,7 +11,7 @@ const client = new twilio(accountSid, authToken)
 async function handleSubmitWhatsapp(msg) {
   try {
     await client.messages.create({
-      body: 'msg',
+      body: msg,
       from: 'whatsapp:+13205253112',
       to: `whatsapp:${adminPhone}`,
     })
